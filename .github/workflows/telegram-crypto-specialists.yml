@@ -1,0 +1,18 @@
+name: Telegram Crypto Specialists
+on:
+  push:
+    branches: [crypto-telegram-render]
+  pull_request:
+    branches: [main]
+jobs:
+  guardrails:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r render_telegram_agents/requirements.txt
+      - run: python -m unittest discover -s render_telegram_agents -p 'test_*.py' -v
+      - run: python -m py_compile render_telegram_agents/bot.py
