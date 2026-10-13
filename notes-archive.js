@@ -14,6 +14,28 @@ let month=Number(params.get("month"));if(!(month>=1&&month<=12))month=0;
 let query=params.get("q")||"",displayLimit=36,reviewOnly=params.get("review")==="1";
 const countYear=y=>fieldTopics.filter(t=>y===0||Number(t.d.slice(0,4))===y).length;
 const countMonth=m=>fieldTopics.filter(t=>(year===0||+t.d.slice(0,4)===year)&&(!m||+t.d.slice(5,7)===m)).length;
+/* Animate year and month selection while respecting reduced motion. */
+const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+let activeViewTransition=null;
+function selectPeriod(change){
+  const commit=()=>{change();updateURL();render();};
+  if(reducedMotion.matches){commit();return;}
+  if(activeViewTransition&&typeof activeViewTransition.skipTransition==="function"){
+    activeViewTransition.skipTransition();
+  }
+  if(typeof document.startViewTransition==="function"){
+    const animation=document.startViewTransition(commit);
+    activeViewTransition=animation;
+    animation.finished.catch(()=>{}).finally(()=>{if(activeViewTransition===animation)activeViewTransition=null;});
+  }else{
+    commit();
+    const list=$("topic-list");
+    if(list&&typeof list.animate==="function"){
+      list.animate([{opacity:.18,transform:"translateY(15px)",filter:"blur(5px)"},{opacity:1,transform:"translateY(0)",filter:"blur(0px)"}],
+      {duration:380,easing:"cubic-bezier(.16,1,.3,1)"});
+    }
+  }
+}
 const textDate=d=>{const p=d.split("-");return p[2]+" "+db.months[Number(p[1])-1]+" "+p[0];};
 function updateURL(){const p=new URLSearchParams();p.set("year",String(year));if(month)p.set("month",String(month).padStart(2,"0"));if(query)p.set("q",query);if(reviewOnly)p.set("review","1");history.replaceState(null,"",location.pathname+"?"+p.toString());}
 function renderNav(){
@@ -28,7 +50,7 @@ function renderNav(){
 }
 function renderYears(){
  $("year-filters").innerHTML=[0,...db.years].map(y=>'<button type="button" class="year-button '+(y===year?"active":"")+'" aria-pressed="'+(y===year)+'" data-year="'+y+'"><strong>'+(y||"ALL YEARS")+'</strong><span>'+countYear(y).toLocaleString("en-US")+' topics</span></button>').join("");
- $("year-filters").querySelectorAll("button").forEach(el=>el.addEventListener("click",()=>{year=+el.dataset.year;month=0;displayLimit=36;updateURL();render();}));
+ $("year-filters").querySelectorAll("button").forEach(el=>el.addEventListener("click",()=>{const next=+el.dataset.year;if(next===year)return;selectPeriod(()=>{year=next;month=0;displayLimit=36;});}));
 }
 function renderMonths(){
  let months=[{m:0,name:"All months"},...db.months.map((name,i)=>({m:i+1,name}))];
@@ -36,7 +58,7 @@ function renderMonths(){
  const n=countMonth(m),label=m?name.slice(0,3).toUpperCase():"ALL";
  return '<button type="button" class="month-button '+(m===month?"active":"")+'" data-month="'+m+'" aria-pressed="'+(m===month)+'" aria-label="'+esc(name)+': '+n+' study topics" '+(!n&&m!==0?"disabled":"")+'><span>'+label+'</span><small>'+n+'</small></button>';
  }).join("");
- $("month-filters").querySelectorAll("button").forEach(el=>el.addEventListener("click",()=>{month=+el.dataset.month;displayLimit=36;updateURL();render();}));
+ $("month-filters").querySelectorAll("button").forEach(el=>el.addEventListener("click",()=>{const next=+el.dataset.month;if(next===month)return;selectPeriod(()=>{month=next;displayLimit=36;});}));
 }
 function filtered(){
  let q=query.trim().toLowerCase();
@@ -52,8 +74,8 @@ function renderList(){
  $("topic-list").style.display="block";$("load-more").hidden=true;return;
  }
  $("topic-list").style.display="";
- $("topic-list").innerHTML=items.slice(0,displayLimit).map(t=>
- '<article class="topic-card"><div class="topic-card-heading"><h3>'+esc(t.t)+'</h3>'+(t.review?'<span class="review-badge" title="Explicitly recorded as Review in the original study note">REVIEW</span>':'')+'</div><div class="topic-meta"><span>'+esc(textDate(t.d))+'</span><span>'+esc(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+esc(t.s)+'</span></div></article>'
+ $("topic-list").innerHTML=items.slice(0,displayLimit).map((t,i)=>
+ '<article class="topic-card" style="--topic-order:'+Math.min(i,10)+'"><div class="topic-card-heading"><h3>'+esc(t.t)+'</h3>'+(t.review?'<span class="review-badge" title="Explicitly recorded as Review in the original study note">REVIEW</span>':'')+'</div><div class="topic-meta"><span>'+esc(textDate(t.d))+'</span><span>'+esc(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+esc(t.s)+'</span></div></article>'
  ).join("");
  const more=items.length>displayLimit;$("load-more").hidden=!more;
  $("load-more").textContent=more?"LOAD MORE TOPICS ("+(items.length-displayLimit)+" REMAINING) ↓":"";

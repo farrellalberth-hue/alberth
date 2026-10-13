@@ -108,3 +108,61 @@ body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) fo
 .review-filter-button.active,.review-filter-button:hover{color:#090909;background:#eee;border-color:#eee}
 .review-filter-description{font-size:11px;color:#969696;line-height:1.65}
 @media(max-width:740px){.review-filter-row{align-items:flex-start}.review-filter-description{width:100%}}
+
+/* ── Knowledge Atlas: interactive date-filter transitions ── */
+.year-button,.month-button{
+  position:relative;overflow:hidden;isolation:isolate;
+  transition:background-color .32s cubic-bezier(.22,1,.36,1),
+  border-color .32s ease,color .32s ease,box-shadow .38s ease,transform .24s cubic-bezier(.22,1,.36,1);
+}
+.year-button:hover:not(:disabled),.month-button:hover:not(:disabled){
+  transform:translateY(-3px);
+  box-shadow:0 12px 34px rgba(200,218,250,.12);
+}
+.year-button:active:not(:disabled),.month-button:active:not(:disabled){transform:scale(.972)}
+.year-button.active,.month-button.active{
+  box-shadow:0 9px 35px rgba(203,212,232,.16),inset 0 0 0 1px rgba(255,255,255,.3);
+}
+.year-button::after,.month-button::after{
+  content:"";position:absolute;left:0;right:0;top:0;bottom:0;
+  background:linear-gradient(106deg,transparent 15%,rgba(255,255,255,.02) 35%,rgba(255,255,255,.56) 49%,rgba(255,255,255,.06) 62%,transparent 85%);
+  pointer-events:none;z-index:2;transform:translateX(-135%);opacity:0;
+}
+.year-button.active::after,.month-button.active::after{
+  animation:atlasTabShimmer .66s cubic-bezier(.2,.7,.2,1) both;
+}
+.year-button strong,.year-button span,.month-button span,.month-button small{
+  position:relative;z-index:3;
+}
+.year-button.active strong,.month-button.active span{animation:atlasActiveLabel .3s ease-out both}
+.year-button::before,.month-button::before{
+  content:"";position:absolute;right:10px;top:9px;width:5px;height:5px;
+  border:1px solid rgba(220,230,255,.45);border-radius:50%;z-index:3;
+  transition:background .25s ease,transform .3s ease,box-shadow .3s ease;
+}
+.year-button.active::before,.month-button.active::before{
+  background:#2b3f5c;border-color:#8192b0;
+  transform:scale(1.25);
+  box-shadow:0 0 12px rgba(66,94,137,.65);
+}
+#topic-list{view-transition-name:atlas-topic-results}
+#current-period{display:inline-block;view-transition-name:atlas-period-label}
+::view-transition-old(atlas-topic-results){animation:atlasFadeOut .16s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(atlas-topic-results){animation:atlasFadeIn .40s cubic-bezier(.16,1,.3,1) both}
+::view-transition-old(atlas-period-label){animation:atlasFadeOut .16s ease both}
+::view-transition-new(atlas-period-label){animation:atlasFadeIn .34s cubic-bezier(.16,1,.3,1) both}
+.topic-card{animation:atlasCardArrive .44s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:calc(var(--topic-order,0)*18ms);
+}
+.empty-state{animation:atlasFadeIn .33s cubic-bezier(.16,1,.3,1) both}
+@keyframes atlasTabShimmer{0%{transform:translateX(-135%);opacity:0}30%{opacity:.65}100%{transform:translateX(135%);opacity:0}}
+@keyframes atlasActiveLabel{from{opacity:.65;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes atlasFadeOut{from{opacity:1;transform:translateY(0);filter:blur(0px)}to{opacity:.22;transform:translateY(-9px);filter:blur(3px)}}
+@keyframes atlasFadeIn{from{opacity:.12;transform:translateY(14px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0px)}}
+@keyframes atlasCardArrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ .year-button,.month-button,.topic-card,.empty-state{animation:none!important;transition:none!important}
+ .year-button.active::after,.month-button.active::after{animation:none!important}
+ ::view-transition-old(atlas-topic-results),::view-transition-new(atlas-topic-results),
+ ::view-transition-old(atlas-period-label),::view-transition-new(atlas-period-label){animation:none!important}
+}
