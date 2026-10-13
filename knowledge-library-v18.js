@@ -19,6 +19,8 @@ const config=[
 const rows=$$('.afh18-row');const focus=$('.afh18-focus');const $title=$('#afh18-focus-title'),$desc=$('#afh18-focus-description'),$scope=$('#afh18-focus-scope'),$pills=$('#afh18-focus-pills'),$icon=$('#afh18-focus-icon'),$number=$('#afh18-focus-number'),$section=$('#afh18-open-section');
 const $archive=$('#afh18-archive'),$toggle=$('#afh18-browse-toggle'),$search=$('#afh18-search'),$select=$('#afh18-filter'),$results=$('#afh18-results'),$meta=$('#afh18-result-meta'),$more=$('#afh18-more'),$modal=$('#afh18-detail'),$modalTitle=$('#afh18-detail-title'),$modalDesc=$('#afh18-detail-desc'),$modalSource=$('#afh18-detail-source'),$modalLink=$('#afh18-detail-link');
 const records=(C?.categories||[]).flatMap(g=>g.topics.map((title,i)=>({id:g.id+'-'+(i+1),title,group:g,note:N?.definitions?.[g.id+'-'+(i+1)]||''})));
+// Move the modal outside the section stacking context so it cannot be clipped by 3D layers or the sticky header.
+if($modal)document.body.appendChild($modal);
 const byId=new Map(records.map(r=>[r.id,r]));
 let selected=config[0].id, visible=15, filtered=[],lastFocused=null;
 const setFocus=(id)=>{
