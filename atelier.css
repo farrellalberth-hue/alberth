@@ -20,3 +20,11 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}.hero-background img{transform:none!important}#loader{display:none}}
 
 [hidden]{display:none!important}
+
+details.topic-card{display:block;min-height:145px}
+details.topic-card summary{display:list-item;cursor:pointer;list-style:none;padding-right:20px}
+details.topic-card summary::-webkit-details-marker{display:none}
+details.topic-card summary:after{content:"+";position:absolute;top:22px;right:22px;color:var(--goldlight);font-family:var(--sans);font-size:19px}
+details.topic-card[open] summary:after{content:"−"}
+details.topic-card p.topic-summary{margin:19px 0 6px;font-size:12px;color:#bdb5a8}
+details.topic-card[open]{border-color:#b39360}
