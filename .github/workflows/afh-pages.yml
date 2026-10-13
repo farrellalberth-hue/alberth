@@ -81,7 +81,7 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V22 Black Galaxy & Real YouTube Thumbnails", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V23 Black Galaxy & Video-Thumbnails", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "yellow-book" / "index.html").exists()
@@ -97,7 +97,7 @@ jobs:
           assert '"/alberth/atelier-noir-v19.css' in homepage
           assert './afh-cosmos-v20.css?v=20' in homepage
           assert './afh-cosmos-v20.js?v=20' in homepage
-          assert './studio-v7.js?v=22' in homepage
+          assert './studio-v7.js?v=23' in homepage
           assert 'id="afh20-atmosphere"' in homepage
           assert '<span class="afh20-word">THINK.</span>' in homepage
           assert 'class="afh19-folio"' not in homepage
@@ -111,7 +111,7 @@ jobs:
           assert 'id="youtube-sort"' in homepage
           assert homepage.count('afh21-feature-svg') == 3
           assert 'href="/alberth/library/crypto/"' in homepage
-          print("AFH V22 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          print("AFH V23 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
 
       - name: Configure GitHub Pages
