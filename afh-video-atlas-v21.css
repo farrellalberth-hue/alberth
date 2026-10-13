@@ -181,3 +181,35 @@ body.studio-home .youtube-unified .afh21-video-card .afh21-video-category{z-inde
 body.studio-home .youtube-unified .afh21-video-card .afh21-play{z-index:6!important}
 body.studio-home .youtube-unified .afh21-video-card .afh21-video-footer h3{display:none!important}
 @media(prefers-reduced-motion:reduce){body.studio-home .youtube-unified .afh21-video-card .afh22-real-thumbnail{transition:none!important}}
+
+/* Home section discipline visual language: economic curves, neural AI, blockchain network. */
+body.studio-home .afh3-selected .afh3-feature{position:relative;overflow:hidden;isolation:isolate;background:#0c0d17!important;border:1px solid #dfb7a73b!important;box-shadow:0 22px 80px #0009!important;transition:transform .55s cubic-bezier(.22,1,.36,1),box-shadow .55s,border-color .35s}
+body.studio-home .afh3-selected .afh3-feature:hover{box-shadow:0 35px 90px #000b,0 0 45px #daa67c16!important;border-color:#e1b6a399!important}
+body.studio-home .afh3-selected .afh3-feature.econ{background:linear-gradient(135deg,#141723,#101220,#1b1520)!important}
+body.studio-home .afh3-selected .afh3-feature.ai{background:linear-gradient(145deg,#14172c,#232041,#111521)!important}
+body.studio-home .afh3-selected .afh3-feature.crypto{background:linear-gradient(145deg,#1a141c,#35202c,#171322)!important;color:#fff1e7!important}
+body.studio-home .afh3-selected .afh21-feature-art{position:absolute!important;inset:0!important;width:100%;height:100%;overflow:hidden;display:block!important;opacity:1!important;transform:none!important;pointer-events:none}
+body.studio-home .afh3-selected .afh21-feature-art:before{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(0deg,#06070ff5 0%,#06070faf 28%,transparent 72%)}
+body.studio-home .afh3-selected .afh21-feature-art:after{display:none!important}
+body.studio-home .afh3-selected .afh21-feature-svg{position:absolute;width:95%;height:81%;top:0;left:2%;display:block;overflow:visible;filter:drop-shadow(0 0 27px #efbfbb46);stroke:#ecc7b9;fill:none;opacity:.94;transform:translate3d(0,0,0);transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .7s;image-rendering:auto}
+body.studio-home .afh3-selected .afh3-feature:hover .afh21-feature-svg{transform:translate3d(0,-10px,0) scale(1.045);opacity:1}
+body.studio-home .afh3-selected .afh3-feature.ai .afh21-feature-svg{stroke:#c7c9ef;filter:drop-shadow(0 0 25px #9d9ff37a)}
+body.studio-home .afh3-selected .afh3-feature.crypto .afh21-feature-svg{stroke:#f4c8a6;filter:drop-shadow(0 0 25px #ebb29064)}
+body.studio-home .afh3-selected .afh21-feature-svg .axes{stroke:#f1d6c1;stroke-width:2.2;fill:none}
+body.studio-home .afh3-selected .afh21-feature-svg .supply{stroke:#eabca9;stroke-width:3.7;fill:none}
+body.studio-home .afh3-selected .afh21-feature-svg .demand{stroke:#fff2e5;stroke-width:3.7;fill:none}
+body.studio-home .afh3-selected .afh21-feature-svg .equilibrium{stroke:#ffd9b9;stroke-width:3;fill:#fff1e1}
+body.studio-home .afh3-selected .afh21-feature-svg .equilibrium-dash{stroke:#e8c1a9;stroke-dasharray:5 8;fill:none}
+body.studio-home .afh3-selected .afh21-feature-svg .links{stroke:#bcbfee;stroke-width:2.1;fill:none;opacity:.8}
+body.studio-home .afh3-selected .afh21-feature-svg .nodes{stroke:#e7d5f8;stroke-width:2.4;fill:#bcbfee18}
+body.studio-home .afh3-selected .afh21-feature-svg .blocks{stroke:#f7d4b7;stroke-width:2.7;fill:#f9ceaa08}
+body.studio-home .afh3-selected .afh21-feature-svg .network{stroke-dasharray:5 10}
+body.studio-home .afh3-selected .afh21-feature-svg .core{fill:#f2d7c1;stroke:none}
+body.studio-home .afh3-selected .afh21-feature-svg text{fill:#f5dcce;stroke:none;font:900 21px Manrope,Arial,sans-serif}
+body.studio-home .afh3-selected .afh21-feature-mark{position:absolute;top:33px;right:24px;left:auto;z-index:3;max-width:68%;color:#dac9c1;font:800 8px/1.5 Manrope,Arial,sans-serif;letter-spacing:.14em;text-align:right}
+body.studio-home .afh3-selected .afh3-feature-top,body.studio-home .afh3-selected .afh3-feature-bottom{position:relative;z-index:4}
+body.studio-home .afh3-selected .afh3-feature.crypto h3,body.studio-home .afh3-selected .afh3-feature.crypto p{color:#fff0e5!important}
+body.studio-home .afh3-selected .afh3-feature.crypto h3 em{color:#efbfa1!important}
+body.studio-home .afh3-selected .afh3-feature.crypto .afh3-feature-arrow{border-color:#ffe4ce8e;color:#f7ebdf}
+@media(max-width:650px){body.studio-home .afh3-selected .afh21-feature-svg{height:75%}body.studio-home .afh3-selected .afh21-feature-mark{top:24px;right:16px;font-size:7px}}
+@media(prefers-reduced-motion:reduce){body.studio-home .afh3-selected .afh21-feature-svg{transition:none!important;transform:none!important}}
