@@ -31,7 +31,7 @@ body.afc-lock{overflow:hidden!important}
 #afh-intro-2026 .afc-enter{background:var(--accent);color:#102015;border:1px solid var(--accent);padding:17px 18px;min-width:220px;display:flex;align-items:center;justify-content:space-between;gap:28px;font-size:11px;letter-spacing:.11em;font-weight:900;cursor:pointer;transition:transform .2s,background .2s}
 #afh-intro-2026 .afc-enter:hover{transform:translateY(-2px);background:#edffdb}
 #afh-intro-2026 .afc-silent{background:transparent;color:#e0e4d6;border:0;padding:16px 6px;text-underline-offset:5px;text-decoration:underline;font-size:11px;letter-spacing:.12em;cursor:pointer}
-#afh-intro-2026 .afc-film{display:none;opacity:0;height:min(390px,57vh)}
+#afh-intro-2026 .afc-film{display:block;opacity:1;height:min(390px,57vh)}
 #afh-intro-2026.is-playing .afc-gate{opacity:0;transform:scale(1.08);pointer-events:none}
 #afh-intro-2026.is-playing .afc-film{display:block;opacity:1}
 #afh-intro-2026 .afc-shot{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none}
