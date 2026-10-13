@@ -11,11 +11,11 @@ const fieldTopics=field==="all"?db.topics:db.topics.filter(x=>x.f===field);
 const availableYearCount=y=>fieldTopics.filter(t=>Number(t.d.slice(0,4))===y).length;
 let year=Number(params.get("year"));if(!db.years.includes(year))year=0;
 let month=Number(params.get("month"));if(!(month>=1&&month<=12))month=0;
-let query=params.get("q")||"",displayLimit=36;
+let query=params.get("q")||"",displayLimit=36,reviewOnly=params.get("review")==="1";
 const countYear=y=>fieldTopics.filter(t=>y===0||Number(t.d.slice(0,4))===y).length;
 const countMonth=m=>fieldTopics.filter(t=>(year===0||+t.d.slice(0,4)===year)&&(!m||+t.d.slice(5,7)===m)).length;
 const textDate=d=>{const p=d.split("-");return p[2]+" "+db.months[Number(p[1])-1]+" "+p[0];};
-function updateURL(){const p=new URLSearchParams();p.set("year",String(year));if(month)p.set("month",String(month).padStart(2,"0"));if(query)p.set("q",query);history.replaceState(null,"",location.pathname+"?"+p.toString());}
+function updateURL(){const p=new URLSearchParams();p.set("year",String(year));if(month)p.set("month",String(month).padStart(2,"0"));if(query)p.set("q",query);if(reviewOnly)p.set("review","1");history.replaceState(null,"",location.pathname+"?"+p.toString());}
 function renderNav(){
  $("discipline-nav").innerHTML=db.fields.map(f=>{const n=f.id==="all"?db.topics.length:db.topics.filter(t=>t.f===f.id).length;return '<a href="/library/'+f.id+'/'+(year?'?year='+year:'')+'" class="'+(field===f.id?"active":"")+'" '+(field===f.id?'aria-current="page"':"")+'><span>'+esc(f.name)+'</span><span class="sidebar-count">'+n.toLocaleString("en-US")+'</span></a>';}).join("");
  $("field-label").textContent=spec.name;
@@ -40,7 +40,7 @@ function renderMonths(){
 }
 function filtered(){
  let q=query.trim().toLowerCase();
- return fieldTopics.filter(t=>(year===0||+t.d.slice(0,4)===year)&&(!month||+t.d.slice(5,7)===month)&&(!q||t.t.toLowerCase().includes(q)||t.d.includes(q))).sort((a,b)=>field==="all" ? a.d.localeCompare(b.d)||a.t.localeCompare(b.t) : b.d.localeCompare(a.d)||a.t.localeCompare(b.t));
+ return fieldTopics.filter(t=>(year===0||+t.d.slice(0,4)===year)&&(!month||+t.d.slice(5,7)===month)&&(!reviewOnly||t.review===true)&&(!q||t.t.toLowerCase().includes(q)||t.d.includes(q))).sort((a,b)=>field==="all" ? a.d.localeCompare(b.d)||a.t.localeCompare(b.t) : b.d.localeCompare(a.d)||a.t.localeCompare(b.t));
 }
 function renderList(){
  const items=filtered();
@@ -53,15 +53,16 @@ function renderList(){
  }
  $("topic-list").style.display="";
  $("topic-list").innerHTML=items.slice(0,displayLimit).map(t=>
- '<article class="topic-card"><h3>'+esc(t.t)+'</h3><div class="topic-meta"><span>'+esc(textDate(t.d))+'</span><span>'+esc(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+esc(t.s)+'</span></div></article>'
+ '<article class="topic-card"><div class="topic-card-heading"><h3>'+esc(t.t)+'</h3>'+(t.review?'<span class="review-badge" title="Explicitly recorded as Review in the original study note">REVIEW</span>':'')+'</div><div class="topic-meta"><span>'+esc(textDate(t.d))+'</span><span>'+esc(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+esc(t.s)+'</span></div></article>'
  ).join("");
  const more=items.length>displayLimit;$("load-more").hidden=!more;
  $("load-more").textContent=more?"LOAD MORE TOPICS ("+(items.length-displayLimit)+" REMAINING) ↓":"";
 }
-function render(){renderNav();renderYears();renderMonths();renderList();const showAll=$("show-all");if(showAll)showAll.hidden=field!=="all";}
+function render(){renderNav();renderYears();renderMonths();renderList();if($("review-filter")){$("review-filter").classList.toggle("active",reviewOnly);$("review-filter").setAttribute("aria-pressed",String(reviewOnly));$("review-filter").textContent=reviewOnly?"✓ REVIEWS ONLY":"◈ REVIEWS ONLY";}const showAll=$("show-all");if(showAll)showAll.hidden=field!=="all";}
 $("topic-search").value=query;$("topic-search").addEventListener("input",e=>{query=e.target.value;displayLimit=36;updateURL();renderList();});
 $("load-more").addEventListener("click",()=>{displayLimit+=36;renderList();});
 const showAll=$("show-all");if(showAll)showAll.addEventListener("click",()=>{displayLimit=Infinity;renderList();showAll.hidden=true;});
+ const reviewButton=$("review-filter");if(reviewButton)reviewButton.addEventListener("click",()=>{reviewOnly=!reviewOnly;displayLimit=36;updateURL();render();});
 const meter=$("reading-line");let ticking=false;
 window.addEventListener("scroll",()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const h=Math.max(1,document.documentElement.scrollHeight-innerHeight);meter.style.width=(Math.max(0,Math.min(1,scrollY/h))*100).toFixed(2)+"%";ticking=false})},{passive:true});
 render();updateURL();
