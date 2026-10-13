@@ -60,10 +60,7 @@ if(intro){
    if(button)button.textContent=soundOn?'SOUND ON ↗':'SOUND OFF ↗';
   });
   const unlock=()=>{if(!ended&&!scored)unlockSound()};
-  document.addEventListener('pointerdown',unlock,{once:true,passive:true});
-  document.addEventListener('keydown',unlock,{once:true});
-  document.addEventListener('touchstart',unlock,{once:true,passive:true});
-  unlockSound(); // Browsers may reject sound without gesture. Intro still runs without interruption.
+  // Global V17 lounge soundtrack owns audio; avoid a second, overlapping intro melody.
   setTimeout(finish,1710);
   addEventListener('pagehide',finish,{once:true});
  }
