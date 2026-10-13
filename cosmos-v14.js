@@ -39,6 +39,19 @@ if(hero&&orb&&!reduce){
          el.style.setProperty('--afh-step-ry',(t*(i%2===0?5:-5)).toFixed(2)+'deg');
        });
      }
+     const features=$('.afh3-feature');
+     features.forEach((el,i)=>{
+       const box=el.getBoundingClientRect();
+       const d=clamp((box.top+box.height*.5-innerHeight*.5)/innerHeight,-1.2,1.2);
+       el.style.setProperty('--afh-feature-y',(d*22).toFixed(1)+'px');
+       el.style.setProperty('--afh-feature-z',(-Math.abs(d)*70).toFixed(1)+'px');
+       el.style.setProperty('--afh-feature-rot',(d*(i%2===0?5:-5)).toFixed(1)+'deg');
+     });
+     if(quote){
+       const q=quote.getBoundingClientRect();
+       const d=clamp((q.top-innerHeight)/Math.max(q.height,1),-1.2,1.2);
+       quote.style.setProperty('--afh-quote-shift',(d*-55).toFixed(1)+'px');
+     }
      pageScroll=window.scrollY||0;
    });
  };
@@ -153,7 +166,7 @@ void main(){
  vec3 light=normalize(vec3(-.59,.72,1.05));
  float diffuse=max(dot(norm,light),0.);
  float illumination=.10+.93*pow(diffuse,.88);
- float night=smoothstep(.26,-.15,dot(norm,light));
+ float night=1.0-smoothstep(-.15,.26,dot(norm,light));
  vec3 color=mix(surface*illumination,shadow,night*.79);
  float glowingLava=smoothstep(.66,.85,f2)*night*.45;
  color+=vec3(1.,.29,.09)*glowingLava;
