@@ -36,7 +36,7 @@ function paintCanvas(data,i){
  cv.width=Math.max(1,Math.round(w*dpr));cv.height=Math.max(1,Math.round(h*dpr));
  const ctx=cv.getContext('2d',{alpha:true,desynchronized:true});if(!ctx)return;
  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
- const count=Math.min(520,Math.round(w*h*data.density/350));
+ const count=Math.min(520,Math.round(w*h*data.density));
  for(let j=0;j<count;j++){
    const x=rnd()*w,y=rnd()*h;
    if(i===0&&x<w*.36&&rnd()<.6)continue;
