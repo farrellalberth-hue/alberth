@@ -75,10 +75,10 @@ if(starCanvas){
    const resize=()=>{
      const r=starCanvas.getBoundingClientRect();
      W=Math.max(1,r.width);H=Math.max(1,r.height);
-     dpr=Math.min(devicePixelRatio||1,2);
+     dpr=Math.min(devicePixelRatio||1,3);
      starCanvas.width=Math.round(W*dpr);starCanvas.height=Math.round(H*dpr);
      ctx.setTransform(dpr,0,0,dpr,0,0);
-     const count=innerWidth<600?76:innerWidth<1000?112:170;
+     const count=innerWidth<600?95:Math.min(460,Math.max(175,Math.round(W*H/8500)));
      stars=Array.from({length:count},(_,i)=>({
        x:random()*W,y:random()*H,r:.45+random()*1.65,
        speed:.0006+random()*.0013,offset:random()*Math.PI*2,
@@ -137,7 +137,7 @@ float noise(vec3 p){
 }
 float fbm(vec3 p){
  float f=0.,amp=.5;
- for(int i=0;i<5;i++){f+=noise(p)*amp;p=p*2.03+vec3(7.1,2.7,9.3);amp*=.49;}
+ for(int i=0;i<6;i++){f+=noise(p)*amp;p=p*2.03+vec3(7.1,2.7,9.3);amp*=.49;}
  return f;
 }
 void main(){
@@ -152,8 +152,9 @@ void main(){
  vec3 q=vec3(cos(az)*cos(el),sin(el),sin(az)*cos(el));
  float f=fbm(q*4.15+vec3(1.));
  float f2=fbm(q*13.0+vec3(-2.,4.,3.));
+ float fine=fbm(q*38.0+vec3(9.0,3.0,-4.0));
  float terrain=smoothstep(.38,.72,f*.84+f2*.16);
- float band=.5+.5*sin(el*28.+f*19.+f2*2.5);
+ float band=.5+.5*sin(el*28.+f*19.+f2*2.5+fine*2.0);
  vec3 ochre=vec3(.79,.31,.24);
  vec3 blush=vec3(.96,.52,.31);
  vec3 cream=vec3(1.,.77,.54);
@@ -161,14 +162,19 @@ void main(){
  vec3 surface=mix(ochre,blush,clamp(terrain*.86+band*.12,0.,1.));
  surface=mix(surface,cream,smoothstep(.64,.87,f2)*.38);
  surface*=.62+f*.75;
- float cloud=smoothstep(.52,.74,fbm(q*8.6+vec3(2.4,-.5,1.6)));
+ surface*=.84+.32*fine;
+ float rugged=pow(abs(fine-.5),1.4);
+ surface=mix(surface,vec3(.23,.105,.14),smoothstep(.12,.30,rugged)*.30);
+ float cloud=smoothstep(.52,.73,fbm(q*8.6+vec3(2.4,-.5,1.6)));
  surface=mix(surface,vec3(1.,.78,.63),cloud*.46);
  vec3 light=normalize(vec3(-.59,.72,1.05));
  float diffuse=max(dot(norm,light),0.);
  float illumination=.10+.93*pow(diffuse,.88);
  float night=1.0-smoothstep(-.15,.26,dot(norm,light));
  vec3 color=mix(surface*illumination,shadow,night*.79);
- float glowingLava=smoothstep(.66,.85,f2)*night*.45;
+ float glowingLava=pow(smoothstep(.61,.85,f2),3.0)*night*.55;
+ float veins=(1.0-smoothstep(.02,.08,abs(sin((f*6.0+fine*.6)*16.0))))*night*.24;
+ color+=vec3(1.0,.27,.085)*veins;
  color+=vec3(1.,.29,.09)*glowingLava;
  float rim=pow(1.-z,3.5);
  color+=vec3(1.,.42,.22)*rim*.96;
@@ -193,12 +199,17 @@ void main(){
      const time=gl.getUniformLocation(prog,'uTime');
      let lost=false,frame=0,last=0,running=true;
      const resize=()=>{
-       const s=innerWidth<600?340:innerWidth<1100?440:600;
-       planetCanvas.width=s;planetCanvas.height=s;gl.viewport(0,0,s,s);
+       const rect=planetCanvas.getBoundingClientRect();
+       const scale=Math.min(window.devicePixelRatio||1,2.75);
+       const maxDim=Math.min(gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)||4096,innerWidth<700?1024:innerWidth<1200?2048:4096);
+       const desired=Math.max(512,Math.round(Math.max(rect.width,rect.height)*scale));
+       const size=Math.min(maxDim,desired);
+       planetCanvas.width=size;planetCanvas.height=size;
+       gl.viewport(0,0,size,size);
      };
      const draw=(stamp)=>{
        if(!running||lost)return;
-       if(stamp-last<55&&!reduce){frame=requestAnimationFrame(draw);return}
+       if(stamp-last<(innerWidth<700?83:50)&&!reduce){frame=requestAnimationFrame(draw);return}
        last=stamp;gl.uniform1f(time,reduce?0:stamp*.001);
        gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
        if(!reduce)frame=requestAnimationFrame(draw);
