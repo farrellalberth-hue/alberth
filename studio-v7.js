@@ -96,7 +96,10 @@ function makeVideo(v,index){
  };
  img.addEventListener('error',setFallback);
  img.addEventListener('load',()=>{
-  if(img.naturalWidth<480&&source<sources.length-1){setFallback();return}
+  if(img.naturalWidth<640){
+   if(source<sources.length-1){setFallback();return}
+   link.dataset.thumbnail='unavailable';link.classList.add('afh22-thumbnail-unavailable');return;
+  }
   link.dataset.thumbnail='ready';
   link.classList.remove('afh22-thumbnail-unavailable');
  });
