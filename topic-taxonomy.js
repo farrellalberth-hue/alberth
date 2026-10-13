@@ -56,6 +56,11 @@ const exact=[
 ["crypto",/^(?:BTC|ETH|EVM|Ondo|Origin.trail|TokenFi|Sybil.attack|halving|HMAC|hash.based.message.*|Cryptocurrency.Arbitrage|Fetch.Ai|Fireblocks|BitGo)$/i],
 ["others",/^(?:AI|AGI|BERT|GPT|deep.learning.AI|neural.network.AI|digital.marketing|marketing|sales|business.model.canvas|management.fundamentals|corporate.governance|project.management|legal.regulation|digital.business)$/i]
 ];
+const additionalOverrides=[
+["economics",/^(?:theory.of.neoclassical|theory.of.siklus.bisnis|law.of.gesham|keunggulan.komparatif|keunggulan.mutlak|theory.of.elastisitas.subtitusi.antarwaktu|concept.of.endogenous.time.preference|Backfire.effect|Parreto.efficiency)$/i],
+["finance",/^(?:concept.of.efficient.frontier|ESG|ESG.Policy|Green.Bond|Corporate.Taxation|Data.Analysis|Time.Series.Model)$/i],
+["crypto",/^(?:tanda.tangan.digital|Cara.pembuatan.private.key|public.key|escrow.multi.sig)$/i]
+];
 const refinements=[
 ["finance",/^(?:Modigliani.?Miller.Theorem|DeR|Risk.Aversion|Absolute.Risk.Aversion|Relative.Risk.Aversion|Constant.Relative.Risk.Aversion|Irreducibility|Recurrence|Law.of.Large.Numbers|Accounting.Principles|Capital.Management|Equity|Perpetual.Bonds?|Subordinated.Loans?|Standard.Deviation|Standard.deviasi|Financial.Econometrics|Econometrics|Mathematics|Statistics|Probability|Algebra|Income.Statement|Treasury.Stock|Net.Working.Capital|Tax.Residence|Interest.Rate.Parity|International.Taxation|International.Financial.Management|Deposit.Insurance|Tier.1|Tier.2.CAR|IFRS.15|Deffered.Principle|Accounting.Fundamentals|Corporate.Finance|Insurance|Insurance.Company|Financial.Risk|Asset.Pricing|Interest.Rate.Swaps?|Strategi.Straddle|Strategi.Harmonic.Trading|Giro.Wajib.Minimum|CoCos|Foreign.Currency.Accounting)$/i],
 ["economics",/^(?:Law.of.Okun|Okun.?s.Law|Law.of.Gresham|Law.of.Engel|Engel.?s.Law|Parreto.Efficiency|Pareto.Efficiency|Efek.Fisher|Fisher.Effect|Teorema.Stolper.Samuelson|Stolper.Samuelson|Teorema.Aarow.Debreu|Arrow.?Debreu|Static.General.Equilibrium|Dynamic.General.Equilibrium|General.Equilibrium|DSGE|Hypothesis.Twin.Deficits|Hypothesis.of.Twin.Deficits|Policy.Fiskal.Counter.Cyclical|Model.Curve.of.AS.AD|Curve.of.AD.AS|Trickle.Down.Theory|Neoclassical.Theory|Theoretical.Neoclassical|Game.Theory|Profit.Maximization|Law.of.One.Piece.\(LOP\)|Law.of.One.Price|Comparative.Advantage|Absolute.Advantage|Mirrlees.Model|Leontief.Paradox|Regulatory.Economics|Network.Effects?|Double.Marginalization|Two.Part.Tariff|Market.Failure)$/i],
@@ -75,6 +80,7 @@ function detect(title,fallback){
  // Drop category defaults; the term REVIEW is a session attribute rather than a discipline.
  if(t==="Detail"||t==="alamat")return fallback;
  for(const [group,re] of exact)if(re.test(t))return group;
+ for(const [group,re] of additionalOverrides)if(re.test(t))return group;
  for(const [group,re] of refinements)if(re.test(t))return group;
  for(const [group,re] of fixes)if(re.test(t))return group;
  // Exception for shared labels where the context, not the generic words, defines economics.
@@ -84,7 +90,7 @@ function detect(title,fallback){
 let changed=0;
 const before=Object.fromEntries(["economics","finance","crypto","others"].map(f=>[f,db.topics.filter(t=>t.f===f).length]));
 for(const t of db.topics){const f=detect(t.t,t.f);if(f!==t.f){t.f=f;changed++}}
-db.reclassifiedCount=changed;db.classifierVersion="v2.3";
+db.reclassifiedCount=changed;db.classifierVersion="v2.4";
 db.fields=db.fields.map(f=>f.id==="finance"?({...f,desc:"Investing, banking, mathematics, statistics, econometrics and accounting."}):f.id==="others"?({...f,desc:"AI, business management, marketing and other disciplines."}):f);
 db.categoryCounts=Object.fromEntries(["economics","finance","crypto","others"].map(f=>[f,db.topics.filter(t=>t.f===f).length]));
 db.previousCategoryCounts=before;
