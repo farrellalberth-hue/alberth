@@ -36,6 +36,36 @@ document.querySelectorAll('[data-reveal="words"]').forEach(el=>{
  const words=el.textContent.trim().split(/\s+/);el.replaceChildren();
  words.forEach((word,i)=>{const outer=document.createElement("span"),inner=document.createElement("span");outer.className="word";inner.textContent=word;inner.style.setProperty("--wi",String(i));outer.appendChild(inner);el.appendChild(outer);el.appendChild(document.createTextNode(" "))});el.dataset.split="yes";
 });
+
+/* Interactive quote model. Keyboard and reduced-motion friendly; no WebGL assets. */
+const quoteStage=document.querySelector(".quote-cosmos");
+if(quoteStage){
+  const control=quoteStage.querySelector("[data-quote-toggle]");
+  const motionAllowed=!reduced;
+  let pointerFrame=0,lastX=0,lastY=0;
+  const renderTilt=()=>{pointerFrame=0;quoteStage.style.setProperty("--quote-y",(lastX*18).toFixed(2)+"deg");
+    quoteStage.style.setProperty("--quote-x",(-lastY*14).toFixed(2)+"deg");
+    quoteStage.style.setProperty("--quote-light-x",(50+lastX*17).toFixed(1)+"%");
+    quoteStage.style.setProperty("--quote-light-y",(45+lastY*16).toFixed(1)+"%")};
+  const onPointer=e=>{if(!motionAllowed||quoteStage.classList.contains("is-paused"))return;
+    const rect=quoteStage.getBoundingClientRect();if(!rect.width||!rect.height)return;
+    lastX=Math.max(-1,Math.min(1,(e.clientX-rect.left)/rect.width*2-1));
+    lastY=Math.max(-1,Math.min(1,(e.clientY-rect.top)/rect.height*2-1));
+    if(!pointerFrame)pointerFrame=requestAnimationFrame(renderTilt)};
+  quoteStage.addEventListener("pointermove",onPointer,{passive:true});
+  quoteStage.addEventListener("pointerleave",()=>{lastX=0;lastY=0;if(pointerFrame)cancelAnimationFrame(pointerFrame);pointerFrame=requestAnimationFrame(renderTilt)});
+  if(control){
+    if(reduced){quoteStage.classList.add("is-paused");control.hidden=true}
+    else control.addEventListener("click",()=>{
+      const paused=quoteStage.classList.toggle("is-paused");
+      control.setAttribute("aria-pressed",String(paused));
+      control.setAttribute("aria-label",paused?"Resume interactive 3D background animation":"Pause interactive 3D background animation");
+      const icon=control.querySelector(".quote-toggle-icon"),label=control.querySelector(".quote-toggle-label");
+      if(icon)icon.textContent=paused?"▷":"Ⅱ";if(label)label.textContent=paused?"RESUME MOTION":"PAUSE MOTION";
+    });
+  }
+}
+
 const meter=document.getElementById("reading-line"),hero=document.querySelector(".hero-v4"),quote=document.querySelector(".quote-panel");
 let running=false;const update=()=>{running=false;const max=Math.max(1,document.documentElement.scrollHeight-innerHeight),p=Math.min(1,Math.max(0,scrollY/max));if(meter)meter.style.width=(p*100).toFixed(2)+"%";if(hero){let h=hero.getBoundingClientRect();hero.style.setProperty("--scroll",String(Math.min(3,Math.max(0,-h.top/Math.max(1,h.height)))))}
 if(quote){let rect=quote.getBoundingClientRect(),mid=(innerHeight/2)-(rect.top+rect.height/2);quote.style.setProperty("--quote-shift",(mid*.05).toFixed(1)+"px")}};
