@@ -75,7 +75,7 @@ if(starCanvas){
    const resize=()=>{
      const r=starCanvas.getBoundingClientRect();
      W=Math.max(1,r.width);H=Math.max(1,r.height);
-     dpr=Math.min(devicePixelRatio||1,3);
+     dpr=Math.max(1,Math.min(devicePixelRatio||1,2.5,Math.sqrt(8294400/(W*H))));
      starCanvas.width=Math.round(W*dpr);starCanvas.height=Math.round(H*dpr);
      ctx.setTransform(dpr,0,0,dpr,0,0);
      const count=innerWidth<600?95:Math.min(460,Math.max(175,Math.round(W*H/8500)));
