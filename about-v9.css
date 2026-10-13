@@ -1,0 +1,44 @@
+/* AFH — biography chapter / profile split layout */
+.about-page{background:#0b0c0b;color:#eae9e5}
+.about-page .site-header{background:rgba(8,9,8,.94)}
+.about-page .story-hero{padding:168px 0 78px;background:radial-gradient(ellipse at 88% 6%,#c8b59c11,transparent 52%),#0c0d0c;border-bottom:1px solid #ffffff28;position:relative;overflow:hidden}
+.about-page .story-hero .overline{color:#d9c6a9;font:800 10px/1.5 'Manrope',sans-serif;letter-spacing:.24em;text-transform:uppercase}
+.about-page .story-hero h1{font:650 clamp(78px,12vw,182px)/.88 'Manrope',sans-serif;letter-spacing:-.11em;margin:26px 0 35px;max-width:1120px}
+.about-page .story-hero h1 em{font:italic 1em/.88 'Instrument Serif',Georgia,serif;letter-spacing:-.06em;color:#c9b89f}
+.about-page .story-hero p{font-size:clamp(14px,1.2vw,17px);max-width:570px;line-height:1.95;color:#bbbcb6;margin:0}
+.about-page .story-layout{display:grid;grid-template-columns:minmax(315px,.75fr) minmax(0,1.45fr);gap:clamp(50px,6vw,112px);align-items:start;padding:90px 0 155px}
+.about-page .profile-card{position:sticky;top:110px;background:linear-gradient(145deg,#1a1c1a,#111211 68%);border:1px solid #ffffff2f;min-height:690px;padding:clamp(28px,3vw,48px);overflow:hidden}
+.about-page .profile-card:before{content:"";position:absolute;inset:-30%;pointer-events:none;background:radial-gradient(circle at 38% 22%,#d9c6a914,transparent 35%);opacity:.85}
+.about-page .profile-top{display:flex;justify-content:space-between;gap:12px;color:#aaa8a4;font-size:10px;letter-spacing:.17em;font-weight:800;text-transform:uppercase;position:relative}
+.about-page .profile-mark{font:550 clamp(110px,17vw,230px)/1 'Instrument Serif',Georgia,serif;letter-spacing:-.16em;text-align:center;padding:70px 15px 60px 0;color:#f4f1e9;position:relative;user-select:none}
+.about-page .profile-mark span{color:#d9c6a9;font:550 .74em/1 'Instrument Serif',Georgia,serif}
+.about-page .profile-divider{height:1px;background:#ffffff32;margin:0 0 30px}
+.about-page .profile-label{display:block;color:#92938f;font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.about-page .profile-value{font-size:clamp(17px,1.7vw,24px);font-weight:600;letter-spacing:-.04em;margin:0 0 30px;line-height:1.4}
+.about-page .profile-foot{padding-top:33px;border-top:1px solid #ffffff2c;display:flex;align-items:end;justify-content:space-between;gap:20px}
+.about-page .profile-years{font:italic 45px/1 'Instrument Serif',Georgia,serif;color:#ede5d8;letter-spacing:-.07em;white-space:nowrap}
+.about-page .profile-caption{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#9e9c95;line-height:1.8;text-align:right}
+.about-page .life-intro{display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid #ffffff36;padding:3px 0 30px;margin-bottom:10px}
+.about-page .life-intro strong,.about-page .life-intro span{font-size:10px;font-weight:800;letter-spacing:.18em;color:#c6c3bb;text-transform:uppercase}
+.about-page .life-intro span{color:#90918a}
+.about-page .life-chapter{position:relative;padding:53px 0 55px 46px;border-bottom:1px solid #ffffff2d;transition:background .35s}
+.about-page .life-chapter:before{content:"";position:absolute;left:7px;top:74px;bottom:0;width:1px;background:linear-gradient(to bottom,#d9c6a960,transparent)}
+.about-page .life-chapter:after{content:"";position:absolute;left:0;top:67px;width:14px;height:14px;border:1px solid #bcb6ab85;border-radius:50%;box-shadow:0 0 0 7px #ffffff09;background:#0b0c0b;transition:background .3s,box-shadow .3s}
+.about-page .life-chapter.is-active:after{background:#dfcfb5;box-shadow:0 0 0 7px #d9c6a914}
+.about-page .chapter-count{position:absolute;top:60px;right:0;font:800 10px 'Manrope',sans-serif;color:#80827a;letter-spacing:.16em}
+.about-page .life-chapter h2{font:400 clamp(42px,5vw,71px)/1.05 'Instrument Serif',Georgia,serif;letter-spacing:-.05em;margin:0 0 20px;color:#f0efe9}
+.about-page .life-chapter h3{font-size:11px;letter-spacing:.14em;font-weight:800;text-transform:uppercase;color:#e0d8cd;margin:0 0 18px}
+.about-page .life-chapter p{max-width:610px;color:#b7b9b3;font-size:clamp(14px,1.2vw,17px);line-height:1.9;margin:0}
+.about-page .life-chapter .date-tag{display:inline-flex;align-items:center;gap:9px;color:#d9c6a9;font:800 10px 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.13em;margin-top:21px}
+.about-page .story-cta{margin-top:60px;border:1px solid #d9c6a955;background:linear-gradient(135deg,#e2d3ba0d,transparent);padding:34px;position:relative;overflow:hidden}
+.about-page .story-cta small{font-size:10px;letter-spacing:.16em;color:#a8a69f;font-weight:800;text-transform:uppercase}
+.about-page .story-cta h2{font:400 clamp(38px,4.7vw,68px)/1 'Instrument Serif',Georgia,serif;letter-spacing:-.04em;margin:24px 0 18px}
+.about-page .story-cta p{font-size:14px;max-width:500px;color:#adb1a9;line-height:1.85}
+.about-page .story-cta a{display:flex;justify-content:space-between;gap:30px;align-items:center;margin-top:36px;padding:23px 27px;background:#dac8ac;color:#131512;text-transform:uppercase;font-weight:850;font-size:12px;letter-spacing:.14em;transition:transform .3s,background .3s}
+.about-page .story-cta a:hover{transform:translateY(-4px);background:#f1e6d5}
+.about-page .story-cta a b{font-size:29px;line-height:1;font-weight:500}
+.about-page .story-footer{border-top:1px solid #ffffff2b;padding:35px 0 65px;display:flex;justify-content:space-between;gap:20px;color:#9f9c96;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.about-page .story-footer a{color:#ded4c5}
+@media(max-width:960px){.about-page .story-layout{grid-template-columns:1fr;gap:70px}.about-page .profile-card{position:relative;top:auto;max-width:640px;min-height:0}.about-page .profile-mark{padding:50px 0}.about-page .story-hero{padding:140px 0 70px}}
+@media(max-width:640px){.about-page .story-layout{padding:60px 0 100px;gap:50px}.about-page .story-hero h1{font-size:clamp(62px,15vw,100px)}.about-page .story-hero{padding:126px 0 50px}.about-page .profile-card{padding:28px}.about-page .profile-mark{font-size:145px}.about-page .profile-years{font-size:37px}.about-page .life-chapter{padding:40px 0 45px 35px}.about-page .life-chapter h2{font-size:48px}.about-page .life-chapter:after{top:52px}.about-page .life-chapter:before{top:59px}.about-page .chapter-count{top:47px}.about-page .story-cta{padding:22px}.about-page .story-footer{flex-direction:column}.about-page .life-intro span{text-align:right}}
+@media(prefers-reduced-motion:reduce){.about-page .story-cta a,.about-page .life-chapter:after{transition:none!important}}
