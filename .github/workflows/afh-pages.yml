@@ -16,6 +16,8 @@ on:
       - 'afh-cosmos-v20.css'
       - 'afh-cosmos-v20.js'
       - 'studio-v7.js'
+      - 'afh-video-atlas-v21.css'
+      - 'afh-audio-dock-v21.js'
       - 'atelier-pages-v19.css'
       - 'yellow-book/atelier-v19.css'
       - 'about/**'
@@ -79,7 +81,7 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V20 Black Galaxy", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V22 Black Galaxy & Real YouTube Thumbnails", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "yellow-book" / "index.html").exists()
@@ -101,7 +103,15 @@ jobs:
           assert 'class="afh19-folio"' not in homepage
           assert (target / 'afh-cosmos-v20.css').exists()
           assert (target / 'afh-cosmos-v20.js').exists()
-          print("AFH V20 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          assert (target / 'afh-video-atlas-v21.css').exists()
+          assert (target / 'afh-audio-dock-v21.js').exists()
+          assert './afh-video-atlas-v21.css?v=22' in homepage
+          assert './studio-v7.js?v=22' in homepage
+          assert 'id="afh21-audio-expand"' in homepage
+          assert 'id="youtube-sort"' in homepage
+          assert homepage.count('afh21-feature-svg') == 3
+          assert 'href="/alberth/library/crypto/"' in homepage
+          print("AFH V22 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
 
       - name: Configure GitHub Pages
