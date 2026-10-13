@@ -133,3 +133,21 @@ db.taxonomyMovedByReviewAwarePass=moved;
 db.categoryCounts=Object.fromEntries(["economics","finance","crypto","others"].map(f=>[f,db.topics.filter(t=>t.f===f).length]));
 db.fields=db.fields.map(f=>f.id==="finance"?{...f,desc:"Investments, banking, mathematics, statistics, econometrics and accounting."}:f.id==="others"?{...f,desc:"Artificial intelligence, management, marketing and other disciplines."}:f);
 })(window);
+
+/* Final review-aware corrections for short, abbreviated and mixed-language
+   source entries whose subject was not reliably recognized by earlier passes. */
+(function(g){"use strict";
+const d=g.KENTZO_NOTES;if(!d||!d.topics)return;
+const corrections=[
+["crypto",/^(?:Mekanisme order book|Mekanisme funding rate|Konsensus tendermint|Tree)$/i],
+["economics",/^(?:B-S Effect|Debt Trap Diplomacy|Deglobalisasi|Real Wages|Purchasing Power Parity \(PPP\)|Services|Tarif|Tariff|Non farm payroll \(NFP\)|Surat berharga country|function production cobb-douglass|Human Resources Economics|Specialization|Hodrick-Prescott Filter|Paradox|Triffin Dilemma)$/i],
+["finance",/^(?:ARA|B-S Effect \d|Base Erosion|Amount A|Appraisal Company|Arm's Length Principle|CASA|Cadangan Kerugian decrease Nilai \(CKPN\)|Comparable Analysis|Corporate Restructuring|Covered|Customs Duty|Debt overhang|Debt Restructuring|Declining Balance|Difference Form|Gap Form|Right-Skewed|Discounted Payback|Efficiency|Franchise Rights|Long Term Receiveable|Guarantee|High-Frequency Trading|Historical|Hostile Takeover|ICT|ICT strategy|Income Approach|Internal Rate Of Return|Iron Condor|Iron Condor Strategy|Lagrange|Lagrange Function|Lagrange Multiplier|Lagrangian|Licenses|Management Buyout \(MBO\)|management fees|Mergers and Acquisitions|Mekanisme short selling|Operational Expenditure|Operation Reserach|Other Comprehensive Income|Parametric|Patents|Payback|Pembayaran RTGS|performance fees|Perpajakan|Propiertary trading firm|Residence|Rho Greek Letter|Salvage|Scale|scale|Scientific Management\s+Finance|Source Principle|SR|ST|straddle strategy|Straight-line|Terminal Value|Theta Greek Letter|Tie-Breaker Rule|time decay opsi|Varians|Vega Greek Letter|Vol of Vol|Weighted Average|Wu-Xia Shadow Rate|ΔNWC|Return on Equity|Research and Development Capitalization|Value at Risk|National Income Accounting\s+Finance)$/i],
+["finance",/\b(?:statistic|econometric|regress|varians|variance|covarian|heteroskedastic|homoskedastic|wiener|brownian|lagrange|lagrangian|monte carlo|optimization|autocorrelat|treynor|sharpe|capm|accounting|journal|financial statement|capital asset pricing)\b/i]
+];
+let reassigned=0;
+for(const t of d.topics){if(t.f!=="others")continue;
+ for(const [group,pattern]of corrections){if(pattern.test(t.t)){t.f=group;reassigned++;break}}
+}
+d.categoryCounts=Object.fromEntries(["economics","finance","crypto","others"].map(x=>[x,d.topics.filter(t=>t.f===x).length]));
+d.finalTaxonomyCorrection=reassigned;
+})(window);
