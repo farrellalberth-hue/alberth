@@ -87,3 +87,12 @@ body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) fo
  #result-count{text-align:left;padding-top:14px}}
 @media(max-width:360px){.month-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.disciplines{grid-template-columns:1fr}.atlas-hero h1{font-size:49px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* 2024–2026 timeline plus All Years index */
+.year-filters{grid-template-columns:repeat(4,minmax(0,1fr))}
+.year-button{padding:12px 14px;min-height:88px}
+.year-button strong{font-size:clamp(19px,2.7vw,37px)}
+.year-button[data-year="0"] strong{font:700 clamp(12px,1.45vw,20px)/1.2 var(--sans);letter-spacing:.09em}
+.full-archive{margin-top:12px;min-height:54px;width:100%;border:1px solid rgba(255,255,255,.3);background:#090909;color:#eee;font-size:10px;font-weight:700;letter-spacing:.15em}
+.full-archive:hover{border-color:#fff;background:#222}
+@media(max-width:740px){.year-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.year-button{min-height:74px}.year-button strong{font-size:26px}}
