@@ -106,7 +106,7 @@ jobs:
           assert (target / 'afh-video-atlas-v21.css').exists()
           assert (target / 'afh-audio-dock-v21.js').exists()
           assert './afh-video-atlas-v21.css?v=22' in homepage
-          assert './studio-v7.js?v=22' in homepage
+          assert './studio-v7.js?v=23' in homepage
           assert 'id="afh21-audio-expand"' in homepage
           assert 'id="youtube-sort"' in homepage
           assert homepage.count('afh21-feature-svg') == 3
