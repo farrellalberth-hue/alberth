@@ -25,6 +25,7 @@ document.querySelectorAll("a[href]").forEach(a=>a.addEventListener("click",ev=>{
  body.classList.add("transition-out");try{sessionStorage.setItem("af-transition-v4","1")}catch(e){}
  setTimeout(()=>location.assign(url.href),610);
 }));
+if(body.classList.contains("archive-v4")){document.querySelectorAll(".section-group").forEach((el,i)=>el.setAttribute("data-reveal",i%2?"right":"left"));}
 const revealEls=Array.from(document.querySelectorAll("[data-reveal]"));
 if(reduced||!("IntersectionObserver" in window)){revealEls.forEach(el=>el.classList.add("in-view"))}else{
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in-view");io.unobserve(e.target)}}),{threshold:0.08,rootMargin:"0px 0px -7% 0px"});
