@@ -46,6 +46,16 @@ def parse_date(s):
     except (ValueError, TypeError, AttributeError):
         return None
 
+def is_ad_activity(item):
+    """Skip ad-impression records, not legitimate tutorials about advertising."""
+    content = json.dumps(item, ensure_ascii=False).casefold()
+    return (
+        "dari google adwords" in content
+        or "from google adwords" in content
+        or ("ditonton pukul" in content and "produk:" in content and "detail:" in content)
+    )
+
+
 def from_json(path):
     raw = json.loads(path.read_text(encoding="utf-8-sig"))
     if isinstance(raw, dict):
@@ -54,7 +64,7 @@ def from_json(path):
         raise ValueError("Expected JSON Takeout watch-history list.")
     videos = []
     for row in raw:
-        if not isinstance(row, dict):
+        if not isinstance(row, dict) or is_ad_activity(row):
             continue
         video_id = extract_id(row.get("titleUrl", row.get("url", "")))
         date = parse_date(row.get("time", row.get("date", "")))
@@ -80,7 +90,7 @@ def main():
     existing = {}
     if args.output.exists():
         for item in json.loads(args.output.read_text(encoding="utf-8")).get("videos", []):
-            if extract_id("https://www.youtube.com/watch?v=" + str(item.get("id", ""))):
+            if extract_id("https://www.youtube.com/watch?v=" + str(item.get("id", ""))) and not is_ad_activity(item):
                 existing[item["id"]] = item
     for item in new_videos:
         old = existing.get(item["id"])
