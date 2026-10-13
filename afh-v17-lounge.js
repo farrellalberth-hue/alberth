@@ -24,6 +24,7 @@ const progression=[0,1,2,3,4,5,0,1];
 let audio=null,master=null,dry=null,reverb=null,wet=null,lowpass=null,interval=null;
 let enabled=true,unlocked=false,playing=false,secondsPerBeat=60/76;
 let nextBar=0,barIndex=0,selectedVolume=Number(slider?.value??30)/100;
+try{const saved=localStorage.getItem('afh17-volume');if(saved!==null&&Number.isFinite(Number(saved)))selectedVolume=Math.min(1,Math.max(0,Number(saved)/100));if(slider)slider.value=String(Math.round(selectedVolume*100));enabled=localStorage.getItem('afh17-enabled')!=='false'}catch(_){}
 const setStatus=s=>{if(label)label.textContent=s;root.dataset.playing=String(playing);play?.setAttribute('aria-pressed',String(playing));root.title=s};
 const gainAt=(node,from,to,start,duration)=>{
  node.gain.setValueAtTime(Math.max(.0001,from),start);
@@ -118,6 +119,7 @@ const startScheduling=()=>{
 };
 const pause=()=>{
  enabled=false;playing=false;
+ try{localStorage.setItem('afh17-enabled','false')}catch(_){}
  stopScheduling();if(audio&&audio.state!=='closed'){
   const t=audio.currentTime;master.gain.cancelScheduledValues(t);
   master.gain.setTargetAtTime(.0001,t,.09);
@@ -137,12 +139,14 @@ const tryStart=()=>{
 play?.addEventListener('click',()=>{
  if(playing){pause();return}
  enabled=true;
+ try{localStorage.setItem('afh17-enabled','true')}catch(_){}
  if(audio&&master)master.gain.setTargetAtTime(.0001,audio.currentTime,.025);
  tryStart();
  if(audio&&audio.state==='running')setStatus('LOUNGE  •  ON');
 });
 slider?.addEventListener('input',()=>{
  selectedVolume=Math.min(1,Math.max(0,Number(slider.value)/100));
+ try{localStorage.setItem('afh17-volume',String(Math.round(selectedVolume*100)))}catch(_){}
  if(master&&audio&&audio.state==='running')master.gain.setTargetAtTime(enabled?selectedVolume*.34:.0001,audio.currentTime,.1);
  slider.setAttribute('aria-valuetext',Math.round(selectedVolume*100)+' percent');
 });
@@ -161,5 +165,5 @@ addEventListener('pagehide',()=>{
  stopScheduling();
  if(audio){try{audio.close()}catch(_){}}
 },{once:true});
-setStatus('LOUNGE  •  AUTO');
+setStatus(enabled?'LOUNGE  •  AUTO':'LOUNGE  •  OFF');
 })();
