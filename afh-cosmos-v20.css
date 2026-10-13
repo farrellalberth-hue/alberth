@@ -140,3 +140,14 @@ body.studio-home .afh17-audio{bottom:18px;border-color:#dbac9266;background:#090
  .afh20-planet.p2{width:100px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.afh20-planet{animation:none!important}.afh20-galaxy{will-change:auto}}
+
+/* Finishing passes: ultra-sharp sky canvas, graceful image fallbacks and glimmer */
+#afh20-atmosphere{position:absolute;inset:0;z-index:2;display:block;width:100%;height:100%;opacity:.79;pointer-events:none;image-rendering:auto}
+.afh20-cosmos.afh20-no-photo .afh20-galaxy{background:radial-gradient(ellipse at 50% 50%,#fff5d8 0 2%,#f5bb7799 3%,#e4a86c33 12%,#513149bb 18%,#fbb26a14 32%,#0b091233 57%,transparent 76%),conic-gradient(from 125deg at 50% 50%,#0d101d00 0%,#ad734a3a 15%,#08091200 28%,#cd866566 51%,#15112100 67%,#d79c6277 83%,#0d101d00 100%);border-radius:50%}
+.afh20-starburst{animation:afh20-shimmer 4.4s ease-in-out infinite alternate}
+.afh20-starburst.s2{animation-delay:-2.2s;animation-duration:3.8s}
+.afh20-starburst.s3{animation-delay:-3s;animation-duration:5.1s}
+.afh20-starburst.s4{animation-delay:-.7s;animation-duration:4.8s}
+@keyframes afh20-shimmer{0%{opacity:.42;filter:brightness(.83)}50%{opacity:1;filter:brightness(1.22)}100%{opacity:.66;filter:brightness(.94)}}
+@media(max-width:850px){#afh20-atmosphere{opacity:.57}}
+@media(prefers-reduced-motion:reduce){.afh20-starburst{animation:none!important}}
