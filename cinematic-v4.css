@@ -256,3 +256,62 @@ body.intro-leaving .hero-v4>.shell{animation:vlHeroContentReveal .93s cubic-bezi
  .hero-vl-face,.hero-vl-shine,.intro-vl-stage *{animation:none!important}
  body.intro-leaving .hero-v4>.shell{animation:none!important}
 }
+
+
+/* VL Intro v6 — five-second two-act film: monogram → final sentence */
+#intro-v4.intro-vl-version .intro-vl-lockup{
+  position:relative;z-index:1;align-self:center;
+  animation:vlIntroLockupFive 5s cubic-bezier(.2,.76,.27,1) both;
+}
+#intro-v4.intro-vl-version .intro-vl-logo{
+  animation:vlLogoEnterFive 5s cubic-bezier(.15,.9,.22,1) both;
+  will-change:transform,opacity,filter;
+}
+#intro-v4.intro-vl-version .intro-vl-front{
+  animation:vlMetalSweep 3s cubic-bezier(.38,0,.32,1) both;
+}
+#intro-v4.intro-vl-version .intro-vl-stage::before,
+#intro-v4.intro-vl-version .intro-vl-stage::after{
+  animation-duration:5s;
+}
+#intro-v4.intro-vl-version .intro-vl-halo{animation-duration:5s}
+#intro-v4.intro-vl-version .intro-fill{animation-duration:5s}
+#intro-v4.intro-vl-version .intro-vl-finale{
+  position:absolute;inset:0;z-index:3;margin:0;padding:28px 18px;
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:.18em;text-align:center;
+  font:400 clamp(32px,5.9vw,87px)/1.22 var(--serif);
+  letter-spacing:-.05em;color:#f8f8f8;
+  opacity:0;transform:translateY(35px);filter:blur(14px);
+  animation:vlFinalLineFive 5s cubic-bezier(.21,.9,.28,1) both;
+  pointer-events:none;
+  text-wrap:balance;
+}
+#intro-v4.intro-vl-version .intro-finale-period{color:#a6a6a6}
+#intro-v4.intro-vl-version .intro-mobile-break{display:none}
+@keyframes vlLogoEnterFive{
+  0%{opacity:0;transform:perspective(1000px) rotateY(-88deg) rotateX(28deg) translate3d(-140px,24px,-270px) scale(.59);filter:blur(15px)}
+  12%{opacity:.95;filter:blur(1px)}
+  25%{opacity:1;transform:perspective(1000px) rotateY(-19deg) rotateX(12deg) rotateZ(-2deg) scale(1.045);filter:blur(0)}
+  48%{opacity:1;transform:perspective(1000px) rotateY(-25deg) rotateX(13deg) rotateZ(-3deg) scale(1);filter:blur(0)}
+  60%{opacity:0;transform:perspective(1000px) rotateY(21deg) rotateX(-8deg) translate3d(25px,-30px,-50px) scale(.9);filter:blur(10px)}
+  100%{opacity:0;transform:perspective(1000px) rotateY(21deg) rotateX(-8deg) translate3d(25px,-30px,-50px) scale(.9);filter:blur(10px)}
+}
+@keyframes vlIntroLockupFive{
+  0%,48%{opacity:1}
+  62%,100%{opacity:0}
+}
+@keyframes vlFinalLineFive{
+  0%,55%{opacity:0;transform:translateY(35px) scale(.97);filter:blur(14px)}
+  71%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@media(max-width:740px){
+  #intro-v4.intro-vl-version .intro-vl-finale{font-size:clamp(35px,7.1vw,60px);line-height:1.22;letter-spacing:-.048em}
+  #intro-v4.intro-vl-version .intro-mobile-break{display:block;flex-basis:100%;height:0}
+}
+@media(prefers-reduced-motion:reduce){
+  #intro-v4.intro-vl-version .intro-vl-finale,
+  #intro-v4.intro-vl-version .intro-vl-logo,
+  #intro-v4.intro-vl-version .intro-vl-lockup{animation:none!important}
+}

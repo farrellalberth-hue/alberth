@@ -1,12 +1,12 @@
 (()=>{"use strict";
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const body=document.body, intro=document.getElementById("intro-v4"),wipe=document.getElementById("page-wipe");
-const introMs=3000;
+const introMs=5000;
 if(intro){
  const skip=intro.querySelector(".skip"),timer=intro.querySelector(".intro-timer"),start=performance.now();
  let raf=0,closed=false;
- const close=()=>{if(closed)return;closed=true;cancelAnimationFrame(raf);body.classList.remove("lock-scroll");body.classList.add("hero-vl-ready","intro-leaving");intro.classList.add("done");try{sessionStorage.setItem("vl-intro-v5","seen")}catch(e){}setTimeout(()=>{intro.remove();body.classList.remove("intro-leaving")},950)};
- let seen=false;try{seen=sessionStorage.getItem("vl-intro-v5")==="seen"}catch(e){}
+ const close=()=>{if(closed)return;closed=true;cancelAnimationFrame(raf);body.classList.remove("lock-scroll");body.classList.add("hero-vl-ready","intro-leaving");intro.classList.add("done");try{sessionStorage.setItem("vl-intro-v6","seen")}catch(e){}setTimeout(()=>{intro.remove();body.classList.remove("intro-leaving")},950)};
+ let seen=false;try{seen=sessionStorage.getItem("vl-intro-v6")==="seen"}catch(e){}
  if(reduced||seen){intro.remove();body.classList.remove("lock-scroll");body.classList.add("hero-vl-ready")}
  else{body.classList.add("lock-scroll");if(skip)skip.addEventListener("click",close);
  const tick=now=>{if(closed)return;const elapsed=Math.min(introMs,now-start),remaining=Math.ceil((introMs-elapsed)/1000);if(timer)timer.textContent=String(remaining).padStart(2,"0")+" SEC";if(elapsed>=introMs)close();else raf=requestAnimationFrame(tick)};
