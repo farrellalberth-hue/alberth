@@ -70,11 +70,12 @@ function buildCategories(){
 function matches(item){
  if(state.tab==='topics'&&state.category!=='all'&&String(item.group.id)!==state.category)return false;
  if(!state.query)return true;
- return norm([item.title,item.summary,item.group?.name,item.calculation,item.meaning,item.answer].filter(Boolean).join(' ')).includes(norm(state.query));
+ return norm([item.title,item.summary,item.calculation,item.meaning,item.answer].filter(Boolean).join(' ')).includes(norm(state.query));
 }
 function render(){
  const all=state.tab==='topics'?topics:state.tab==='examples'?examples:reviews;
  state.filtered=all.filter(matches);
+ if(state.query){const q=norm(state.query);const rank=item=>{const t=norm(item.title);return t===q?0:t.startsWith(q)?1:t.includes(q)?2:3};state.filtered.sort((a,b)=>rank(a)-rank(b));}
  const frag=document.createDocumentFragment();
  state.filtered.slice(0,state.shown).forEach(item=>{
   const btn=document.createElement('button');btn.type='button';btn.className='yb-topic-card';btn.dataset.id=item.id;btn.dataset.kind=item.kind;
