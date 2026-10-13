@@ -1,0 +1,75 @@
+/* AFH ATELIER V19 — same warm premium editorial identity on About, Journey and Library pages */
+:root{--at-black:#130d09;--at-dark:#241810;--at-cream:#f3e9da;--at-walnut:#69472d;--at-paper:#e9ddcb;--at-brass:#b99167}
+body.about-page,body.archive-v4,body:not([class]){background:#120d0a;color:var(--at-cream)}
+body.about-page .site-header,body.archive-v4 .site-header,body:not([class]) .site-header{background:#170f0cda!important;border-bottom:1px solid #bc936746!important;backdrop-filter:blur(24px)}
+body.about-page .site-nav a,body:not([class]) .site-nav a,body.archive-v4 .site-header a{color:#eddfcc}
+body.about-page .site-nav a:hover,body:not([class]) .site-nav a:hover,body.archive-v4 .site-header a:hover{color:#dbb58c}
+body.about-page .glyph-h,body:not([class]) .glyph-h{color:#b88d62!important}
+body.archive-v4 .sig span{color:#b88d62!important}
+body.about-page .nav-contact,body:not([class]) .nav-contact{border-color:#b7926e7c;border-radius:2px}
+body.about-page .nav-contact:hover,body:not([class]) .nav-contact:hover{background:#e7d0b3;color:#23160e}
+body.about-page .story-hero{background:linear-gradient(112deg,#120d0a,#322013 70%,#4d311c);color:#f8ebda;border-bottom:1px solid #c09b6f4d}
+body.about-page .story-hero:before,body.about-page .story-hero:after{opacity:.12}
+body.about-page .story-hero h1{color:#f5e9da}
+body.about-page .story-hero h1 em{color:#d4aa7e}
+body.about-page .story-hero p{color:#ccbaa6}
+body.about-page .story-layout{background:#130e0b}
+body.about-page .profile-card{background:linear-gradient(125deg,#eadac3,#b99d78)!important;color:#281b12;border:1px solid #b99670;box-shadow:0 25px 70px #0005;border-radius:2px}
+body.about-page .profile-mark span{color:#91643f}
+body.about-page .life-intro{color:#dac8b4}
+body.about-page .life-chapter{background:#261b13!important;border:1px solid #b9976c3f!important;border-radius:2px;color:#efe2d2;box-shadow:none!important}
+body.about-page .life-chapter.is-active{background:#39271b!important;border-color:#cfac7b8a!important}
+body.about-page .life-chapter h2,body.about-page .life-chapter h3{color:#f3e5d3}
+body.about-page .life-chapter p{color:#bca894}
+body.about-page .chapter-count{color:#c49b6f}
+body.about-page .story-cta{background:#e6d8c3;color:#261b13;border-radius:2px}
+body.about-page .story-cta a{background:#332218;color:#faf0e3;border-radius:2px}
+body.about-page .story-footer{color:#b8a08a}
+body:not([class]) .sub-hero{background:linear-gradient(118deg,#110c09,#382317 75%,#51331e)!important;color:#f2e5d3}
+body:not([class]) .sub-hero h1{color:#f9eddb}
+body:not([class]) .sub-hero .serif{color:#d6ae82}
+body:not([class]) .sub-hero p{color:#cbb7a1}
+body:not([class]) .sub-hero .text-cta{color:#edcea8}
+body:not([class]) .route-section{background:#e9ddcb!important;color:#281b13}
+body:not([class]) .route-section .route-intro h2,body:not([class]) .route-section .timeline-head h3{color:#2c2018}
+body:not([class]) .route-section .serif{color:#916741}
+body:not([class]) .route-section .eyebrow{color:#8b6545}
+body:not([class]) .learning-step{background:#f5ead9!important;border-color:#8e6b4b45;color:#2c211a;border-radius:2px}
+body:not([class]) .learning-step h3{color:#3d2b1e}
+body:not([class]) .learning-step p{color:#6a5644}
+body:not([class]) .timeline-item{border-color:#987c6055}
+body:not([class]) .timeline-date{color:#8a5e3c}
+body:not([class]) .timeline-info h4{color:#2d2119}
+body:not([class]) .timeline-info p{color:#6b5b4d}
+body:not([class]) .discipline-list{border-top-color:#82664a5b}
+body:not([class]) .discipline{color:#2d1e15;border-bottom-color:#896b4d57}
+body:not([class]) .discipline:hover{background:#d7bea0}
+body:not([class]) .discipline .idx{color:#916340}
+body:not([class]) .discipline h3{color:#271b14}
+body:not([class]) .end-section{background:#b89974;color:#24160e}
+body:not([class]) .end-section .serif{color:#6e4227}
+body:not([class]) .site-footer{background:#140d0a;color:#baa692}
+body.archive-v4{background:#140e0b!important}
+body.archive-v4 .archive-banner{background:linear-gradient(130deg,#1b110c,#4b3020)!important;color:#f6e6d0}
+body.archive-v4 .archive-banner:before,body.archive-v4 .archive-banner:after{opacity:.13}
+body.archive-v4 .archive-banner h1,body.archive-v4 .archive-banner h2{color:#f7e9d4}
+body.archive-v4 .archive-banner .italic{color:#d2a778}
+body.archive-v4 .stat-strip{background:#2d1e14;color:#eadbc7;border-color:#a8835a63}
+body.archive-v4 .stat-strip strong{color:#e5ba88}
+body.archive-v4 .archive-toolbar{background:#e7d9c5;color:#2c1e14}
+body.archive-v4 .archive-layout{background:#e7d9c5;color:#281d14}
+body.archive-v4 .archive-side{background:#eadcc8;border-right-color:#9375575c}
+body.archive-v4 .field-picker,body.archive-v4 .side-buttons button{color:#382719}
+body.archive-v4 .field-tabs button[aria-selected="true"],body.archive-v4 .side-buttons button.active{background:#432b1d;color:#fff1dc}
+body.archive-v4 .section-group{border-color:#98745442}
+body.archive-v4 .topic-card{background:#f8eee0!important;color:#291b12;border:1px solid #a784613e!important;border-radius:2px;box-shadow:none!important}
+body.archive-v4 .topic-card:hover{background:#e9d3ba!important;border-color:#98694091!important;box-shadow:0 16px 35px #53301828!important}
+body.archive-v4 .topic-title{color:#35251b}
+body.archive-v4 .topic-summary{color:#6b5544}
+body.archive-v4 .detail-page{background:#f4e8d7;color:#2c1e15}
+body.archive-v4 .detail-box{background:#e6d4bb;border-color:#bc9d7759}
+body.archive-v4 .detail-title{color:#2d1d14}
+body.archive-v4 .gold-btn{background:#5b3a25;color:#fef1db}
+body.archive-v4 .site-footer{background:#160e0a;color:#b6a28b}
+@media(min-width:2400px){body.archive-v4 .shell{max-width:2200px}body.about-page .container,body:not([class]) .container{width:min(2200px,calc(100% - 220px))}}
+@media(max-width:780px){body.archive-v4 .menu{background:#21160f!important}body.about-page .site-nav.open,body:not([class]) .site-nav.open{background:#20150e!important}}
