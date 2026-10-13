@@ -163,3 +163,96 @@ body.archive-v4 .site-footer{background:#070707}
   .about-chapter-count{font-size:8px}
   .about-chapter p{font-size:13px;line-height:1.8}
 }
+
+
+/* VL Identity — Three-second cinematic intro and dimensional hero seal */
+#intro-v4.intro-vl-version{
+ background:radial-gradient(ellipse 47% 54% at 50% 48%,#242424 0%,#0e0e0e 53%,#030303 100%);
+ transition:clip-path .84s cubic-bezier(.7,0,.19,1),opacity .84s ease,visibility .84s;
+ clip-path:inset(0 0 0 0);
+}
+#intro-v4.intro-vl-version.done{clip-path:inset(0 0 100% 0);opacity:1;visibility:hidden;pointer-events:none}
+.intro-vl-stage{isolation:isolate;perspective:1100px}
+.intro-vl-stage:before,.intro-vl-stage:after{
+ content:"";position:absolute;inset:auto;left:50%;top:50%;width:min(76vw,750px);aspect-ratio:1;
+ border:1px solid rgba(235,235,235,.15);border-radius:50%;
+ transform:translate(-50%,-50%) rotateX(68deg);pointer-events:none;
+ animation:vlRingEnter 3s ease-out both;
+}
+.intro-vl-stage:after{width:min(55vw,530px);transform:translate(-50%,-50%) rotateY(65deg);border-color:rgba(205,205,205,.11)}
+.intro-vl-halo{position:absolute;inset:0;background:radial-gradient(ellipse 33% 46% at 53% 46%,rgba(237,237,237,.10),transparent 75%);
+ opacity:0;animation:vlHaloIntro 3s ease-out both;pointer-events:none}
+.intro-vl-lockup{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;width:100%;padding:20px 0 10px}
+.intro-vl-logo{position:relative;display:grid;place-items:center;min-width:0;
+ font:800 clamp(112px,22vw,310px)/1 "Manrope","Arial Black",sans-serif;letter-spacing:-.135em;
+ transform-style:preserve-3d;transform:rotateY(-27deg) rotateX(14deg) rotateZ(-3deg);opacity:0;
+ animation:vlLogoEnter 3s cubic-bezier(.14,.9,.19,1) both}
+.intro-vl-logo .intro-vl-extrude{position:absolute;inset:0;display:grid;place-items:center;color:#484848;
+ text-shadow:1px 1px 0 #939393,2px 2px 0 #858585,3px 3px 0 #757575,4px 4px 0 #686868,5px 5px 0 #606060,6px 6px 0 #565656,7px 7px 0 #505050,8px 8px 0 #494949,9px 9px 0 #414141,10px 10px 0 #393939,11px 11px 0 #303030,12px 12px 0 #282828,14px 16px 20px rgba(0,0,0,.8)}
+.intro-vl-logo .intro-vl-front{position:relative;display:block;background:linear-gradient(112deg,#fff 3%,#7e7e7e 22%,#eaeaea 43%,#535353 55%,#fbfbfb 75%,#888 98%);background-size:220% 100%;
+ color:transparent;-webkit-background-clip:text;background-clip:text;
+ -webkit-text-stroke:1px rgba(255,255,255,.34);
+ filter:drop-shadow(0 0 21px rgba(255,255,255,.12));
+ animation:vlMetalSweep 3s cubic-bezier(.38,0,.32,1) both}
+.intro-vl-rule{width:min(270px,44vw);height:1px;background:linear-gradient(90deg,transparent,#dedede,transparent);margin:36px auto 24px;transform:scaleX(0);animation:vlRuleEnter 3s ease both}
+.intro-vl-caption{margin:0;color:#ededed;font-size:clamp(10px,1.8vw,14px);font-weight:700;letter-spacing:.4em;line-height:1.8;text-align:center;opacity:0;animation:vlCaptionEnter 3s ease both}
+.intro-vl-tagline{color:#919191;margin-top:11px;font:500 10px/1.8 var(--sans);letter-spacing:.27em;opacity:0;animation:vlCaptionEnter 3s ease .12s both}
+#intro-v4.intro-vl-version .intro-fill{animation-duration:3s;background:linear-gradient(90deg,#666,#fff,#888)}
+@keyframes vlLogoEnter{0%{opacity:0;transform:perspective(1000px) rotateY(-87deg) rotateX(35deg) translate3d(-150px,35px,-260px) scale(.55);filter:blur(17px)}34%{opacity:1;filter:blur(0)}71%{transform:perspective(1000px) rotateY(-12deg) rotateX(8deg) rotateZ(0deg) translateZ(0) scale(1.045)}100%{opacity:1;transform:perspective(1000px) rotateY(-25deg) rotateX(13deg) rotateZ(-3deg) scale(1);filter:blur(0)}}
+@keyframes vlMetalSweep{0%{background-position:110% 50%;filter:brightness(.55)}62%{filter:brightness(1.3)}100%{background-position:5% 50%;filter:brightness(1)}}
+@keyframes vlRingEnter{0%{opacity:0;scale:.64}30%{opacity:1}100%{opacity:.58;scale:1}}
+@keyframes vlHaloIntro{0%{opacity:0}50%{opacity:1}100%{opacity:.73}}
+@keyframes vlRuleEnter{0%,36%{transform:scaleX(0)}75%,100%{transform:scaleX(1)}}
+@keyframes vlCaptionEnter{0%,34%{opacity:0;transform:translateY(16px);filter:blur(4px)}75%,100%{opacity:1;transform:none;filter:none}}
+
+/* Hero: lower-left true CSS-extruded 3D VL; three-second entrance */
+.hero-v4 .hero-vl-scene{position:absolute;left:clamp(-36px,1.5vw,24px);bottom:clamp(56px,8vh,112px);
+ width:clamp(215px,31vw,520px);height:clamp(190px,31vw,450px);
+ pointer-events:none;z-index:1;perspective:1050px;transform-style:preserve-3d;
+ opacity:0;isolation:isolate;will-change:transform,opacity}
+.hero-vl-glow{position:absolute;inset:0;transform:scale(1.3);border-radius:50%;
+ background:radial-gradient(ellipse 55% 52% at 50% 55%,rgba(238,238,238,.16),rgba(150,150,150,.06) 49%,transparent 74%);
+ filter:blur(13px)}
+.hero-vl-mark{position:absolute;inset:0;display:grid;place-items:center;
+ transform:rotateY(-26deg) rotateX(15deg) rotateZ(-9deg);
+ transform-style:preserve-3d;
+ font:800 clamp(145px,24vw,385px)/1 "Manrope","Arial Black",sans-serif;letter-spacing:-.15em;
+ white-space:nowrap;filter:drop-shadow(14px 28px 22px rgba(0,0,0,.75))}
+.hero-vl-extrude{position:absolute;display:block;color:#444;
+ text-shadow:1px 1px 0 #777,2px 2px 0 #6d6d6d,3px 3px 0 #666,4px 4px 0 #616161,
+ 5px 5px 0 #585858,6px 6px 0 #515151,7px 7px 0 #494949,8px 8px 0 #424242,
+ 9px 9px 0 #3c3c3c,10px 10px 0 #363636,11px 11px 0 #303030,12px 12px 0 #292929,
+ 13px 13px 0 #222,15px 18px 26px rgba(0,0,0,.86)}
+.hero-vl-face{position:relative;background:linear-gradient(128deg,#eaeaea 6%,#878787 27%,#d7d7d7 47%,#555 66%,#f7f7f7 82%,#8c8c8c 100%);
+ background-size:210% 100%;background-clip:text;-webkit-background-clip:text;color:transparent;
+ -webkit-text-stroke:1px rgba(255,255,255,.26)}
+.hero-vl-shine{position:absolute;inset:0;z-index:-1;border-radius:50%;
+ border:1px solid rgba(255,255,255,.10);transform:rotateX(68deg) rotateZ(-20deg);opacity:.75}
+body.hero-vl-ready .hero-v4 .hero-vl-scene{animation:vlHeroReveal 3s cubic-bezier(.17,.95,.28,1) both}
+body.hero-vl-ready .hero-v4 .hero-vl-face{animation:vlHeroShine 3s ease-out both}
+@keyframes vlHeroReveal{
+ 0%{opacity:0;transform:translate3d(-95px,52px,-80px) rotateY(-32deg) scale(.68);filter:blur(18px)}
+ 29%{opacity:.28;filter:blur(5px)}
+ 66%{opacity:.55;transform:translate3d(8px,-8px,0) rotateY(7deg) scale(1.03);filter:blur(0)}
+ 100%{opacity:.49;transform:none;filter:blur(0)}
+}
+@keyframes vlHeroShine{0%{background-position:120% 50%}100%{background-position:8% 50%}}
+body.intro-leaving .hero-v4>.shell{animation:vlHeroContentReveal .93s cubic-bezier(.16,.95,.2,1) both}
+@keyframes vlHeroContentReveal{from{opacity:.40;transform:translateY(32px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@media(max-width:740px){
+ .intro-vl-stage:before{width:90vw}.intro-vl-stage:after{width:65vw}
+ .intro-vl-logo{font-size:clamp(118px,31vw,205px)}.intro-vl-rule{margin-top:28px}
+ .intro-vl-caption{letter-spacing:.23em}.intro-vl-tagline{letter-spacing:.19em}
+ .hero-v4 .hero-vl-scene{left:-40px;bottom:61px;width:clamp(210px,52vw,350px);height:230px}
+ .hero-vl-mark{font-size:clamp(155px,39vw,248px)}
+ body.hero-vl-ready .hero-v4 .hero-vl-scene{animation-name:vlHeroMobile}
+}
+@keyframes vlHeroMobile{0%{opacity:0;transform:translate(-50px,30px) scale(.7);filter:blur(12px)}
+ 50%{opacity:.28;filter:blur(0)}
+ 100%{opacity:.26;transform:none;filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){
+ #intro-v4.intro-vl-version{display:none!important}
+ .hero-v4 .hero-vl-scene{opacity:.3!important;transform:none!important;filter:none!important;animation:none!important}
+ .hero-vl-face,.hero-vl-shine,.intro-vl-stage *{animation:none!important}
+ body.intro-leaving .hero-v4>.shell{animation:none!important}
+}
