@@ -145,3 +145,39 @@ body.studio-home .afh3-selected{background:#0c0b11!important}
 @media(prefers-reduced-motion:reduce){
  body.studio-home .youtube-unified .afh21-video-card,body.studio-home .youtube-unified .afh21-poster-symbol,body.studio-home .youtube-unified .afh21-play{transition:none!important;transform:none!important}
 }
+
+/* AFH V22 actual YouTube thumbnail art direction.
+   Use each video's real YouTube thumbnail, never a generic fake preview. */
+body.studio-home .youtube-unified .afh21-video-card .afh21-video-poster .afh22-real-thumbnail{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ object-fit:cover!important;object-position:center!important;display:block!important;
+ opacity:0;z-index:2!important;border-radius:0!important;
+ transform:scale(1);transition:opacity .35s,transform .7s cubic-bezier(.22,1,.36,1);
+ image-rendering:auto!important;
+}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"] .afh22-real-thumbnail{opacity:1!important}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"]:hover .afh22-real-thumbnail{transform:scale(1.045)}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"] .afh21-poster-symbol,
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"] .afh21-poster-orbit,
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"] .afh21-video-monogram{opacity:0!important;visibility:hidden}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"] .afh21-video-poster:before{opacity:0!important}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"] .afh21-video-poster:after{
+ background:linear-gradient(0deg,rgba(3,3,8,.87) 0%,rgba(3,3,9,.58) 22%,rgba(3,3,9,.12) 53%,rgba(3,3,9,.25) 100%)!important;
+}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="ready"] .afh21-poster-title{
+ z-index:5!important;color:#fff!important;text-shadow:0 2px 16px #000e,0 1px 4px #000!important
+}
+body.studio-home .youtube-unified .afh21-video-card .afh22-preview-note{
+ position:absolute;z-index:5;top:59px;left:18px;
+ font:750 8px/1.5 Manrope,Arial,sans-serif;letter-spacing:.095em;
+ color:#ffdfc4;background:#0b0b12b8;padding:7px 10px;border:1px solid #f9dac04d;
+ border-radius:5px;display:none
+}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="unavailable"] .afh22-preview-note{display:block}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="unavailable"] .afh22-real-thumbnail{display:none!important}
+body.studio-home .youtube-unified .afh21-video-card[data-thumbnail="unavailable"] .afh21-video-poster{background:radial-gradient(ellipse 80% 70% at 70% 30%,var(--p5),transparent 70%),#11101a!important}
+/* Large click target, true creator name below thumbnail; no duplicated title. */
+body.studio-home .youtube-unified .afh21-video-card .afh21-video-category{z-index:6!important}
+body.studio-home .youtube-unified .afh21-video-card .afh21-play{z-index:6!important}
+body.studio-home .youtube-unified .afh21-video-card .afh21-video-footer h3{display:none!important}
+@media(prefers-reduced-motion:reduce){body.studio-home .youtube-unified .afh21-video-card .afh22-real-thumbnail{transition:none!important}}
