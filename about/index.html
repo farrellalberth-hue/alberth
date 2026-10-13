@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0c0b">
+<meta name="description" content="About Alberth Farrell Hartimin — a personal timeline from childhood through a learning journey begun in March 2025.">
+<meta property="og:title" content="About Me — Alberth Farrell Hartimin">
+<title>About Me — Alberth Farrell Hartimin | AFH</title>
+<link rel="stylesheet" href="/studio-v6.css?v=6"><link rel="stylesheet" href="/studio-v7.css?v=7">
+<link rel="stylesheet" href="/about-v9.css?v=9">
+<noscript><style>[data-appear]{opacity:1!important;transform:none!important;filter:none!important}</style></noscript>
+</head>
+<body class="about-page">
+<div id="route-curtain" aria-hidden="true"></div><div id="progress-line" aria-hidden="true"></div>
+<header class="site-header"><div class="container">
+<a class="identity" href="/" aria-label="AFH portfolio home"><span class="brand-glyph">AF<span class="glyph-h">H</span></span><span class="brand-name">ALBERTH FARRELL<br>HARTIMIN</span></a>
+<nav class="site-nav" id="main-nav" aria-label="Main navigation">
+<a href="/about/" aria-current="page">About Me</a><a href="/journey/">Learning</a><a href="/library/ai/#ai-automation-projects">AI & Automation</a><a href="/#youtube">YouTube Library</a><a class="nav-contact" href="/#contact">LET'S CONNECT ↗</a>
+</nav>
+<button class="menu-button" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+</div></header>
+<main>
+<section class="story-hero"><div class="container">
+<div class="overline" data-appear>01 / THE PERSONAL STORY</div>
+<h1 data-appear>ABOUT <em>me.</em></h1>
+<p data-appear>Before the theories, projects, and systems, there was a story. This is a short timeline of how I grew up and where my curiosity began.</p>
+</div></section>
+<div class="container story-layout" id="timeline">
+<aside class="profile-card" aria-label="Personal profile" data-appear>
+<div class="profile-top"><span>PERSONAL PROFILE</span><span>001 / 017</span></div>
+<div class="profile-mark" aria-label="AFH">AF<span>H</span></div>
+<div class="profile-divider"></div>
+<span class="profile-label">Full name</span>
+<p class="profile-value">Alberth Farrell Hartimin</p>
+<span class="profile-label">Date of birth</span>
+<p class="profile-value"><time datetime="2009-02-06">06 February 2009</time></p>
+<div class="profile-foot"><span class="profile-years">00 — <span id="profile-age">17</span></span><span class="profile-caption">YEARS OF<br>GROWING & LEARNING</span></div>
+</aside>
+<div class="life-content">
+<div class="life-intro"><strong>MY LIFE, IN FOUR CHAPTERS</strong><span>SCROLL TO EXPLORE ↓</span></div>
+<div class="life-chapter" data-appear>
+<span class="chapter-count">01 / 04</span>
+<h2>AGES 00–05</h2>
+<h3>The earliest years · Kids & Playgroup</h3>
+<p>My earliest chapter was about discovering the world through play, people, and new experiences. Every day was a chance to learn something for the first time.</p>
+</div>
+<div class="life-chapter" data-appear>
+<span class="chapter-count">02 / 04</span>
+<h2>AGES 05–07</h2>
+<h3>Prim One · The foundations</h3>
+<p>This was the period of building my first academic foundations and becoming more familiar with structured learning, friendships, and everyday responsibilities.</p>
+</div>
+<div class="life-chapter" data-appear>
+<span class="chapter-count">03 / 04</span>
+<h2>AGES 07–17</h2>
+<h3>Carnegie School · Growing up</h3>
+<p>A long and formative chapter at Carnegie School. School, people, and new challenges became part of how I developed my thinking and my desire to keep exploring beyond the classroom.</p>
+</div>
+<div class="life-chapter" data-appear>
+<span class="chapter-count">04 / 04</span>
+<h2>05 MAR 2025</h2>
+<h3>The beginning of my learning journey</h3>
+<p>At 16, I began a more intentional learning journey: asking deeper questions, exploring economics and finance, and gradually connecting ideas to technology, AI, and real projects.</p>
+<span class="date-tag">● THE JOURNEY CONTINUES</span>
+</div>
+<div class="story-cta" data-appear>
+<small>THE NEXT CHAPTER / WHAT I'VE LEARNED</small>
+<h2>Curiosity became<br>a direction.</h2>
+<p>The timeline explains where I came from. The Learning Journey shows what I've been exploring since 5 March 2025.</p>
+<a href="/journey/" aria-label="Click me to explore my Learning Journey"><span>CLICK ME — EXPLORE MY LEARNING JOURNEY</span><b aria-hidden="true">↗</b></a>
+</div>
+</div>
+</div>
+</main>
+<footer class="container story-footer"><span>© 2026 ALBERTH FARRELL HARTIMIN · AFH</span><a href="/">BACK TO PORTFOLIO ↑</a></footer>
+<script src="/studio-v7.js?v=7" defer></script>
+<script>
+(function(){
+const dob={year:2009,month:2,day:6};
+const now=new Date(),age=now.getFullYear()-dob.year-((now.getMonth()+1<dob.month||(now.getMonth()+1===dob.month&&now.getDate()<dob.day))?1:0);
+const el=document.getElementById('profile-age');if(el)el.textContent=String(Math.max(0,age)).padStart(2,'0');
+const chapters=[...document.querySelectorAll('.life-chapter')];
+if(!('IntersectionObserver' in window)){chapters[0]?.classList.add('is-active');return;}
+const obs=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting){chapters.forEach(x=>x.classList.remove('is-active'));e.target.classList.add('is-active');}}},{threshold:.4,rootMargin:'-12% 0px -34% 0px'});
+chapters.forEach(x=>obs.observe(x));chapters[0]?.classList.add('is-active');
+})();
+</script>
+</body></html>
