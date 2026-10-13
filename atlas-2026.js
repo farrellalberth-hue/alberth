@@ -13,7 +13,7 @@ if(intro){
  if(seen||reduced){intro.remove();}
  else{
   body.classList.add('afc-lock');
-  let ended=false,audio=null,gain=null;
+  let ended=false,audio=null,gain=null,scored=false,soundOn=true;
   const finish=()=>{
    if(ended)return;ended=true;body.classList.remove('afc-lock');
    try{sessionStorage.setItem(key,'seen')}catch(_){}
@@ -24,13 +24,14 @@ if(intro){
    intro.classList.add('is-exiting');setTimeout(()=>intro.remove(),680);
   };
   const unlockSound=()=>{
-   if(ended||audio)return;
+   if(ended)return;
    const AC=window.AudioContext||window.webkitAudioContext;
    if(!AC)return;
    try{
-    audio=new AC();gain=audio.createGain();gain.gain.value=.0001;gain.connect(audio.destination);
+    if(!audio){audio=new AC();gain=audio.createGain();gain.gain.value=.0001;gain.connect(audio.destination);}
     const start=()=>{
-     if(ended||audio.state!=='running')return;
+     if(ended||scored||audio.state!=='running')return;
+     scored=true;
      const t=audio.currentTime+.01;
      gain.gain.setTargetAtTime(.17,t,.07);
      [[174.61,0,.9,.12],[261.63,.08,.65,.11],[349.23,.17,.55,.085],[523.25,.36,.55,.07],[698.46,.56,.58,.075],[1046.5,.9,.7,.06]].forEach(([freq,dur,len,vol],i)=>{
@@ -53,12 +54,12 @@ if(intro){
   $('#afh3-intro-sound')?.addEventListener('click',()=>{
    if(!audio){unlockSound();return;}
    if(!gain)return;
-   const isActive=gain.gain.value>.01;
-   gain.gain.setTargetAtTime(isActive?.0001:.16,audio.currentTime,.06);
+   soundOn=!soundOn;
+   gain.gain.setTargetAtTime(soundOn?.16:.0001,audio.currentTime,.06);
    const button=$('#afh3-intro-sound');
-   if(button)button.textContent=isActive?'SOUND OFF ↗':'SOUND ON ↗';
+   if(button)button.textContent=soundOn?'SOUND ON ↗':'SOUND OFF ↗';
   });
-  const unlock=()=>{if(!ended&&!audio)unlockSound()};
+  const unlock=()=>{if(!ended&&!scored)unlockSound()};
   document.addEventListener('pointerdown',unlock,{once:true,passive:true});
   document.addEventListener('keydown',unlock,{once:true});
   document.addEventListener('touchstart',unlock,{once:true,passive:true});
