@@ -278,8 +278,7 @@ body.intro-leaving .hero-v4>.shell{animation:vlHeroContentReveal .93s cubic-bezi
 #intro-v4.intro-vl-version .intro-fill{animation-duration:5s}
 #intro-v4.intro-vl-version .intro-vl-finale{
   position:absolute;inset:0;z-index:3;margin:0;padding:28px 18px;
-  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
-  gap:.18em;text-align:center;
+  display:grid;place-items:center;text-align:center;
   font:400 clamp(32px,5.9vw,87px)/1.22 var(--serif);
   letter-spacing:-.05em;color:#f8f8f8;
   opacity:0;transform:translateY(35px);filter:blur(14px);
@@ -315,3 +314,5 @@ body.intro-leaving .hero-v4>.shell{animation:vlHeroContentReveal .93s cubic-bezi
   #intro-v4.intro-vl-version .intro-vl-logo,
   #intro-v4.intro-vl-version .intro-vl-lockup{animation:none!important}
 }
+
+#intro-v4.intro-vl-version .intro-finale-text{display:block;max-width:min(90vw,1320px);text-wrap:balance}
