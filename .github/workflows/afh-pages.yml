@@ -19,6 +19,8 @@ on:
       - 'build-thumbnails.py'
       - 'afh-video-atlas-v21.css'
       - 'afh-audio-dock-v21.js'
+      - 'alberth-brand-v24.css'
+      - 'alberth-mark.svg'
       - 'atelier-pages-v19.css'
       - 'yellow-book/atelier-v19.css'
       - 'about/**'
@@ -107,11 +109,17 @@ jobs:
           assert (target / 'afh-cosmos-v20.js').exists()
           assert (target / 'afh-video-atlas-v21.css').exists()
           assert (target / 'afh-audio-dock-v21.js').exists()
+          assert (target / 'alberth-brand-v24.css').exists()
+          assert (target / 'alberth-mark.svg').exists()
           assert './afh-video-atlas-v21.css?v=22' in homepage
           assert './studio-v7.js?v=25' in homepage
           assert 'id="afh21-audio-expand"' in homepage
           assert 'id="youtube-sort"' in homepage
           assert homepage.count('afh21-feature-svg') == 3
+          assert '<title>alberth</title>' in homepage
+          assert 'alberth-wordmark' in homepage
+          assert '/alberth/alberth-mark.svg' in homepage
+          assert '/alberth/alberth-brand-v24.css?v=24' in homepage
           assert 'href="/alberth/library/crypto/"' in homepage
           print("AFH V25 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
