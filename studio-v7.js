@@ -73,7 +73,8 @@ function makeVideo(v,index){
  const poster=document.createElement('div');poster.className='video-thumb afh21-video-poster';
  poster.appendChild(art(v));
  const orbit=document.createElement('span');orbit.className='afh21-poster-orbit';orbit.setAttribute('aria-hidden','true');poster.appendChild(orbit);
- // The thumbnails are per-video (never per-topic). YouTube provides 1080p/720p versions.
+ // The thumbnails are per-video (never per-topic). Prefer locally cached
+ // validated 720p-or-better JPEGs before attempting off-site image requests.
  const img=document.createElement('img');
  img.className='afh22-real-thumbnail';img.alt='';
  img.loading=index<6?'eager':'lazy';img.decoding='async';
@@ -81,6 +82,7 @@ function makeVideo(v,index){
  img.width=1920;img.height=1080;
  const id=encodeURIComponent(v.id);
  const sources=[
+  './video-thumbs/'+id+'.jpg',
   'https://i.ytimg.com/vi_webp/'+id+'/maxresdefault.webp',
   'https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg',
   'https://i.ytimg.com/vi_webp/'+id+'/sddefault.webp',
