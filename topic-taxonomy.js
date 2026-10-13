@@ -56,6 +56,11 @@ const exact=[
 ["crypto",/^(?:BTC|ETH|EVM|Ondo|Origin.trail|TokenFi|Sybil.attack|halving|HMAC|hash.based.message.*|Cryptocurrency.Arbitrage|Fetch.Ai|Fireblocks|BitGo)$/i],
 ["others",/^(?:AI|AGI|BERT|GPT|deep.learning.AI|neural.network.AI|digital.marketing|marketing|sales|business.model.canvas|management.fundamentals|corporate.governance|project.management|legal.regulation|digital.business)$/i]
 ];
+const misfiledFixes=[
+["finance",/^(?:Managed.Account.Ratio|Thin.Capitallization|Thin.Capitalization|Cost.Structure|Risk.Attitude|Risk.Seeking|Account.Receiveable|Marketable.Securities|Trademarks|Research.and.Development.Capitalization|Amortized.Cost|Shutdown.?Dismantling.Cost|Portfolio.Management|Maximize.Return.Subject.To.Target.Risk|M.and.A.Fundamentals|Advance.Risk.Tools|Tail.Risk|Excise.Tax|Indirect.Tax|Sales.Tax|Digital.Services.Tax|Global.Minimum.Tax|Leverage.Ratios|DeR|Modigliani.Miller.Theorem)$/i],
+["economics",/^(?:Fisher.Equation|Ideal.Tax|Sunk.Cost|Switching.Costs|Behavioral.Economics|Price.Setting|Network.Externalities)$/i],
+["crypto",/^(?:Mekanisme.Funding.Rate)$/i]
+];
 const additionalOverrides=[
 ["economics",/^(?:theory.of.neoclassical|theory.of.siklus.bisnis|law.of.gesham|keunggulan.komparatif|keunggulan.mutlak|theory.of.elastisitas.subtitusi.antarwaktu|concept.of.endogenous.time.preference|Backfire.effect|Parreto.efficiency)$/i],
 ["finance",/^(?:concept.of.efficient.frontier|ESG|ESG.Policy|Green.Bond|Corporate.Taxation|Data.Analysis|Time.Series.Model)$/i],
@@ -80,6 +85,7 @@ function detect(title,fallback){
  // Drop category defaults; the term REVIEW is a session attribute rather than a discipline.
  if(t==="Detail"||t==="alamat")return fallback;
  for(const [group,re] of exact)if(re.test(t))return group;
+ for(const [group,re] of misfiledFixes)if(re.test(t))return group;
  for(const [group,re] of additionalOverrides)if(re.test(t))return group;
  for(const [group,re] of refinements)if(re.test(t))return group;
  for(const [group,re] of fixes)if(re.test(t))return group;
@@ -90,7 +96,7 @@ function detect(title,fallback){
 let changed=0;
 const before=Object.fromEntries(["economics","finance","crypto","others"].map(f=>[f,db.topics.filter(t=>t.f===f).length]));
 for(const t of db.topics){const f=detect(t.t,t.f);if(f!==t.f){t.f=f;changed++}}
-db.reclassifiedCount=changed;db.classifierVersion="v2.4";
+db.reclassifiedCount=changed;db.classifierVersion="v2.5";
 db.fields=db.fields.map(f=>f.id==="finance"?({...f,desc:"Investing, banking, mathematics, statistics, econometrics and accounting."}):f.id==="others"?({...f,desc:"AI, business management, marketing and other disciplines."}):f);
 db.categoryCounts=Object.fromEntries(["economics","finance","crypto","others"].map(f=>[f,db.topics.filter(t=>t.f===f).length]));
 db.previousCategoryCounts=before;
