@@ -16,10 +16,30 @@ const grid=$('#youtube-grid');
 if(grid){
 let videos=[],sector='All',query='',year='All',visible=0,filtered=[];const buttons=$$('.filter-button[data-sector]'),search=$('#youtube-search'),counter=$('#youtube-count'),empty=$('#youtube-empty'),sel=$('#youtube-year'),more=$('#youtube-more'),total=$('#youtube-total');
 const clean=v=>String(v||'');
-function makeVideo(v){const link=document.createElement('a');link.className='video-card interactive-card';link.target='_blank';link.rel='noopener noreferrer';link.href='https://www.youtube.com/watch?v='+v.id;const thumb=document.createElement('div');thumb.className='video-thumb';const img=document.createElement('img');img.loading='lazy';img.alt='Video thumbnail: '+v.title;img.src='https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg';thumb.appendChild(img);const body=document.createElement('div');body.className='video-body';const meta=document.createElement('div');meta.className='meta';meta.textContent=v.sector+' / '+v.date;const title=document.createElement('h3');title.textContent=v.title;const desc=document.createElement('p');desc.textContent=(v.channel||'Channel unknown')+' — '+v.topic;body.append(meta,title,desc);link.append(thumb,body);return link}
+function makeVideo(v){
+ const link=document.createElement('a');link.className='video-card interactive-card';
+ link.target='_blank';link.rel='noopener noreferrer';link.href='https://www.youtube.com/watch?v='+v.id;
+ link.setAttribute('aria-label','Watch '+v.title+' on YouTube');
+ const thumb=document.createElement('div');thumb.className='video-thumb';
+ const fallback=document.createElement('span');fallback.className='afh20-thumb-fallback';fallback.textContent='▶';
+ fallback.setAttribute('aria-hidden','true');thumb.appendChild(fallback);
+ const img=document.createElement('img');img.loading='lazy';img.decoding='async';img.alt='';img.width=640;img.height=360;
+ // Some archival videos no longer expose thumbnails. Never hide their real titles.
+ const sources=['https://i.ytimg.com/vi/'+v.id+'/hq720.jpg','https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg','https://img.youtube.com/vi/'+v.id+'/0.jpg'];
+ let source=0;img.src=sources[0];img.addEventListener('error',()=>{source++;if(source<sources.length)img.src=sources[source];else link.classList.add('afh20-thumbnail-unavailable')});
+ img.addEventListener('load',()=>{if(img.naturalWidth<200&&source+1<sources.length){source++;img.src=sources[source]}});
+ thumb.appendChild(img);
+ const chip=document.createElement('span');chip.className='afh20-thumb-chip';chip.textContent=v.sector+' / '+v.date.slice(0,4);thumb.appendChild(chip);
+ const caption=document.createElement('span');caption.className='afh20-thumb-title';caption.textContent=v.title;thumb.appendChild(caption);
+ const body=document.createElement('div');body.className='video-body';
+ const meta=document.createElement('div');meta.className='meta';meta.textContent=v.sector+' / '+v.date;
+ const title=document.createElement('h3');title.textContent=v.title;
+ const desc=document.createElement('p');desc.textContent=(v.channel||'Channel unknown')+' — '+v.topic;
+ body.append(meta,title,desc);link.append(thumb,body);return link
+}
 function append(){const part=filtered.slice(visible,visible+24),fragment=document.createDocumentFragment();part.forEach(v=>fragment.appendChild(makeVideo(v)));grid.append(fragment);visible+=part.length;more.hidden=visible>=filtered.length}
 function render(){filtered=videos.filter(v=>(sector==='All'||v.sector===sector)&&(year==='All'||v.date.startsWith(year))&&(!query||[v.title,v.channel,v.sector,v.topic].join(' ').toLowerCase().includes(query)));counter.textContent=filtered.length+' archived videos';grid.replaceChildren();visible=0;empty.hidden=filtered.length>0;more.hidden=filtered.length===0;if(filtered.length)append()}
 buttons.forEach(b=>b.addEventListener('click',()=>{sector=b.dataset.sector;buttons.forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});render()}));search?.addEventListener('input',()=>{query=search.value.trim().toLowerCase();render()});sel?.addEventListener('change',()=>{year=sel.value;render()});more?.addEventListener('click',append);
-fetch('/youtube-library.json?v=8',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Unavailable');return r.json()}).then(x=>{videos=(x.videos||[]).filter(v=>/^[A-Za-z0-9_-]{11}$/.test(v.id)&&/^\d{4}-\d{2}-\d{2}$/.test(v.date)&&v.date>='2025-01-01'&&!/google\s*adwor|ditonton pukul|produk:\s*&emsp;youtube|detail:\s*&emsp;/i.test(v.title||'')).sort((a,b)=>b.date.localeCompare(a.date));if(total)total.textContent=videos.length.toLocaleString('en-US');render()}).catch(()=>{counter.textContent='Archive unavailable';empty.hidden=false;empty.textContent='Unable to load the video dataset.';more.hidden=true});
+fetch('./youtube-library.json?v=20',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Unavailable');return r.json()}).then(x=>{videos=(x.videos||[]).filter(v=>/^[A-Za-z0-9_-]{11}$/.test(v.id)&&/^\d{4}-\d{2}-\d{2}$/.test(v.date)&&v.date>='2025-01-01'&&!/google\s*adwor|ditonton pukul|produk:\s*&emsp;youtube|detail:\s*&emsp;/i.test(v.title||'')).sort((a,b)=>b.date.localeCompare(a.date));if(total)total.textContent=videos.length.toLocaleString('en-US');render()}).catch(()=>{counter.textContent='Archive unavailable';empty.hidden=false;empty.textContent='Unable to load the video dataset.';more.hidden=true});
 }
 })();
