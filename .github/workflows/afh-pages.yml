@@ -13,6 +13,9 @@ on:
       - 'afh-v17-lounge.js'
       - 'atelier-noir-v19.css'
       - 'atelier-noir-v19.js'
+      - 'afh-cosmos-v20.css'
+      - 'afh-cosmos-v20.js'
+      - 'studio-v7.js'
       - 'atelier-pages-v19.css'
       - 'yellow-book/atelier-v19.css'
       - 'about/**'
@@ -76,7 +79,7 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V19 Atelier Noir", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V20 Black Galaxy", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "yellow-book" / "index.html").exists()
@@ -88,9 +91,17 @@ jobs:
           homepage = (target / "index.html").read_text(encoding="utf-8")
           assert '"/alberth/knowledge-library-v18.css' in homepage
           assert '/alberth/yellow-book/' in homepage
-          assert 'class="hero afh19-hero"' in homepage
+          assert 'class="hero afh19-hero afh20-hero"' in homepage
           assert '"/alberth/atelier-noir-v19.css' in homepage
-          print("AFH V19 static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          assert './afh-cosmos-v20.css?v=20' in homepage
+          assert './afh-cosmos-v20.js?v=20' in homepage
+          assert './studio-v7.js?v=20' in homepage
+          assert 'id="afh20-atmosphere"' in homepage
+          assert '<span class="afh20-word">THINK.</span>' in homepage
+          assert 'class="afh19-folio"' not in homepage
+          assert (target / 'afh-cosmos-v20.css').exists()
+          assert (target / 'afh-cosmos-v20.js').exists()
+          print("AFH V20 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
 
       - name: Configure GitHub Pages
