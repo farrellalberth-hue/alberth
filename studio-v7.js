@@ -86,7 +86,9 @@ function makeVideo(v,index){
   'https://i.ytimg.com/vi_webp/'+id+'/sddefault.webp',
   'https://i.ytimg.com/vi/'+id+'/sddefault.jpg',
   'https://i.ytimg.com/vi_webp/'+id+'/hqdefault.webp',
-  'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg'
+  'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg',
+  'https://wsrv.nl/?url=i.ytimg.com/vi_webp/'+id+'/maxresdefault.webp&w=1280&output=webp',
+  'https://images.weserv.nl/?url=i.ytimg.com/vi/'+id+'/maxresdefault.jpg&w=1280&output=webp'
  ];
  let source=0;
  const setFallback=()=>{
