@@ -53,7 +53,7 @@ function renderList(){
  }
  $("topic-list").style.display="";
  $("topic-list").innerHTML=items.slice(0,displayLimit).map(t=>
- '<article class="topic-card"><h3>'+esc(t.t)+'</h3><div class="topic-meta"><span>'+esc(textDate(t.d))+'</span><span>NOTE '+esc(t.s)+'</span></div></article>'
+ '<article class="topic-card"><h3>'+esc(t.t)+'</h3><div class="topic-meta"><span>'+esc(textDate(t.d))+'</span><span>'+esc(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+esc(t.s)+'</span></div></article>'
  ).join("");
  const more=items.length>displayLimit;$("load-more").hidden=!more;
  $("load-more").textContent=more?"LOAD MORE TOPICS ("+(items.length-displayLimit)+" REMAINING) ↓":"";
