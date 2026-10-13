@@ -16,6 +16,7 @@ on:
       - 'afh-cosmos-v20.css'
       - 'afh-cosmos-v20.js'
       - 'studio-v7.js'
+      - 'build-thumbnails.py'
       - 'afh-video-atlas-v21.css'
       - 'afh-audio-dock-v21.js'
       - 'atelier-pages-v19.css'
@@ -81,7 +82,7 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V23 Black Galaxy & Video-Thumbnails", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V24 Black Galaxy & Same-Origin Video Thumbnails", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "yellow-book" / "index.html").exists()
@@ -97,7 +98,7 @@ jobs:
           assert '"/alberth/atelier-noir-v19.css' in homepage
           assert './afh-cosmos-v20.css?v=20' in homepage
           assert './afh-cosmos-v20.js?v=20' in homepage
-          assert './studio-v7.js?v=23' in homepage
+          assert './studio-v7.js?v=24' in homepage
           assert 'id="afh20-atmosphere"' in homepage
           assert '<span class="afh20-word">THINK.</span>' in homepage
           assert 'class="afh19-folio"' not in homepage
@@ -106,12 +107,23 @@ jobs:
           assert (target / 'afh-video-atlas-v21.css').exists()
           assert (target / 'afh-audio-dock-v21.js').exists()
           assert './afh-video-atlas-v21.css?v=22' in homepage
-          assert './studio-v7.js?v=23' in homepage
+          assert './studio-v7.js?v=24' in homepage
           assert 'id="afh21-audio-expand"' in homepage
           assert 'id="youtube-sort"' in homepage
           assert homepage.count('afh21-feature-svg') == 3
           assert 'href="/alberth/library/crypto/"' in homepage
-          print("AFH V23 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          print("AFH V24 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          PY
+
+      - name: Cache original YouTube thumbnails from source video IDs
+        run: |
+          python3 build-thumbnails.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          m = json.loads(Path('_site/video-thumbnails-manifest.json').read_text(encoding='utf-8'))
+          assert m['attempted'] >= 24, m
+          print('Video thumbnails cached:', m['cached'], '/', m['attempted'])
           PY
 
       - name: Configure GitHub Pages
