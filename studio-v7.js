@@ -83,6 +83,7 @@ function makeVideo(v,index){
  const id=encodeURIComponent(v.id);
  const sources=[
   './video-thumbs/'+id+'.jpg',
+  'https://farrellalberth-hue.github.io/alberth/video-thumbs/'+id+'.jpg',
   'https://i.ytimg.com/vi_webp/'+id+'/maxresdefault.webp',
   'https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg',
   'https://i.ytimg.com/vi_webp/'+id+'/sddefault.webp',
