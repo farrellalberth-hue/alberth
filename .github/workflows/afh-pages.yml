@@ -97,7 +97,7 @@ jobs:
           assert '"/alberth/atelier-noir-v19.css' in homepage
           assert './afh-cosmos-v20.css?v=20' in homepage
           assert './afh-cosmos-v20.js?v=20' in homepage
-          assert './studio-v7.js?v=20' in homepage
+          assert './studio-v7.js?v=22' in homepage
           assert 'id="afh20-atmosphere"' in homepage
           assert '<span class="afh20-word">THINK.</span>' in homepage
           assert 'class="afh19-folio"' not in homepage
