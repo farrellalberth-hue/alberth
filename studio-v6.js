@@ -12,6 +12,9 @@ const reveal=$$('[data-appear]');if(reduce||!('IntersectionObserver'in window))r
 let pending=false;function scroll(){pending=false;const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);document.documentElement.style.setProperty('--progress',(window.scrollY/max*100).toFixed(2)+'%');const orb=$('.hero-floating'),hero=$('.hero');if(orb&&hero)orb.style.setProperty('--parallax',Math.min(400,Math.max(0,-hero.getBoundingClientRect().top))+'px')}
 addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(scroll)}},{passive:true});addEventListener('resize',scroll);scroll();
 if(!reduce&&matchMedia('(pointer:fine)').matches)addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')},{passive:true});
+
+const sceneLinks=$('.scene-rail a[data-scene]');if(sceneLinks.length&&'IntersectionObserver'in window){const sceneObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(!e.isIntersecting)return;const id=e.target.id;sceneLinks.forEach(a=>{if(a.dataset.scene===id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});$('.site-nav a[href^="#"]').forEach(a=>{if(a.getAttribute('href')==='#'+id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')})}),{rootMargin:'-36% 0px -53% 0px',threshold:0});$('main section[id]').forEach(s=>sceneObs.observe(s))}
+
 const grid=$('#youtube-grid');if(grid){let videos=[],sector='All',query='',year='All';
 const btns=$$('.filter-button'),field=$('#youtube-search'),counter=$('#youtube-count'),empty=$('#youtube-empty'),sel=$('#youtube-year');
 const safe=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
