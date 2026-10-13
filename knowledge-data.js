@@ -1,5 +1,5 @@
-/* ALBERTH FARRELL HARTIMIN — curated public study atlas.
- * Sources: Punya Alberth Notion Sep/Oct 2026, Obsidian monthly summaries,
+/* KENTZO HONGGO LIMKAJAYA — curated public study atlas.
+ * Sources: Reference archive Notion Sep/Oct 2026, Obsidian monthly summaries,
  * this project's October 2026 ChatGPT exchanges. Not a complete ChatGPT export;
  * topic presence != mastery. No private raw notes or user data embedded. */
 (function(global){
@@ -363,5 +363,5 @@ groups.forEach(([field,section,rows],i)=>{
  });
  sections.push({id:sid,field,name:section,topicIds:items});
 });
-global.ALBERTH_ATLAS={fields,sections,topics,asOf:"2026-10-13",sourceNote:"A curated, non-exhaustive public index of topics discussed or documented in Punya Alberth / Obsidian / verified project conversations. Not evidence of completion, mastery, or certification.",contact:"https://www.instagram.com/alberth_farrell/"};
+global.KENTZO_ATLAS={fields,sections,topics,asOf:"2026-10-13",sourceNote:"Sample catalogue carried over from the reference portfolio template; not verified as Kentzo's personal study history.",contact:"/#contact"};
 })(window);
