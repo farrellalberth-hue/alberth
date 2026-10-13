@@ -11,6 +11,16 @@ on:
       - 'knowledge-library-v18.js'
       - 'afh-v17-noir.css'
       - 'afh-v17-lounge.js'
+      - 'atelier-noir-v19.css'
+      - 'atelier-noir-v19.js'
+      - 'atelier-pages-v19.css'
+      - 'yellow-book/atelier-v19.css'
+      - 'about/**'
+      - 'journey/**'
+      - 'library/**'
+      - 'deploy-static.py'
+  schedule:
+    - cron: '15 */12 * * *'
   workflow_dispatch:
 
 permissions:
@@ -66,16 +76,21 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V18", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V19 Atelier Noir", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "yellow-book" / "index.html").exists()
           assert (target / "knowledge-library-v18.css").exists()
           assert (target / "knowledge-library-v18.js").exists()
+          assert (target / "atelier-noir-v19.css").exists()
+          assert (target / "atelier-noir-v19.js").exists()
+          assert (target / "yellow-book" / "atelier-v19.css").exists()
           homepage = (target / "index.html").read_text(encoding="utf-8")
           assert '"/alberth/knowledge-library-v18.css' in homepage
           assert '/alberth/yellow-book/' in homepage
-          print("AFH V18 static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          assert 'class="hero afh19-hero"' in homepage
+          assert '"/alberth/atelier-noir-v19.css' in homepage
+          print("AFH V19 static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
 
       - name: Configure GitHub Pages
