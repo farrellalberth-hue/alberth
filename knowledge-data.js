@@ -1,0 +1,367 @@
+/* ALBERTH FARRELL HARTIMIN — curated public study atlas.
+ * Sources: Punya Alberth Notion Sep/Oct 2026, Obsidian monthly summaries,
+ * this project's October 2026 ChatGPT exchanges. Not a complete ChatGPT export;
+ * topic presence != mastery. No private raw notes or user data embedded. */
+(function(global){
+const fields=[
+ {id:"economics",number:"01",name:"Economics",subtitle:"The logic of incentives, markets & strategic choice",icon:"◈",quote:"Understand the mechanism, not just the model.",description:"Ekonomi mikro, makro, strategi perusahaan, teori permainan, serta kebijakan moneter dan kesejahteraan."},
+ {id:"finance",number:"02",name:"Finance & Asset Pricing",subtitle:"Risk, return & allocation of capital",icon:"↗",quote:"Price is a number. Value is a question.",description:"Teori portofolio, valuasi, asset pricing, risk management, accounting dan analisis investasi."},
+ {id:"ai",number:"03",name:"AI & Systems",subtitle:"Building systems from structured thinking",icon:"✳",quote:"The best tools amplify a clear mind.",description:"Orkestrasi AI, knowledge architecture, API, automation, evaluasi dan sistem agen."},
+ {id:"crypto",number:"04",name:"Crypto & Markets",subtitle:"On-chain infrastructure & market intelligence",icon:"◇",quote:"Study structure before speculation.",description:"Blockchain, DeFi, tokenization, technical research, market flows dan risk."},
+ {id:"math",number:"05",name:"Mathematics & Methods",subtitle:"The quantitative language of reasoning",icon:"∑",quote:"A model is useful when its assumptions are visible.",description:"Matematika ekonomi, probabilitas, logika, optimisasi dan interpretasi model."},
+ {id:"business",number:"06",name:"Business & Accounting",subtitle:"How decisions translate into operations",icon:"▦",quote:"Better decisions start with reliable records.",description:"Accounting, rekonsiliasi, analisis biaya, unit economics, dan operasi bisnis."}
+];
+const groups=[
+["economics","Foundations of Microeconomics",[
+"Scarcity & Opportunity Cost|Bagaimana keterbatasan sumber daya memaksa pilihan dan pengorbanan.",
+"Demand, Supply & Equilibrium|Keseimbangan harga dan kuantitas saat permintaan bertemu penawaran.",
+"Consumer & Producer Surplus|Manfaat ekonomi yang diperoleh pembeli dan penjual dalam pertukaran.",
+"Price Elasticity of Demand|Mengukur sensitivitas kuantitas yang diminta terhadap perubahan harga.",
+"Income & Cross-Price Elasticity|Membedakan barang normal, inferior, substitusi dan komplemen.",
+"Point, Arc & Midpoint Elasticity|Perbedaan pengukuran elastisitas pada satu titik atau rentang perubahan.",
+"Tax Incidence & Tax Wedge|Siapa secara ekonomis menanggung pajak dan bagaimana wedge menekan transaksi.",
+"Deadweight Loss|Surplus yang hilang ketika distorsi mengurangi transaksi efisien.",
+"Price Ceiling & Price Floor|Konsekuensi batas harga pemerintah terhadap shortage atau surplus.",
+"Comparative Statics|Membandingkan perubahan titik keseimbangan akibat shock tertentu."
+]],
+["economics","Consumer Theory & Demand",[
+"Preferences & Utility|Dasar representasi pilihan dan kepuasan konsumsi.",
+"Total Utility & Marginal Utility|Membedakan manfaat total dari manfaat tambahan satu unit barang.",
+"Law of Diminishing Marginal Utility|Tambahan utility dapat menurun seiring konsumsi bertambah.",
+"Indifference Curves|Kombinasi konsumsi yang memberi utility sama.",
+"Marginal Rate of Substitution (MRS)|Rasio marginal utility antar barang; syarat optimum interior dibandingkan dengan rasio harga.",
+"Budget Line & Budget Constraint|Himpunan kombinasi barang yang dapat dibeli pada harga dan pendapatan tertentu.",
+"Utility Maximization|Memilih bundle yang memberikan utility tertinggi di bawah constraint anggaran.",
+"Interior vs Corner Solution|Perbedaan optimum ketika kedua barang dikonsumsi dan ketika hanya salah satunya.",
+"Marshallian Demand|Permintaan optimal sebagai fungsi harga dan pendapatan.",
+"Hicksian Demand|Permintaan minimum-biaya pada tingkat utility tertentu.",
+"Slutsky Equation|Memisahkan perubahan permintaan menjadi substitution effect dan income effect.",
+"Income & Substitution Effects|Membedakan efek harga relatif dari efek daya beli riil.",
+"Revealed Preference (WARP, SARP, GARP)|Menguji konsistensi pilihan aktual terhadap preferensi rasional.",
+"Expenditure Minimization|Biaya terendah untuk mencapai utility target.",
+"Consumer Theory Duality|Hubungan antara utility maximization dan expenditure minimization.",
+"Roy’s Identity|Menurunkan Marshallian demand dari indirect utility function.",
+"Shephard’s Lemma|Menurunkan Hicksian demand dari expenditure function.",
+"Indirect Utility & Expenditure Functions|Representasi kesejahteraan optimal dan pengeluaran minimum.",
+"Compensating & Equivalent Variation|Ukuran kesejahteraan akibat perubahan harga menggunakan kompensasi utility.",
+"Engel Curve & Income Consumption Curve|Relasi antara pendapatan dan jumlah konsumsi optimal.",
+"Price Consumption Curve|Bagaimana konsumsi optimal bergerak saat satu harga berubah."
+]],
+["economics","Producer Theory & Costs",[
+"Production Functions|Relasi input modal dan tenaga kerja dengan output.",
+"Cobb–Douglas Production Function|Representasi umum produksi dengan elastisitas input.",
+"Total, Average & Marginal Product|Output keseluruhan, per unit input dan tambahan output.",
+"Diminishing Marginal Product|Tambahan output input variabel semakin berkurang pada kondisi tertentu.",
+"Returns to Scale|Perubahan output saat seluruh input meningkat secara proporsional.",
+"Isoquant & Isocost|Kurva output sama dan kombinasi input dengan biaya sama.",
+"Marginal Rate of Technical Substitution (MRTS)|Substitusi tenaga kerja dan modal dengan output dipertahankan.",
+"Cost Minimization|Memilih input yang mencapai target output dengan biaya paling rendah.",
+"Short-Run vs Long-Run Costs|Perbedaan keputusan ketika sebagian input tetap atau semua input fleksibel.",
+"Fixed, Variable, Average & Marginal Cost|Struktur biaya perusahaan dan implikasinya untuk keputusan output.",
+"Profit Maximization (MR = MC)|Syarat marginal untuk output laba maksimum dengan second-order condition.",
+"Shutdown & Break-Even Conditions|Membedakan kapan berhenti beroperasi dan kapan laba ekonomi nol.",
+"Supply Curve of Competitive Firm|Hubungan harga dengan kuantitas output profit-maximizing.",
+"Economies & Diseconomies of Scale|Penurunan atau kenaikan biaya rata-rata ketika skala berubah.",
+"Pure Economic Rent|Pendapatan di atas outside opportunity cost faktor produksi."
+]],
+["economics","Market Structure & Competition",[
+"Perfect Competition|Banyak price taker, homogenitas produk dan free entry pada model dasar.",
+"Monopoly|Satu pemasok menghadapi permintaan pasar dan memilih output terhadap MR dan MC.",
+"Price Discrimination (1st–3rd Degree)|Menjual dengan harga berbeda berdasarkan willingness to pay atau segmen.",
+"Monopolistic Competition|Persaingan produk terdiferensiasi dengan entry/exit jangka panjang.",
+"Excess Capacity & Product Variety|Trade-off antara variasi produk dan skala produksi di monopolistic competition.",
+"Oligopoly Fundamentals|Interdependensi strategi beberapa perusahaan dominan.",
+"Cournot Duopoly|Perusahaan memilih kuantitas secara simultan.",
+"Cournot with Different Marginal Costs|Reaction function ketika biaya marginal tiap perusahaan berbeda.",
+"Bertrand Price Competition|Persaingan memilih harga dan implikasi Bertrand paradox.",
+"Stackelberg Leader–Follower Model|Leader memilih output sambil mengantisipasi respons follower.",
+"Backward Induction in Stackelberg|Menurunkan respons follower sebelum optimisasi leader.",
+"Cartels & Collusion|Koordinasi output atau harga dan insentif anggota untuk menyimpang.",
+"Tacit Collusion & Price Leadership|Koordinasi tidak eksplisit dan praktik mengikuti pemimpin harga.",
+"Kinked Demand Curve|Model stabilitas harga dalam persaingan oligopoli.",
+"Dominant Firm Price Leadership|Pemimpin menetapkan harga setelah mempertimbangkan residual demand.",
+"Monopsony|Satu pembeli dominan dan keputusan input tenaga kerja.",
+"Contestable Markets|Tekanan masuk pasar walaupun hanya sedikit perusahaan aktif."
+]],
+["economics","Industrial Organization & Platforms",[
+"Market Concentration Ratio (CRn)|Proporsi pangsa pasar yang dikendalikan sejumlah firma terbesar.",
+"Herfindahl–Hirschman Index (HHI)|Jumlah kuadrat pangsa pasar untuk konsentrasi pasar.",
+"Antitrust Economics|Evaluasi merger, perilaku dominan, entry barriers dan dampak konsumen.",
+"Strategic Entry Deterrence|Strategi incumbent untuk membuat entry kurang menguntungkan.",
+"Limit Pricing|Harga rendah yang berupaya melemahkan insentif masuk pesaing.",
+"Predatory Pricing|Pricing agresif untuk menyingkirkan rival dan potensi recoupment.",
+"Capacity Commitment|Investasi kapasitas sebagai sinyal atau komitmen strategis.",
+"Vertical Integration|Perusahaan menguasai lebih dari satu tahap supply chain.",
+"Horizontal Integration|Merger antarperusahaan pada tahap produksi yang sama.",
+"Network Effects|Nilai produk berubah dengan jumlah atau jenis pengguna jaringan.",
+"Metcalfe’s Law|Heuristik hubungan jumlah koneksi dengan potensi nilai jaringan.",
+"Switching Costs|Biaya moneter atau nonmoneter ketika pengguna berpindah pemasok.",
+"Customer Lock-in|Retensi pelanggan karena biaya pindah dan ekosistem produk.",
+"Two-Sided Markets|Platform yang menghubungkan dua sisi pengguna dengan externality silang.",
+"Platform Economics|Monetisasi, subsidi satu sisi, take rate dan koordinasi partisipasi.",
+"Winner-Takes-All Markets|Mekanisme yang mendorong pasar terkonsentrasi pada sedikit platform.",
+"Gross Merchandise Value (GMV) vs Sales|Membedakan nilai transaksi bruto melalui platform dari pendapatan yang diakui."
+]],
+["economics","Game Theory & Strategic Behavior",[
+"Non-Cooperative & Cooperative Games|Perbedaan permainan tanpa kontrak bersama dan kerja sama mengikat.",
+"Zero-Sum vs Non-Zero-Sum Games|Membedakan kompetisi total-payoff konstan dan potensi surplus bersama.",
+"Normal-Form & Extensive-Form Games|Representasi tabel payoff dan pohon keputusan.",
+"Best Response Functions|Strategi optimal individu terhadap pilihan pihak lain.",
+"Dominant & Dominated Strategies|Strategi yang unggul atau kalah pada seluruh respons rival.",
+"Nash Equilibrium|Tidak ada pemain ingin berganti strategi secara sepihak saat strategi lain tetap.",
+"Pure vs Mixed Strategies|Keputusan deterministik dibandingkan randomisasi probabilistik.",
+"Mixed Strategy & Indifference Condition|Probabilitas keseimbangan membuat lawan tidak peduli antar strategi yang digunakan.",
+"Battle of the Sexes|Coordination game dengan preferensi outcome berbeda.",
+"Prisoner’s Dilemma|Pilihan rasional individual bisa buruk secara kolektif.",
+"Simultaneous & Sequential Games|Pilihan serentak dibandingkan urutan keputusan yang dapat diamati.",
+"Backward Induction|Menganalisis sequential game dari keputusan terakhir ke awal.",
+"Credible Threat & Commitment|Membedakan ancaman yang konsisten dengan insentif dari janji tanpa kredibilitas.",
+"Repeated Games|Interaksi berulang memungkinkan reputasi dan disiplin strategi.",
+"Grim Trigger Strategy|Kerja sama berulang sampai ada deviasi, lalu hukuman selamanya.",
+"Discount Factor & Folk Theorem|Bagaimana valuasi masa depan memungkinkan banyak payoff keseimbangan.",
+"Bayesian Games & Incomplete Information|Pemain mempunyai keyakinan probabilistik atas tipe pihak lain.",
+"Bayesian Nash Equilibrium|Best response bersyarat pada tipe sendiri dan beliefs tentang tipe lawan.",
+"Perfect Bayesian Equilibrium|Sequential rationality dan beliefs yang konsisten dalam dynamic games.",
+"Signaling & Screening Games|Pihak berinformasi menyampaikan sinyal atau pihak lain merancang seleksi.",
+"Hidden Markov Models vs Mixed Strategy|Perbedaan probabilitas state tersembunyi dan probabilitas aksi dalam game."
+]],
+["economics","Welfare, Information & Market Failure",[
+"Pareto Efficiency & Improvement|Kriteria efisiensi alokasi tanpa membuat pihak lain lebih buruk.",
+"First & Second Welfare Theorems|Relasi competitive equilibrium dengan efisiensi di bawah asumsi tertentu.",
+"Edgeworth Box & Contract Curve|Pertukaran dan kumpulan alokasi Pareto efficient.",
+"Walrasian General Equilibrium|Keseimbangan bersama beberapa pasar.",
+"Walras’ Law & Numéraire|Identitas nilai excess demand dan pemilihan satuan harga.",
+"Social Welfare Functions|Menilai alokasi menggunakan utilitarian, Rawlsian dan bobot lain.",
+"Kaldor–Hicks Efficiency|Pengujian efisiensi melalui potensi kompensasi.",
+"Externalities: MPC, MEC, MSC|Memasukkan biaya dan manfaat sosial yang tidak tercermin di harga pasar.",
+"Pigouvian Tax & Subsidy|Pajak atau subsidi korektif untuk externality.",
+"Coase Theorem|Penyelesaian externality melalui negosiasi ketika syaratnya terpenuhi.",
+"Public Goods & Free Riders|Masalah penyediaan barang non-rival dan non-excludable.",
+"Common Resources & Tragedy of Commons|Overuse barang rival yang sulit dikecualikan pengguna.",
+"Adverse Selection|Penyortiran tipe tersembunyi sebelum kontrak terbentuk.",
+"Moral Hazard|Perubahan insentif tindakan setelah kontrak atau perlindungan risiko.",
+"Pooling vs Separating Equilibria|Tipe berbeda memilih sinyal sama atau berbeda.",
+"Signaling Costs|Biaya sinyal membedakan tipe dan menentukan apakah pemisahan kredibel.",
+"Screening & Self-Selection|Menu kontrak membantu pihak tidak berinformasi mengidentifikasi tipe.",
+"Incentive Compatibility & Participation Constraints|Aturan kontrak menjaga pelaporan jujur dan partisipasi sukarela.",
+"Information Rent & Revelation Principle|Surplus tipe berinformasi dan representasi direct mechanism.",
+"Principal–Agent Problems|Insentif delegasi, monitoring dan kontrak ketika tujuan berbeda.",
+"Incomplete Contracts & Corporate Governance|Kontrak tak sepenuhnya merinci semua keadaan masa depan."
+]],
+["economics","Macroeconomic Models & Growth",[
+"GDP, Inflation & Unemployment|Indikator produksi agregat, tingkat harga dan pasar kerja.",
+"IS–LM Model|Keseimbangan pasar barang dan uang serta peran kebijakan.",
+"Aggregate Demand–Aggregate Supply (AD–AS)|Output dan tingkat harga dalam jangka pendek dan panjang.",
+"Keynesian Cross & Fiscal Multiplier|Pengganda permintaan agregat akibat perubahan belanja.",
+"Phillips Curve|Trade-off jangka pendek inflasi dan slack ekonomi dengan ekspektasi.",
+"Solow Growth Model|Akumulasi modal, pertumbuhan populasi, teknologi dan steady state.",
+"RBC Model|Fluktuasi ekonomi melalui real shocks dan keputusan antar waktu.",
+"New Keynesian Economics|Sticky prices, monetary policy dan output gap.",
+"Taylor Rule|Aturan kebijakan suku bunga berdasar deviasi inflasi dan output.",
+"Balassa–Samuelson Effect|Perbedaan produktivitas sektoral dan nilai tukar riil.",
+"Modern Monetary Theory (MMT)|Kerangka tentang batas fiskal, uang berdaulat dan inflasi.",
+"Exchange Rate & Capital Flows|Transmisi diferensial suku bunga dan perpindahan modal.",
+"Yield Curve & Term Structure|Hubungan yield obligasi dengan tenor dan ekspektasi pasar."
+]],
+["economics","Monetary Economics & Banking",[
+"Money Supply, Demand & Quantity Theory|Hubungan likuiditas, aktivitas ekonomi dan tingkat harga.",
+"Central Bank Inflation Targeting|Strategi mengelola ekspektasi inflasi menggunakan instrumen kebijakan.",
+"Open Market Operations (OMO)|Pembelian/penjualan aset untuk mengatur cadangan dan suku bunga.",
+"Reserve Requirements & Money Multiplier|Cadangan minimum bank, excess reserve dan penciptaan uang.",
+"Interest Rate Transmission Channel|Bagaimana policy rate memengaruhi spending, output dan inflasi.",
+"Bank Lending & Credit Channels|Pengaruh kebijakan pada loan supply, financing premium dan kredit.",
+"Exchange Rate Transmission Channel|Bagaimana policy rate memengaruhi kurs, perdagangan dan inflasi impor.",
+"Asset Price & Expectations Channels|Kebijakan melalui valuasi aset serta ekspektasi publik.",
+"Quantitative Easing (QE) & Tightening (QT)|Perubahan balance sheet bank sentral melalui aset jangka panjang.",
+"Lender of Last Resort (Bagehot)|Penyediaan likuiditas darurat ke bank yang illiquid, bukan otomatis insolvent.",
+"Liquidity vs Solvency|Membedakan kemampuan memenuhi kas jangka pendek dan nilai ekonomi bersih.",
+"Bank Run & Contagion|Penarikan dana serentak dan penularan risiko sistemik.",
+"Bank Capital, CAR & NPL|Kekuatan permodalan dan kualitas aset kredit bank.",
+"LCR & NSFR|Rasio ketahanan likuiditas jangka pendek dan pendanaan stabil.",
+"Financial Stability & Macroprudential Policy|Pengawasan risiko sistemik dan instrumen perlindungan keuangan.",
+"Shadow Rate & Yield Curve|Interpretasi stance kebijakan saat suku bunga mendekati batas bawah."
+]],
+["economics","Intertemporal Choice & Economics of Risk",[
+"Present Value & Discount Factor|Mendiskontokan nilai arus kas masa depan ke hari ini.",
+"Intertemporal Budget Constraint|Trade-off konsumsi kini dan masa depan pada tingkat bunga tertentu.",
+"Consumption Smoothing|Memilih alokasi konsumsi antar periode untuk meredam fluktuasi.",
+"Expected Utility Theory|Pilihan berisiko berbasis probabilitas tertimbang utility outcomes.",
+"Risk Aversion & Certainty Equivalent|Mengukur preferensi terhadap kepastian daripada lotere.",
+"Risk Premium|Nilai yang bersedia dibayar untuk menghindari risiko.",
+"Arrow–Pratt Absolute Risk Aversion (ARA)|Ukuran kelengkungan utility dalam besaran absolut.",
+"Relative Risk Aversion (RRA)|Ukuran aversi risiko relatif terhadap kekayaan.",
+"CARA, DARA & IARA|Klasifikasi perubahan aversi risiko absolut terhadap wealth.",
+"CRRA & Changes in Relative Risk Aversion|Model aversi risiko relatif dan pergeserannya."
+]],
+["finance","Asset Pricing & Return Models",[
+"Expected Return & Scenario Probabilities|Return harapan dihitung sebagai rata-rata tertimbang probabilitas.",
+"Capital Asset Pricing Model (CAPM)|Hubungan required return dengan beta dan market risk premium.",
+"Arbitrage Pricing Theory (APT)|Model multi-factor expected return tanpa asumsi identik CAPM.",
+"Fama–French Factor Models|Model tambahan faktor size, value dan profitability/investment.",
+"Gordon Growth Model|Valuasi dividen dengan pertumbuhan konstan dan required return.",
+"Dividend Discount Models (DDM)|Mengestimasi nilai sekarang dividen yang akan diterima.",
+"Factor Exposures & Risk Premium|Memisahkan sensitivitas aset dan harga atas risiko sistematis.",
+"Alpha & Beta|Return relatif ke benchmark dan sensitivitas terhadap market.",
+"Systematic vs Idiosyncratic Risk|Memisahkan risiko pasar dari risiko spesifik sekuritas."
+]],
+["finance","Portfolio Theory & Risk",[
+"Portfolio Expected Return|Return harapan gabungan sesuai bobot alokasi aset.",
+"Covariance & Correlation|Hubungan pergerakan return dua aset dan dampak diversifikasi.",
+"Portfolio Variance & Volatility|Pengukuran dispersi return gabungan.",
+"Minimum Variance Portfolio|Kombinasi aset yang meminimumkan varians.",
+"Efficient Frontier|Himpunan portofolio dengan return terbaik pada risiko tertentu.",
+"Capital Market Line & Security Market Line|Garis hubungan risiko-return total dan beta.",
+"Sharpe & Sortino Ratios|Evaluasi return relatif volatilitas atau downside deviation.",
+"Value at Risk (VaR)|Perkiraan kerugian pada kuantil distribusi di horizon tertentu.",
+"Expected Shortfall / CVaR|Rata-rata kerugian saat melewati batas VaR.",
+"Risk–Reward Ratio & Position Sizing|Menyesuaikan posisi dengan target risiko dan ketidakpastian.",
+"Stress Testing & Scenario Analysis|Mengukur ketahanan portofolio terhadap perubahan asumsi."
+]],
+["finance","Market Intelligence & Valuation",[
+"Discounted Cash Flow (DCF)|Nilai perusahaan dari proyeksi arus kas yang didiskontokan.",
+"Enterprise Value & Equity Value|Membedakan nilai operasi perusahaan dan nilai pemilik ekuitas.",
+"Tobin’s q|Perbandingan nilai pasar modal terpasang dengan replacement cost.",
+"Bond Price–Yield Relationship|Mengapa harga obligasi bergerak berlawanan dengan yield.",
+"Yield Curve & Duration|Sensitivitas harga obligasi terhadap perubahan suku bunga.",
+"Macro-to-Asset Transmission|Menghubungkan inflasi, Fed, yield, valas dan risk assets.",
+"Fund Flows & Institutional Positioning|Mengamati arus dana global, ETF dan pelaku institusi.",
+"Materiality vs Confidence|Membedakan besarnya dampak berita dari keyakinan informasi."
+]],
+["ai","AI Reasoning & Multi-Agent Systems",[
+"LLM Model Selection|Mencocokkan kemampuan model, latensi, kualitas dan biaya API.",
+"Agentic AI Fundamentals|Menggabungkan LLM, tools, state, constraints dan loop kontrol.",
+"Orchestrator & Specialist Routing|Mengalokasikan microtasks ke peran sesuai kompetensi.",
+"Single-Inbox AI Architecture|Satu antarmuka dengan modul spesialis internal.",
+"Role-Based Memory & Permissions|Pembatasan retrieval berdasarkan peran dan izin.",
+"Human-in-the-Loop Approval|Manusia menyetujui aksi berisiko sebelum eksekusi.",
+"Evaluation & Test Receipts|Membedakan kemampuan yang didemonstrasikan dari sekadar rancangan.",
+"Guardrails & Error Handling|Pengamanan input, output, hak akses dan error operasional.",
+"Agent Cost Optimization|Membandingkan token, hosting, infrastruktur dan tool usage."
+]],
+["ai","Knowledge Engineering",[
+"Obsidian as Second Brain|Catatan tertaut yang dapat ditelusuri dan dipakai sebagai rujukan.",
+"Retrieval-Augmented Generation (RAG)|Mengambil sumber relevan ke dalam konteks ketika dibutuhkan.",
+"Source Provenance & Evidence Levels|Menandai asal informasi dan membedakan membaca dari menguasai.",
+"Knowledge Graph & Wikilinks|Menghubungkan konsep, proyek, pengalaman dan referensi.",
+"Memory Loops & Feedback|Meninjau histori kesalahan dan hasil untuk iterasi berikutnya.",
+"Context Engineering|Memilih konteks seperlunya demi akurasi dan efisiensi.",
+"Git-Based Knowledge Synchronization|Versi sumber, sinkronisasi notes dan kontrol perubahan."
+]],
+["ai","Automation & Deployment",[
+"n8n Workflows|Trigger dan nodes untuk proses otomatis visual.",
+"REST APIs & JSON|Request, response, endpoints, autentikasi dan integrasi.",
+"Cloudflare Workers & Webhooks|Endpoint serverless, routing dan trigger melalui HTTP.",
+"Railway & Vercel Deployment|Menjalankan layanan di cloud dengan build dan environment.",
+"Docker & Runtime Configuration|Mengemas aplikasi dengan dependency dan konfigurasi.",
+"Telegram Bot Interfaces|Antarmuka percakapan untuk menerima perintah dan mengirim hasil.",
+"Schedulers & Cron Jobs|Proses terjadwal untuk monitoring serta rekap.",
+"Secrets & Environment Variables|Menyimpan token dan kunci di sisi server.",
+"Logging, Health Checks & Testing|Memeriksa perilaku sistem nyata, bukan asumsi deployment."
+]],
+["crypto","Blockchain & Protocols",[
+"Blockchain & Distributed Ledgers|Transaksi terurut pada jaringan dengan aturan konsensus.",
+"Wallets, Private Keys & Seed Phrases|Pengelolaan kepemilikan dan kontrol akses on-chain.",
+"Layer 1, Layer 2 & Rollups|Trade-off skalabilitas, keamanan dan settlement.",
+"EVM & Smart Contracts|Eksekusi transaksi terprogram pada lingkungan kompatibel Ethereum.",
+"Soft Forks & Hard Forks|Kompatibilitas perubahan aturan protokol blockchain.",
+"Consensus Mechanisms|Aturan mencapai kesepakatan transaksi antar node.",
+"Blockchain Bridges|Transfer representasi aset lintas chain dengan risiko unik.",
+"Oracles & Chainlink|Menyuplai data eksternal yang diperlukan smart contracts.",
+"Account Abstraction|Pemisahan logika akun dari pembatasan dasar wallet."
+]],
+["crypto","DeFi & Tokenization",[
+"Centralized vs Decentralized Exchanges|Perbedaan perantara custodial dan transaksi on-chain.",
+"DEX Swaps & Automated Market Makers|Harga dan likuiditas diatur formula pool bukan order book tunggal.",
+"Lending, Borrowing & Collateral|Pinjam meminjam on-chain dengan collateral dan liquidation.",
+"Liquidity Pools & Impermanent Loss|Risiko penyedia likuiditas saat rasio harga berubah.",
+"Perpetual Derivatives|Kontrak derivatif tanpa jatuh tempo dengan mekanisme funding.",
+"Real World Assets (RWA)|Representasi klaim aset nyata di atas blockchain.",
+"ONDO & Token Value Capture|Menilai hubungan pertumbuhan infrastruktur tokenisasi dan token economics.",
+"Staking & Protocol Incentives|Delegasi atau penguncian aset untuk keamanan dan reward.",
+"MEV & Transaction Ordering|Nilai ekstraksi dari pengurutan transaksi dalam blok."
+]],
+["crypto","Market Structure & Research",[
+"Bitcoin ETF Flows|Transmisi arus dana produk institusional terhadap positioning BTC.",
+"On-Chain Wallet Tracking|Membaca transaksi publik secara read-only.",
+"Volume Profile & Auction Market Theory|Memahami acceptance, balance, value area dan imbalance.",
+"VWAP & Trading Benchmarks|Benchmark harga tertimbang volume.",
+"Continuation & Reversal Patterns|Membaca pola harga tanpa menganggapnya pasti.",
+"Harmonic Patterns & Fibonacci Ratios|Zona reversal potensial menggunakan struktur swing dan rasio.",
+"Technical Indicator Backtesting|Evaluasi asumsi sinyal terhadap histori data.",
+"Liquidation & Leverage Risk|Risiko derivatif akibat margin dan perpindahan harga."
+]],
+["math","Quantitative Reasoning",[
+"Marginal Analysis|Menganalisis turunan perubahan satu unit pada hasil.",
+"Partial Derivatives|Efek satu variabel terhadap fungsi dengan yang lain tetap.",
+"Lagrangian Optimization|Mencari optimum dengan batasan eksplisit.",
+"First- and Second-Order Conditions|Memastikan kandidat optimum dan cek maksimum/minimum.",
+"Constrained Economic Models|Menghubungkan budget, input dan objective ke model matematika.",
+"Expected Values & Weighted Means|Rata-rata berbobot probabilitas berbagai keadaan.",
+"Probability & Conditional Beliefs|Perubahan keyakinan ketika informasi tersedia.",
+"Bayesian Updating|Memperbarui prior beliefs menjadi posterior.",
+"Variance, Covariance & Correlation|Mengukur dispersi dan hubungan antar variabel.",
+"Scenario Modeling|Menulis asumsi, sensitivitas dan hasil alternatif."
+]],
+["math","Logic & Technology",[
+"Modus Ponens & Modus Tollens|Aturan inferensi formal untuk menarik kesimpulan.",
+"Hypothetical & Disjunctive Syllogisms|Pola penalaran dari implikasi dan pernyataan OR.",
+"Logical Fallacies|Kesalahan seperti affirming the consequent.",
+"Quantum Computing Basics|Qubit, superposition dan entanglement.",
+"Post-Quantum Cryptography|Adaptasi skema kriptografi pada potensi ancaman quantum.",
+"Formal Model Assumptions|Memisahkan identitas, definisi dan syarat optimalitas."
+]],
+["business","Accounting & Financial Reporting",[
+"Accounting Equation & Double Entry|Aset, kewajiban dan ekuitas dalam pembukuan berpasangan.",
+"Accruals vs Deferrals|Perbedaan pengakuan pendapatan/biaya terhadap waktu kas.",
+"Expense Recognition|Mencocokkan konsumsi manfaat ekonomis dengan periode laporan.",
+"Adjusting & Reversing Entries|Jurnal penyesuaian dan pembalikan pada awal periode.",
+"Depreciation & Balance Sheet Effects|Alokasi biaya aset sepanjang umur manfaat.",
+"Goodwill in Acquisitions|Kelebihan harga akuisisi atas nilai wajar net identifiable assets.",
+"Financial Statements: BS, IS, CF|Neraca, laba rugi dan arus kas sebagai tiga perspektif usaha.",
+"Bank Reconciliation|Mencocokkan catatan internal dengan mutasi perbankan.",
+"Beneish M-Score|Rasio red flag untuk risiko manipulasi laba, bukan vonis kecurangan."
+]],
+["business","Operations & Business Analysis",[
+"Operating Expense vs Capital Expenditure|Pengeluaran operasional dibanding investasi aset.",
+"Unit Economics & Contribution Margin|Kontribusi per unit terhadap fixed costs dan laba.",
+"Break-even Point (BEP)|Kuantitas ketika total revenue menyamai total cost.",
+"Gross Margin & Net Margin|Persentase keuntungan pada tahap pendapatan dan setelah biaya.",
+"Cash Flow & Working Capital|Kesehatan kas harian dan modal kerja operasi.",
+"Invoice Intake & Evidence Chains|Memastikan dokumen transaksi terlacak sampai jurnal.",
+"Inventory Reconciliation|Mencocokkan stok masuk dan keluar dengan bukti.",
+"Pricing & Demand Elasticity|Menilai efek perubahan harga pada permintaan dan revenue.",
+"Gross Sales vs GMV|Membedakan penjualan perusahaan dari total nilai transaksi platform."
+]]
+];
+const intros={
+ "Marginal Rate of Substitution (MRS)":{formula:"MRSₓᵧ = MUₓ / MUᵧ",example:"Rasio ini adalah definisi MRS. Kesetaraan MRS = Pₓ/Pᵧ hanya berlaku di optimum interior dengan asumsi yang sesuai."},
+ "Cournot Duopoly":{formula:"max πᵢ(qᵢ,qⱼ) = [P(qᵢ+qⱼ) − MCᵢ]qᵢ",example:"Setiap perusahaan membuat reaction function. Equilibrium diperoleh dari titik perpotongan best responses."},
+ "Stackelberg Leader–Follower Model":{formula:"max₍qL₎ πL(qL, R_F(qL))",example:"Leader bukan monopoli: ia mengantisipasi respons output follower sebelum memilih output sendiri."},
+ "Capital Asset Pricing Model (CAPM)":{formula:"E[Rᵢ] = Rf + βᵢ(E[Rm] − Rf)",example:"Jika Rf 4%, beta 1,2, market premium 6%, expected return CAPM = 11,2%."},
+ "Arbitrage Pricing Theory (APT)":{formula:"E[Rᵢ] = Rf + Σ βᵢkλk",example:"Multi-factor: setiap eksposur faktor dikalikan risk premium faktornya."},
+ "Herfindahl–Hirschman Index (HHI)":{formula:"HHI = Σ sᵢ²",example:"Pangsa 40%, 30%, 20%, 10% menghasilkan HHI = 3000 (skala 0–10.000)."},
+ "Price Elasticity of Demand":{formula:"εd = (% ΔQd) / (% ΔP)",example:"Jika harga naik 10% dan Q turun 20%, elastisitas pendekatan persentase = −2."},
+ "Expected Utility Theory":{formula:"EU = Σ pᵢu(xᵢ)",example:"Hasil probabilistik diterapkan ke utility tiap outcome, bukan hanya return rupiah."},
+ "Nash Equilibrium":{formula:"s*ᵢ ∈ BRᵢ(s*₋ᵢ)",example:"Nash tidak selalu berarti payoff kolektif tertinggi atau dominant strategy."},
+ "Mixed Strategy & Indifference Condition":{formula:"EU(action A) = EU(action B)",example:"Indifference digunakan untuk menghitung probabilitas strategi rival, bukan probabilitas strategi kita secara langsung."},
+ "Gordon Growth Model":{formula:"P₀ = D₁ / (r − g)",example:"Berlaku jika r > g dan pertumbuhan dividen konstan secara berkelanjutan."},
+ "Slutsky Equation":{formula:"Total price effect = Substitution effect + Income effect",example:"Pisahkan efek harga relatif dengan efek perubahan daya beli setelah harga bergerak."},
+ "Break-even Point (BEP)":{formula:"BEP units = Fixed Cost / (Price − Variable Cost)",example:"Biaya tetap 1.200, harga 50, variabel 30 → BEP 60 unit."},
+ "Metcalfe’s Law":{formula:"V ∝ n(n − 1)/2",example:"Heuristik potensi jumlah koneksi, bukan jaminan semua koneksi bernilai sama."},
+ "Portfolio Variance & Volatility":{formula:"σ²p = w₁²σ₁² + w₂²σ₂² + 2w₁w₂Cov(R₁,R₂)",example:"Korelasi yang lebih rendah dapat menurunkan risiko gabungan."},
+ "Two-Sided Markets":{formula:"U_A ↑ when N_B ↑ (cross-side network effect)",example:"Platform mempertemukan dua kelompok dengan manfaat saling memengaruhi; harga tiap sisi tidak harus sama."},
+ "IS–LM Model":{formula:"IS: Y = C(Y−T) + I(r) + G ; LM: M/P = L(Y,r)",example:"Model menjelaskan interaksi pasar barang dan pasar uang dalam kerangka sederhana."}
+};
+const topics=[];const sections=[];
+groups.forEach(([field,section,rows],i)=>{
+ const sid=field+"-"+(i+1);
+ const items=rows.map((r,j)=>{
+ const [name,summary]=r.split("|");
+ const id=field+"-"+name.toLowerCase().normalize("NFKD").replace(/[^\w\s-]/g,"").replace(/\s+/g,"-");
+ const x={id,field,section,name,summary,source:"Curated learning archive", ...intros[name]};
+ topics.push(x);return id;
+ });
+ sections.push({id:sid,field,name:section,topicIds:items});
+});
+global.ALBERTH_ATLAS={fields,sections,topics,asOf:"2026-10-13",sourceNote:"A curated, non-exhaustive public index of topics discussed or documented in Punya Alberth / Obsidian / verified project conversations. Not evidence of completion, mastery, or certification.",contact:"https://www.instagram.com/alberth_farrell/"};
+})(window);
