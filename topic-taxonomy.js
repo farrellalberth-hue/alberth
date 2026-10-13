@@ -56,6 +56,12 @@ const exact=[
 ["crypto",/^(?:BTC|ETH|EVM|Ondo|Origin.trail|TokenFi|Sybil.attack|halving|HMAC|hash.based.message.*|Cryptocurrency.Arbitrage|Fetch.Ai|Fireblocks|BitGo)$/i],
 ["others",/^(?:AI|AGI|BERT|GPT|deep.learning.AI|neural.network.AI|digital.marketing|marketing|sales|business.model.canvas|management.fundamentals|corporate.governance|project.management|legal.regulation|digital.business)$/i]
 ];
+const refinements=[
+["finance",/^(?:Modigliani.?Miller.Theorem|DeR|Risk.Aversion|Absolute.Risk.Aversion|Relative.Risk.Aversion|Constant.Relative.Risk.Aversion|Irreducibility|Recurrence|Law.of.Large.Numbers|Accounting.Principles|Capital.Management|Equity|Perpetual.Bonds?|Subordinated.Loans?|Standard.Deviation|Standard.deviasi|Financial.Econometrics|Econometrics|Mathematics|Statistics|Probability|Algebra|Income.Statement|Treasury.Stock|Net.Working.Capital|Tax.Residence|Interest.Rate.Parity|International.Taxation|International.Financial.Management|Deposit.Insurance|Tier.1|Tier.2.CAR|IFRS.15|Deffered.Principle|Accounting.Fundamentals|Corporate.Finance|Insurance|Insurance.Company|Financial.Risk|Asset.Pricing|Interest.Rate.Swaps?|Strategi.Straddle|Strategi.Harmonic.Trading|Giro.Wajib.Minimum|CoCos|Foreign.Currency.Accounting)$/i],
+["economics",/^(?:Law.of.Okun|Okun.?s.Law|Law.of.Gresham|Law.of.Engel|Engel.?s.Law|Parreto.Efficiency|Pareto.Efficiency|Efek.Fisher|Fisher.Effect|Teorema.Stolper.Samuelson|Stolper.Samuelson|Teorema.Aarow.Debreu|Arrow.?Debreu|Static.General.Equilibrium|Dynamic.General.Equilibrium|General.Equilibrium|DSGE|Hypothesis.Twin.Deficits|Hypothesis.of.Twin.Deficits|Policy.Fiskal.Counter.Cyclical|Model.Curve.of.AS.AD|Curve.of.AD.AS|Trickle.Down.Theory|Neoclassical.Theory|Theoretical.Neoclassical|Game.Theory|Profit.Maximization|Law.of.One.Piece.\(LOP\)|Law.of.One.Price|Comparative.Advantage|Absolute.Advantage|Mirrlees.Model|Leontief.Paradox|Regulatory.Economics|Network.Effects?|Double.Marginalization|Two.Part.Tariff|Market.Failure)$/i],
+["crypto",/^(?:Digital.Signatures?|Transactions.Malleability|Halving|Hash.Based.Message.Auntentication.Code|Escrow.Multi.Sig|Hash.Based.Message.Authentication.Code|Distributed.Denial.of.Services|DoS|DAO|Decentralized.Autonomous.Organization)$/i],
+["others",/^(?:Kecerdasan.AI|Language.Model.Formation|Training.Model|Model.Training|Data.Collection|Pre.Processing|Bidirectional.Encoder.Representatione.from.Transformers|Generative.Pre.Trained.Transformers|Rust.Programming.Language|Move.Programming.Language|Tensorflow|PyTorch)$/i]
+];
 const fixes=[
 ["economics",/^(?:Efek.fisher|efek.ricardo.barro|paradox.lucas|paradox.leontief|teorema.stolper.samuelson|stolper.samuelson|arrow.debreu|teorema.coase|trickle.down.theory|model.c.?urve.of.(?:AS.AD|AD.AS|IS.LM)|curve.of.(?:AS.AD|AD.AS|IS.LM)|model.ricardian|model.Romer|Say.s.law|New.Keynesian.Economics|Neoclassical.Theory|Fiscal.Policy|Inflasi|Deflasi|policy.fiskal.counter.cyclical|Tragedy.of.commons|Opportunity.Cost)$/i],
 ["finance",/^(?:Standard.deviasi|loan.*subordinasi|loans.subordinasi|Cadangan.revaluasi|Foreign.tax.credit|Giro.antarbank|Giro.wajib.minimum|Dana.asuransi.in.perpetual|Mortages.backed.securities|CoCos|Growth.Accounting|Accounting.Expert|Financial.Management|CAR1|CAR.total|Hurdle.rate|High.water.mark|value.at.risk|Strangle|straddle|Opsi|Future|Fee|GJR.GARCH|Fama|Detail.of.Accounting)$/i],
@@ -69,6 +75,7 @@ function detect(title,fallback){
  // Drop category defaults; the term REVIEW is a session attribute rather than a discipline.
  if(t==="Detail"||t==="alamat")return fallback;
  for(const [group,re] of exact)if(re.test(t))return group;
+ for(const [group,re] of refinements)if(re.test(t))return group;
  for(const [group,re] of fixes)if(re.test(t))return group;
  // Exception for shared labels where the context, not the generic words, defines economics.
  for(const rule of sets)if(rule.pattern.test(t))return rule.f;
@@ -77,7 +84,7 @@ function detect(title,fallback){
 let changed=0;
 const before=Object.fromEntries(["economics","finance","crypto","others"].map(f=>[f,db.topics.filter(t=>t.f===f).length]));
 for(const t of db.topics){const f=detect(t.t,t.f);if(f!==t.f){t.f=f;changed++}}
-db.reclassifiedCount=changed;db.classifierVersion="v2.2";
+db.reclassifiedCount=changed;db.classifierVersion="v2.3";
 db.fields=db.fields.map(f=>f.id==="finance"?({...f,desc:"Investing, banking, mathematics, statistics, econometrics and accounting."}):f.id==="others"?({...f,desc:"AI, business management, marketing and other disciplines."}):f);
 db.categoryCounts=Object.fromEntries(["economics","finance","crypto","others"].map(f=>[f,db.topics.filter(t=>t.f===f).length]));
 db.previousCategoryCounts=before;
