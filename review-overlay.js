@@ -3,6 +3,7 @@
 const db=global.KENTZO_NOTES,rows=global.KENTZO_REVIEW_SOURCE;
 if(!db||!Array.isArray(rows))return;
 const phrases=[
+["Hukum harga tunggal","Law of One Price"],
 ["Pinjaman di indonesia","Bank Loans in Indonesia"],
 ["Perpajakan indonesia","Indonesian Taxation"],
 ["Arbitrase crypto currency","Cryptocurrency Arbitrage"],
