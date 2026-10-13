@@ -1,0 +1,174 @@
+/* AFH V17 — NOIR ATELIER / cinematic portfolio art direction.
+   A carefully restrained redesign. All high-resolution visuals remain procedural.
+   Load after v16 so this layer has final authority. */
+:root{--a17-black:#07080c;--a17-night:#111118;--a17-warm:#f4eee6;--a17-pearl:#dfd4ca;--a17-gold:#e4b993;--a17-muted:#aaa2a0;--a17-hairline:rgba(239,219,202,.16)}
+body.studio-home{background:var(--a17-black)!important;color:var(--a17-warm);font-kerning:normal;-webkit-font-smoothing:antialiased}
+body.studio-home ::selection{background:#d8a883;color:#161014}
+body.studio-home .container{width:min(1620px,calc(100% - clamp(40px,7.2vw,144px)))}
+body.studio-home .site-header{height:76px!important;background:rgba(8,8,12,.75)!important;box-shadow:none!important;border-bottom:1px solid #edd5c324!important;backdrop-filter:blur(28px) saturate(120%)}
+body.studio-home .site-header .container{display:flex;align-items:center}
+body.studio-home .brand-glyph{font-weight:850;font-size:29px;letter-spacing:-.14em}
+body.studio-home .brand-glyph .glyph-h{color:#dba68c}
+body.studio-home .brand-name{font-size:8px;letter-spacing:.21em;line-height:1.45;color:#b5aeab}
+body.studio-home .site-nav{gap:clamp(17px,2vw,35px)}
+body.studio-home .site-nav a{font:800 9px/1.4 'Manrope',Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase;color:#ded8d4;transition:color .25s}
+body.studio-home .site-nav a:hover{color:#f1bd9f}
+body.studio-home .site-nav .nav-contact{border:1px solid #f6d0af64;border-radius:99px;padding:15px 24px;letter-spacing:.12em;color:#f0e8df!important;transition:background .3s,color .3s}
+body.studio-home .site-nav .nav-contact:hover{background:#f0e3d7;color:#131015!important}
+body.studio-home .scene-rail{z-index:60;right:15px;opacity:.78}
+body.studio-home .scene-rail .scene-caption{color:#ebd1bd}
+body.studio-home .menu-button{border-color:#efcfbd70}
+body.studio-home .hero.afh3-hero{padding:120px 0 48px!important;min-height:max(800px,100svh)!important;display:flex;align-items:center;overflow:hidden;background:radial-gradient(ellipse 34% 43% at 83% 47%,#58383d47,transparent 88%),radial-gradient(ellipse 39% 53% at 105% 93%,#261e2d66,transparent 87%),#08080d!important}
+body.studio-home .hero.afh3-hero:before{background-size:140px 140px;opacity:.09;mask-image:radial-gradient(ellipse at 74% 45%,black,transparent 74%)}
+body.studio-home .hero.afh3-hero:after{border-color:#eac0a01d;bottom:-68vh}
+body.studio-home .afh3-hero .afh3-hero-wrap{width:100%;z-index:5}
+body.studio-home .afh3-hero .afh3-hero-eyebrow{font-size:9px;letter-spacing:.28em;color:#ebc5ae;margin:0 0 30px}
+body.studio-home .afh3-hero .afh3-live-dot{width:6px;height:6px;background:#f6d2a8;box-shadow:0 0 0 4px #dba98720,0 0 18px #f3bd8b}
+body.studio-home .afh3-hero h1{font:820 clamp(74px,8vw,142px)/.9 'Manrope','Arial',sans-serif!important;max-width:61%;letter-spacing:-.105em;color:#f6f0e9;filter:drop-shadow(0 16px 25px #0008);margin:0!important;text-transform:uppercase}
+body.studio-home .afh3-hero h1 .afh3-line:nth-child(2),body.studio-home .afh3-hero h1 .afh3-line:nth-child(3){padding-left:0!important}
+body.studio-home .afh3-hero h1 em{display:block;font:italic .98em/.88 'Instrument Serif',Georgia,serif!important;text-transform:none;letter-spacing:-.085em;color:#e5b397!important;text-shadow:0 4px 30px #d88d702e;transform:none;padding:0 0 7px!important}
+body.studio-home .afh3-hero h1 .afh3-line:nth-child(3){letter-spacing:-.108em}
+body.studio-home .afh3-hero .afh3-hero-description{max-width:475px;font-size:clamp(13px,1.09vw,17px);line-height:1.85;margin:28px 0 0;color:#c4bbb8;text-shadow:none}
+body.studio-home .afh3-hero .afh3-hero-description strong{font-weight:750;color:#f3ece5}
+body.studio-home .afh3-hero .afh3-cta-row{gap:24px;margin-top:28px}
+body.studio-home .afh3-button{min-height:54px;padding:17px 23px;gap:26px;font:850 10px/1 'Manrope',sans-serif;letter-spacing:.13em;transition:transform .35s,box-shadow .35s}
+body.studio-home .afh3-button--light{background:#f3e8dd;box-shadow:none;color:#17131a}
+body.studio-home .afh3-button--light:hover{background:#eec4a6;box-shadow:0 15px 44px #e2a37a30}
+body.studio-home .afh3-link{border-bottom-color:#e4c5b4a6;color:#e2d6cc;font-size:9px}
+body.studio-home .afh16-status{margin-top:26px;color:#9d9494;font-size:8px;letter-spacing:.22em}
+body.studio-home .afh3-hero .afh3-hero-bottom{margin-top:clamp(40px,7vh,90px);padding-top:17px;border-top-color:#e7c9ba27;color:#b6aba6;font-size:9px}
+body.studio-home .afh3-hero .afh3-scroll b{height:36px;width:36px;font-size:18px}
+body.studio-home .afh3-hero .afh3-mini-meta{font-size:9px}
+body.studio-home .afh3-art{z-index:1!important}
+body.studio-home .afh3-art:before{border-color:#ebd0b110!important;box-shadow:0 0 0 14vw #eab98902!important}
+body.studio-home .afh3-art .afh3-orbit-system{left:auto!important;right:clamp(20px,5.7vw,120px)!important;top:48%!important;width:clamp(450px,46vw,810px)!important;filter:drop-shadow(0 0 26px #b9675f32)!important;will-change:transform;isolation:isolate}
+body.studio-home .afh3-art .afh3-sphere{inset:24.5%!important;background:radial-gradient(circle at 23% 14%,#fbddba,#cf8b70 29%,#a65d60 56%,#291928 96%);border:1px solid #f2bfa566;box-shadow:inset -22px -19px 65px #090912c0,0 0 43px #db967155,0 0 96px #a8595950!important;animation:afh3-float 11s ease-in-out infinite alternate}
+body.studio-home .afh3-art .afh3-sphere:after{box-shadow:inset 0 0 26px #e0b8a25e;opacity:.8}
+body.studio-home .afh3-art #afh4-planet{width:100%;height:100%;display:block;image-rendering:auto}
+body.studio-home .afh3-art .afh3-ring{inset:3%;border:1px solid #d8a6858a;box-shadow:0 0 0 1px #edb99e16,0 0 19px #e39d7d23,0 0 0 20px #e8bc9004,0 0 0 50px #edb09b05}
+body.studio-home .afh3-art .afh3-ring.r2{inset:-10%;border-color:#e0b7a24f;box-shadow:none;transform:rotate(35deg) scaleY(.63)}
+body.studio-home .afh3-art .afh3-ring.r3{inset:24%;border-style:dashed;border-color:#f2d2b47c;transform:rotate(60deg) scaleY(.38)}
+body.studio-home .afh3-art .afh3-moon{width:clamp(72px,7vw,116px);top:19%;left:17%;border:1px solid #e7dacd9d;box-shadow:inset -17px -20px 28px #221b2ed9,0 0 18px #e9bfaf60}
+body.studio-home .afh3-art .afh3-orbit-label{font-size:8px;letter-spacing:.16em;padding:11px 14px;background:#19161b99;border:1px solid #deb7a85a;box-shadow:0 15px 40px #0006}
+body.studio-home .afh3-art .afh3-orbit-label.l1{right:0;top:21%}
+body.studio-home .afh3-art .afh3-orbit-label.l2{left:7%;bottom:18%}
+body.studio-home .afh3-art .afh3-orbit-label.l3{right:5%;bottom:18%}
+body.studio-home .afh3-art .afh3-asterisk{font-size:45px;color:#e6c5a8;right:11%;top:8%;opacity:.7;text-shadow:none}
+body.studio-home .afh3-art .afh4-constellation{font-size:7px;letter-spacing:.27em;color:#af9a96;bottom:4%;right:10%}
+body.studio-home .afh4-sparkle{filter:brightness(.86);opacity:.62}
+body.studio-home #afh4-starfield{opacity:.77;mix-blend-mode:screen}
+body.studio-home .afh16-hero-star{opacity:.35;font-size:16px;color:#f9e7cc;text-shadow:0 0 14px #e8bb9560}
+body.studio-home .afh16-brand-vertical{color:#9f9696;opacity:.5;font-size:8px}
+.afh17-hero-folio{position:absolute;z-index:6;bottom:clamp(155px,15vh,230px);right:clamp(50px,11vw,180px);display:flex;align-items:center;gap:11px;color:#c7b6b0;font:800 8px/1.4 'Manrope',Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
+.afh17-hero-folio:before{content:"";height:1px;width:39px;background:#e6b897}
+body.studio-home .marquee{background:#e8ded3!important;border:0;padding:13px 0}
+body.studio-home .marquee-inner{font-size:10px;color:#463630;letter-spacing:.18em}
+body.studio-home .marquee-inner b{color:#ab5f52}
+body.studio-home .afh3-selected{background:#ebe5dc;color:#161419;padding:clamp(100px,9vw,150px) 0}
+body.studio-home .afh3-selected h2{font-weight:750}
+body.studio-home .afh3-selected h2 em{color:#aa6458}
+body.studio-home .afh3-selected-grid{gap:16px}
+body.studio-home .afh3-feature{border-radius:3px;min-height:clamp(420px,35vw,540px);box-shadow:none!important;border:1px solid #0000000c}
+body.studio-home .afh3-feature.econ{background:#343043}
+body.studio-home .afh3-feature.ai{background:#cad7b3}
+body.studio-home .afh3-feature.crypto{background:#d7977b}
+body.studio-home .afh3-feature h3{letter-spacing:-.08em;font-weight:780}
+body.studio-home .afh3-feature p{font-size:12px;max-width:270px}
+body.studio-home .afh3-feature .afh3-feature-art{filter:saturate(.76)}
+body.studio-home .afh3-feature:hover .afh3-feature-art{filter:saturate(1)}
+body.studio-home .afh15-atlas{padding:clamp(105px,10vw,165px) 0;background:radial-gradient(ellipse at 75% 50%,#4e384433,transparent 75%),#0e0d12}
+body.studio-home .afh15-atlas h2{font-size:clamp(73px,9vw,145px);letter-spacing:-.105em;filter:none}
+body.studio-home .afh15-atlas h2 em{color:#ddb197}
+body.studio-home .afh15-atlas .afh15-lead{color:#bfb6b5;font-size:15px;line-height:1.95}
+body.studio-home .afh15-button{background:#eaded1;box-shadow:none;color:#21191f}
+body.studio-home .afh15-button:hover{background:#edc7aa;box-shadow:0 12px 40px #e4a88630}
+body.studio-home .afh15-orbit-field{filter:saturate(.72)}
+body.studio-home .afh15-orbit-core{box-shadow:inset -42px -43px 75px #0e0a17dc,0 0 18px #d0a18b54,0 0 70px #cc947452}
+body.studio-home .afh15-orbit-number strong{color:#f6e6d9}
+body.studio-home .afh16-knowledge-index{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+body.studio-home .afh16-knowledge-index a{background:#18151b;border:1px solid #e3bbaa28;border-radius:2px;min-height:64px;color:#dfd7d1;font-size:11px}
+body.studio-home .afh16-knowledge-index a:hover{background:#2b222b;border-color:#e5b6988c}
+body.studio-home .afh16-knowledge-index a small{color:#cfa58c}
+body.studio-home .afh15-atlas-metrics{border-top:1px solid #dfb69d36}
+body.studio-home .afh15-atlas-metrics strong{color:#edc0a2}
+body.studio-home .about{background:#16141b!important}
+body.studio-home .about-description p{color:#b8b3b9}
+body.studio-home .lifetime-section{background:radial-gradient(ellipse at 71% 32%,#44303935,transparent 75%)}
+body.studio-home .lifetime-step{background:#1b1922;border-color:#e5bfab26!important;box-shadow:0 12px 42px #0004!important;border-radius:3px}
+body.studio-home .lifetime-step.is-active{border-color:#efbca279!important;box-shadow:0 20px 55px #0007!important}
+body.studio-home .journey-preview{background:#f1ebe4}
+body.studio-home .youtube-unified{background:#111118}
+body.studio-home .end-section{background:linear-gradient(150deg,#dcaa91,#db917c 80%);color:#251820}
+body.studio-home #afh4-quote{background:radial-gradient(ellipse at 51% 50%,#2c1b253a,transparent 70%),#07070a}
+body.studio-home #afh4-quote .afh4-quote-planet{opacity:.7}
+body.studio-home #afh4-quote .afh4-quote-script{color:#e6b59b;text-shadow:none;filter:none}
+body.studio-home #afh4-quote .afh4-quote-title{color:#f9eee5}
+body.studio-home .site-footer{background:#0c0b10}
+/* permanent music control: one discreet pill at bottom left */
+.afh17-audio{position:fixed;z-index:180;left:clamp(15px,2.6vw,48px);bottom:clamp(15px,2.3vw,38px);display:flex;align-items:center;gap:0;min-height:48px;background:rgba(17,16,21,.87);border:1px solid #e4bdad4f;border-radius:99px;box-shadow:0 12px 42px #0008;backdrop-filter:blur(22px) saturate(120%);-webkit-backdrop-filter:blur(22px);color:#f5e9df;max-width:calc(100vw - 30px);transition:border-color .3s,transform .3s}
+.afh17-audio:hover{border-color:#f2d7bf99;transform:translateY(-3px)}
+.afh17-audio .afh17-audio-btn{display:flex;align-items:center;justify-content:center;gap:11px;min-width:135px;min-height:46px;padding:0 16px;border:0;border-radius:99px;background:transparent;color:inherit;font:800 9px/1.3 'Manrope',Arial,sans-serif;letter-spacing:.16em;cursor:pointer}
+.afh17-audio .afh17-audio-btn .afh17-eq{display:flex;align-items:end;gap:2px;height:16px;width:13px}
+.afh17-audio .afh17-audio-btn .afh17-eq i{width:2px;height:5px;background:#e9c19e;border-radius:3px}
+.afh17-audio[data-playing="true"] .afh17-eq i:nth-child(1){animation:afh17-eq .65s ease-in-out infinite alternate}
+.afh17-audio[data-playing="true"] .afh17-eq i:nth-child(2){animation:afh17-eq .8s -.25s ease-in-out infinite alternate}
+.afh17-audio[data-playing="true"] .afh17-eq i:nth-child(3){animation:afh17-eq .5s -.1s ease-in-out infinite alternate}
+.afh17-audio .afh17-volume{display:flex;align-items:center;border-left:1px solid #d9bba838;padding:0 14px 0 12px;gap:10px}
+.afh17-audio .afh17-volume label{font:700 8px/1 'Manrope',Arial,sans-serif;letter-spacing:.12em;color:#b9aaa4}
+.afh17-audio .afh17-volume input{appearance:none;width:64px;height:2px;outline:0;border-radius:2px;background:#d1a99080;cursor:pointer}
+.afh17-audio .afh17-volume input::-webkit-slider-thumb{appearance:none;width:9px;height:9px;border-radius:50%;background:#f4e7d7;box-shadow:0 0 5px #ffdbc1}
+.afh17-audio .afh17-volume input::-moz-range-thumb{border:0;width:9px;height:9px;border-radius:50%;background:#f4e7d7}
+.afh17-audio .afh17-audio-note{position:absolute;bottom:calc(100% + 8px);left:2px;color:#bfada4;font:700 8px/1 'Manrope',Arial,sans-serif;letter-spacing:.14em;white-space:nowrap;pointer-events:none;text-shadow:0 2px 4px #000}
+@keyframes afh17-eq{from{height:3px}to{height:15px}}
+@media(min-width:2400px){
+ body.studio-home .container{width:min(2260px,calc(100% - 210px))}
+ body.studio-home .site-header{height:104px!important}
+ body.studio-home .hero.afh3-hero{padding-top:190px!important}
+ body.studio-home .afh3-hero h1{font-size:clamp(178px,6.8vw,265px)!important;max-width:61%}
+ body.studio-home .afh3-hero .afh3-hero-description{font-size:23px;max-width:730px}
+ body.studio-home .afh3-art .afh3-orbit-system{right:5vw!important;width:min(41vw,1420px)!important}
+ body.studio-home .afh3-art .afh3-orbit-label{font-size:12px;padding:20px 26px}
+ body.studio-home .afh17-hero-folio{font-size:14px}
+ body.studio-home .afh16-knowledge-index a{font-size:18px;min-height:105px}
+ body.studio-home .afh16-knowledge-index a small{font-size:12px}
+ body.studio-home .afh17-audio{min-height:60px}
+ body.studio-home .afh17-audio .afh17-audio-btn{min-height:58px;font-size:11px}
+}
+@media(max-width:1190px){
+ body.studio-home .afh3-hero h1{font-size:clamp(72px,8.5vw,120px)!important}
+ body.studio-home .afh3-art .afh3-orbit-system{width:clamp(450px,49vw,690px)!important;right:-2vw!important}
+ body.studio-home .afh3-hero .afh3-hero-description{max-width:400px}
+ body.studio-home .afh16-knowledge-index{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:860px){
+ body.studio-home .container{width:calc(100% - 44px)}
+ body.studio-home .site-header{height:70px!important}
+ body.studio-home .site-nav.open{background:#121017;border-color:#e9b7a37a}
+ body.studio-home .hero.afh3-hero{padding:120px 0 35px!important;min-height:100svh!important}
+ body.studio-home .afh3-hero h1{font-size:clamp(69px,12vw,112px)!important;max-width:100%}
+ body.studio-home .afh3-art .afh3-orbit-system{right:-27vw!important;top:35%!important;width:100vw!important;opacity:.55}
+ body.studio-home .afh3-hero .afh3-hero-description{max-width:400px}
+ body.studio-home .afh3-hero .afh3-hero-bottom{margin-top:65px}
+ .afh17-hero-folio{display:none}
+ body.studio-home .afh16-knowledge-index{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.studio-home .afh15-orbit-field{filter:saturate(.65)}
+}
+@media(max-width:550px){
+ body.studio-home .hero.afh3-hero{min-height:790px!important;min-height:100svh!important;padding:116px 0 35px!important}
+ body.studio-home .afh3-hero h1{font-size:clamp(59px,13.4vw,89px)!important;line-height:.92}
+ body.studio-home .afh3-art .afh3-orbit-system{right:-51vw!important;top:33%!important;width:140vw!important;opacity:.32}
+ body.studio-home .afh3-hero .afh3-hero-description{margin-top:25px;color:#eadfda;max-width:350px;font-size:13px}
+ body.studio-home .afh3-hero .afh3-cta-row{gap:14px;margin-top:22px}
+ body.studio-home .afh3-hero .afh3-hero-bottom{margin-top:46px}
+ body.studio-home .afh16-knowledge-index{gap:7px}
+ body.studio-home .afh16-knowledge-index a{min-height:57px;padding:12px;font-size:10px}
+ .afh17-audio{bottom:13px;left:12px;min-height:43px}
+ .afh17-audio .afh17-audio-btn{min-width:120px;min-height:42px;font-size:8px;padding:0 12px}
+ .afh17-audio .afh17-volume{padding:0 10px;gap:6px}
+ .afh17-audio .afh17-volume input{width:45px}
+ .afh17-audio .afh17-volume label{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .afh17-audio .afh17-eq i{animation:none!important}
+ body.studio-home .afh3-art .afh3-sphere{animation:none!important}
+}
