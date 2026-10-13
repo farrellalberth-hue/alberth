@@ -1,91 +1,163 @@
-(function(){
-"use strict";
-const db=window.KENTZO_NOTES,root=document.getElementById("atlas");
-if(!db||!root){return;}
+/* Kentzo Learning Atlas: unique concepts and dated study history.
+   Unique topics are deduplicated by canonical subject title; source review dates
+   remain visible in Study Timeline. UI transitions respect reduced motion. */
+(function(){"use strict";
+const db=window.KENTZO_NOTES,root=document.getElementById("atlas");if(!db||!root)return;
 const $=id=>document.getElementById(id);
-const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const url=new URL(location.href),params=url.searchParams;
-const field=db.fields.some(x=>x.id===root.dataset.field)?root.dataset.field:"all";
-const spec=db.fields.find(x=>x.id===field);
-const fieldTopics=field==="all"?db.topics:db.topics.filter(x=>x.f===field);
-const availableYearCount=y=>fieldTopics.filter(t=>Number(t.d.slice(0,4))===y).length;
-let year=Number(params.get("year"));if(!db.years.includes(year))year=0;
-let month=Number(params.get("month"));if(!(month>=1&&month<=12))month=0;
-let query=params.get("q")||"",displayLimit=36,reviewOnly=params.get("review")==="1";
-const countYear=y=>fieldTopics.filter(t=>y===0||Number(t.d.slice(0,4))===y).length;
-const countMonth=m=>fieldTopics.filter(t=>(year===0||+t.d.slice(0,4)===year)&&(!m||+t.d.slice(5,7)===m)).length;
-/* Animate year and month selection while respecting reduced motion. */
-const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
-let activeViewTransition=null;
-function selectPeriod(change){
-  const commit=()=>{change();updateURL();render();};
-  if(reducedMotion.matches){commit();return;}
-  if(activeViewTransition&&typeof activeViewTransition.skipTransition==="function"){
-    activeViewTransition.skipTransition();
-  }
-  if(typeof document.startViewTransition==="function"){
-    const animation=document.startViewTransition(commit);
-    activeViewTransition=animation;
-    animation.finished.catch(()=>{}).finally(()=>{if(activeViewTransition===animation)activeViewTransition=null;});
-  }else{
-    commit();
-    const list=$("topic-list");
-    if(list&&typeof list.animate==="function"){
-      list.animate([{opacity:.18,transform:"translateY(15px)",filter:"blur(5px)"},{opacity:1,transform:"translateY(0)",filter:"blur(0px)"}],
-      {duration:380,easing:"cubic-bezier(.16,1,.3,1)"});
-    }
-  }
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const q=new URL(location.href).searchParams;
+const field=db.fields.some(d=>d.id===root.dataset.field)?root.dataset.field:"all";
+const spec=db.fields.find(d=>d.id===field);
+const records=field==="all"?db.topics:db.topics.filter(t=>t.f===field);
+const uniq=field==="all"?db.uniqueTopics:db.uniqueTopics.filter(t=>t.f===field);
+const normalize=s=>String(s).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[\u2010-\u2015]/g,"-").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
+const master=new Map(db.uniqueTopics.map(t=>[normalize(t.t),t]));
+let year=+q.get("year");if(!db.years.includes(year))year=0;
+let month=+q.get("month");if(!(month>=1&&month<=12))month=0;
+let search=q.get("q")||"",reviewOnly=q.get("review")==="1",view=q.get("mode")==="timeline"?"timeline":"unique",limit=36;
+const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
+let transition=null;
+const formatDate=s=>{const [y,m,d]=s.split("-");return d+" "+db.months[+m-1]+" "+y};
+const yearNumber=s=>+s.slice(0,4),monthNumber=s=>+s.slice(5,7);
+function updateURL(){
+ const p=new URLSearchParams();
+ if(year)p.set("year",year);
+ if(month)p.set("month",String(month).padStart(2,"0"));
+ if(search)p.set("q",search);
+ if(reviewOnly)p.set("review","1");
+ if(view==="timeline")p.set("mode","timeline");
+ history.replaceState(null,"",location.pathname+(p.size?"?"+p.toString():""));
 }
-const textDate=d=>{const p=d.split("-");return p[2]+" "+db.months[Number(p[1])-1]+" "+p[0];};
-function updateURL(){const p=new URLSearchParams();p.set("year",String(year));if(month)p.set("month",String(month).padStart(2,"0"));if(query)p.set("q",query);if(reviewOnly)p.set("review","1");history.replaceState(null,"",location.pathname+"?"+p.toString());}
+function animateChange(commit){
+ if(reduced.matches){commit();return;}
+ if(transition&&typeof transition.skipTransition==="function")transition.skipTransition();
+ if(document.startViewTransition){
+  const a=document.startViewTransition(commit);transition=a;
+  a.finished.catch(()=>{}).finally(()=>{if(transition===a)transition=null;});
+ }else{
+  commit();
+  const n=$("topic-list");
+  if(n&&n.animate)n.animate([{opacity:.22,transform:"translateY(12px)",filter:"blur(4px)"},{opacity:1,transform:"none",filter:"none"}],{duration:410,easing:"cubic-bezier(.2,1,.3,1)"});
+ }
+}
+function newMode(m){if(m===view)return;animateChange(()=>{view=m;limit=36;updateURL();render()})}
+function selectPeriod(changes){animateChange(()=>{changes();limit=36;updateURL();render()})}
+function grouped(list){
+ const map=new Map();
+ for(const r of list){
+  const key=normalize(r.t),reference=master.get(key);
+  let item=map.get(key);
+  if(!item){
+   item={...reference,t:reference?.t||r.t,f:reference?.f||r.f,
+      firstDate:r.d,lastDate:r.d,occurrences:0,reviewSessions:0,review:false,s:r.s};
+   map.set(key,item);
+  }
+  item.occurrences++;
+  if(r.review){item.reviewSessions++;item.review=true}
+  if(r.d<item.firstDate)item.firstDate=r.d;
+  if(r.d>item.lastDate)item.lastDate=r.d;
+ }
+ return [...map.values()];
+}
+function scope({y=year,m=month,searchTerm=search,review=reviewOnly}={}){
+ const s=searchTerm.toLowerCase().trim();
+ return records.filter(t=>(!y||yearNumber(t.d)===y)&&(!m||monthNumber(t.d)===m)&&(!review||t.review)&&(!s||t.t.toLowerCase().includes(s)||t.d.includes(s)));
+}
+function setOfRecords(options){const rows=scope(options);return view==="unique"?grouped(rows):rows;}
+function countYear(y){return setOfRecords({y,m:0,searchTerm:"",review:false}).length}
+function countMonth(m){return setOfRecords({y:year,m,searchTerm:"",review:false}).length}
+function sorted(){
+ const records=setOfRecords();
+ return records.sort((a,b)=>{
+   if(view==="unique")return a.firstDate.localeCompare(b.firstDate)||a.t.localeCompare(b.t);
+   return field==="all"?a.d.localeCompare(b.d)||a.t.localeCompare(b.t):b.d.localeCompare(a.d)||a.t.localeCompare(b.t)
+ });
+}
 function renderNav(){
- $("discipline-nav").innerHTML=db.fields.map(f=>{const n=f.id==="all"?db.topics.length:db.topics.filter(t=>t.f===f.id).length;return '<a href="/library/'+f.id+'/'+(year?'?year='+year:'')+'" class="'+(field===f.id?"active":"")+'" '+(field===f.id?'aria-current="page"':"")+'><span>'+esc(f.name)+'</span><span class="sidebar-count">'+n.toLocaleString("en-US")+'</span></a>';}).join("");
+ $("discipline-nav").innerHTML=db.fields.map(f=>{
+ const n=f.id==="all"?db.uniqueCount:db.uniqueTopics.filter(t=>t.f===f.id).length;
+ const qs=new URLSearchParams();if(year)qs.set("year",String(year));if(view==="timeline")qs.set("mode","timeline");
+ return '<a href="/library/'+f.id+'/'+(qs.size?'?'+qs.toString():'')+'" class="'+(field===f.id?"active":"")+'" '+(field===f.id?'aria-current="page"':'')+'><span>'+escapeHTML(f.name)+'</span><span class="sidebar-count">'+n.toLocaleString("en-US")+'</span></a>';
+ }).join("");
  $("field-label").textContent=spec.name;
  $("hero-field").textContent=spec.name;
  $("hero-desc").textContent=spec.desc;
- $("all-topics").textContent=fieldTopics.length.toLocaleString("en-US");
- $("active-years").textContent=db.years.filter(y=>availableYearCount(y)>0).length;
+ $("all-topics").textContent=uniq.length.toLocaleString("en-US");
+ if($("all-sessions"))$("all-sessions").textContent=records.length.toLocaleString("en-US");
+ $("active-years").textContent=db.years.filter(y=>records.some(t=>yearNumber(t.d)===y)).length;
  $("area-name").textContent=spec.name;
- document.title=spec.name+" — Learning Notes | Kentzo Honggo Limkajaya";
+ document.title=spec.name+" — Unique Study Topics | Kentzo Honggo Limkajaya";
 }
-function renderYears(){
- $("year-filters").innerHTML=[0,...db.years].map(y=>'<button type="button" class="year-button '+(y===year?"active":"")+'" aria-pressed="'+(y===year)+'" data-year="'+y+'"><strong>'+(y||"ALL YEARS")+'</strong><span>'+countYear(y).toLocaleString("en-US")+' topics</span></button>').join("");
- $("year-filters").querySelectorAll("button").forEach(el=>el.addEventListener("click",()=>{const next=+el.dataset.year;if(next===year)return;selectPeriod(()=>{year=next;month=0;displayLimit=36;});}));
+function renderMode(){
+ for(const m of ["unique","timeline"]){
+  const b=$("mode-"+m);if(!b)continue;
+  b.classList.toggle("active",view===m);
+  b.setAttribute("aria-pressed",String(view===m));
+ }
+ if($("mode-explainer"))$("mode-explainer").textContent=view==="unique"
+  ?"One card per unique subject; repeated learning and reviews do not inflate the topic count."
+  :"Each dated learning or REVIEW record is shown separately, including repeated study sessions.";
 }
-function renderMonths(){
- let months=[{m:0,name:"All months"},...db.months.map((name,i)=>({m:i+1,name}))];
+function renderYear(){
+ $("year-filters").innerHTML=[0,...db.years].map(y=>
+ '<button type="button" class="year-button '+(y===year?"active":"")+'" aria-pressed="'+(y===year)+'" data-year="'+y+'"><strong>'+(y||"ALL YEARS")+'</strong><span>'+countYear(y).toLocaleString("en-US")+(view==="unique"?" unique":" records")+'</span></button>'
+ ).join("");
+ $("year-filters").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+ const n=+b.dataset.year;if(n!==year)selectPeriod(()=>{year=n;month=0})
+ }));
+}
+function renderMonth(){
+ const months=[{m:0,name:"All months"},...db.months.map((name,i)=>({m:i+1,name}))];
  $("month-filters").innerHTML=months.map(({m,name})=>{
- const n=countMonth(m),label=m?name.slice(0,3).toUpperCase():"ALL";
- return '<button type="button" class="month-button '+(m===month?"active":"")+'" data-month="'+m+'" aria-pressed="'+(m===month)+'" aria-label="'+esc(name)+': '+n+' study topics" '+(!n&&m!==0?"disabled":"")+'><span>'+label+'</span><small>'+n+'</small></button>';
+  const count=countMonth(m);
+  return '<button type="button" class="month-button '+(m===month?"active":"")+'" data-month="'+m+'" aria-pressed="'+(m===month)+'" aria-label="'+escapeHTML(name)+': '+count+' '+(view==="unique"?"unique topics":"study records")+'" '+(!count&&m!==0?"disabled":"")+'><span>'+(m?name.slice(0,3).toUpperCase():"ALL")+'</span><small>'+count.toLocaleString("en-US")+'</small></button>';
  }).join("");
- $("month-filters").querySelectorAll("button").forEach(el=>el.addEventListener("click",()=>{const next=+el.dataset.month;if(next===month)return;selectPeriod(()=>{month=next;displayLimit=36;});}));
+ $("month-filters").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+ const n=+b.dataset.month;if(n!==month)selectPeriod(()=>{month=n})
+ }));
 }
-function filtered(){
- let q=query.trim().toLowerCase();
- return fieldTopics.filter(t=>(year===0||+t.d.slice(0,4)===year)&&(!month||+t.d.slice(5,7)===month)&&(!reviewOnly||t.review===true)&&(!q||t.t.toLowerCase().includes(q)||t.d.includes(q))).sort((a,b)=>field==="all" ? a.d.localeCompare(b.d)||a.t.localeCompare(b.t) : b.d.localeCompare(a.d)||a.t.localeCompare(b.t));
-}
-function renderList(){
- const items=filtered();
- $("result-count").textContent=items.length.toLocaleString("en-US")+" MATCHING TOPICS";
- $("current-period").textContent=month?db.months[month-1]+" "+(year||"2024–2026"):(year?String(year):"2024–2026");
+function renderCards(){
+ const items=sorted();
+ $("result-count").textContent=items.length.toLocaleString("en-US")+(view==="unique"?" UNIQUE TOPICS":" STUDY RECORDS");
  $("current-total").textContent=items.length.toLocaleString("en-US");
+ $("current-period").textContent=month?db.months[month-1]+" "+(year||"2024–2026"):(year?String(year):"2024–2026");
+ if($("sort-label"))$("sort-label").textContent=view==="unique"?"Earliest first · distinct subjects":field==="all"?"Earliest record first":"Latest record first";
  if(!items.length){
- $("topic-list").innerHTML='<div class="empty-state"><strong>No topics for this selection.</strong><p>Try a different year or month, or clear the search. Only learning topics documented in the nine source notes are listed.</p></div>';
- $("topic-list").style.display="block";$("load-more").hidden=true;return;
+  $("topic-list").style.display="block";
+  $("topic-list").innerHTML='<div class="empty-state"><strong>No matching subjects.</strong><p>Choose another year or month, change the study view, or clear the keyword filter.</p></div>';
+  $("load-more").hidden=true;
+  if($("show-all"))$("show-all").hidden=true;
+  return;
  }
  $("topic-list").style.display="";
- $("topic-list").innerHTML=items.slice(0,displayLimit).map((t,i)=>
- '<article class="topic-card" style="--topic-order:'+Math.min(i,10)+'"><div class="topic-card-heading"><h3>'+esc(t.t)+'</h3>'+(t.review?'<span class="review-badge" title="Explicitly recorded as Review in the original study note">REVIEW</span>':'')+'</div><div class="topic-meta"><span>'+esc(textDate(t.d))+'</span><span>'+esc(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+esc(t.s)+'</span></div></article>'
- ).join("");
- const more=items.length>displayLimit;$("load-more").hidden=!more;
- $("load-more").textContent=more?"LOAD MORE TOPICS ("+(items.length-displayLimit)+" REMAINING) ↓":"";
+ $("topic-list").innerHTML=items.slice(0,limit).map((t,i)=>{
+  const meta=view==="unique"
+    ?'<span>FIRST: '+escapeHTML(formatDate(t.firstDate))+'</span><span>'+t.occurrences+' '+(t.occurrences===1?"RECORD":"RECORDS")+(t.reviewSessions?' · '+t.reviewSessions+' REVIEW':'')+'</span>'
+    :'<span>'+escapeHTML(formatDate(t.d))+'</span><span>'+escapeHTML(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+escapeHTML(t.s)+'</span>';
+  return '<article class="topic-card" style="--topic-order:'+Math.min(i,10)+'"><div class="topic-card-heading"><h3>'+escapeHTML(t.t)+'</h3>'+(t.review?'<span class="review-badge">REVIEW'+(view==="unique"&&t.reviewSessions>1?" × "+t.reviewSessions:"")+'</span>':'')+'</div><div class="topic-meta">'+meta+'</div></article>';
+ }).join("");
+ const hasMore=items.length>limit;
+ $("load-more").hidden=!hasMore;
+ $("load-more").textContent=hasMore?"LOAD MORE ("+(items.length-limit).toLocaleString("en-US")+" REMAINING) ↓":"";
+ if($("show-all"))$("show-all").hidden=field!=="all"||!hasMore;
 }
-function render(){renderNav();renderYears();renderMonths();renderList();if($("review-filter")){$("review-filter").classList.toggle("active",reviewOnly);$("review-filter").setAttribute("aria-pressed",String(reviewOnly));$("review-filter").textContent=reviewOnly?"✓ REVIEWS ONLY":"◈ REVIEWS ONLY";}const showAll=$("show-all");if(showAll)showAll.hidden=field!=="all";}
-$("topic-search").value=query;$("topic-search").addEventListener("input",e=>{query=e.target.value;displayLimit=36;updateURL();renderList();});
-$("load-more").addEventListener("click",()=>{displayLimit+=36;renderList();});
-const showAll=$("show-all");if(showAll)showAll.addEventListener("click",()=>{displayLimit=Infinity;renderList();showAll.hidden=true;});
- const reviewButton=$("review-filter");if(reviewButton)reviewButton.addEventListener("click",()=>{reviewOnly=!reviewOnly;displayLimit=36;updateURL();render();});
-const meter=$("reading-line");let ticking=false;
-window.addEventListener("scroll",()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const h=Math.max(1,document.documentElement.scrollHeight-innerHeight);meter.style.width=(Math.max(0,Math.min(1,scrollY/h))*100).toFixed(2)+"%";ticking=false})},{passive:true});
+function render(){
+ renderNav();renderMode();renderYear();renderMonth();renderCards();
+ const b=$("review-filter");if(b){
+  b.classList.toggle("active",reviewOnly);b.setAttribute("aria-pressed",String(reviewOnly));
+  b.textContent=reviewOnly?"✓ REVIEWS ONLY":"◈ REVIEWS ONLY";
+ }
+}
+$("topic-search").value=search;
+$("topic-search").addEventListener("input",e=>{search=e.target.value;limit=36;updateURL();renderCards()});
+$("load-more").addEventListener("click",()=>{limit+=36;renderCards()});
+const showAll=$("show-all");if(showAll)showAll.addEventListener("click",()=>{limit=Infinity;renderCards()});
+const reviewButton=$("review-filter");if(reviewButton)reviewButton.addEventListener("click",()=>selectPeriod(()=>{reviewOnly=!reviewOnly}));
+["unique","timeline"].forEach(m=>{const b=$("mode-"+m);if(b)b.addEventListener("click",()=>newMode(m))});
+const line=$("reading-line");let ticking=false;
+window.addEventListener("scroll",()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{
+ const h=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+ line.style.width=(Math.max(0,Math.min(1,scrollY/h))*100).toFixed(2)+"%";ticking=false
+ })},{passive:true});
 render();updateURL();
 })();

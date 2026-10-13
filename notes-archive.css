@@ -171,3 +171,15 @@ body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) fo
 @keyframes atlasSelectionPulse{0%{transform:scale(.975)}65%{transform:scale(1.02)}100%{transform:scale(1)}}
 .year-button.active,.month-button.active{animation:atlasSelectionPulse .32s cubic-bezier(.2,.8,.2,1) both}
 @media(prefers-reduced-motion:reduce){.year-button.active,.month-button.active{animation:none!important}}
+
+/* Learning modes: count distinct subjects or browse each documented study event. */
+.atlas-mode-switch{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 10px}
+.atlas-mode-button{position:relative;min-height:52px;padding:12px 23px;
+ border:1px solid rgba(255,255,255,.23);background:#121212;color:#a8a8a8;
+ font:700 10px/1.5 var(--sans);letter-spacing:.14em;transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease}
+.atlas-mode-button:hover{color:#fff;border-color:#fff;transform:translateY(-2px)}
+.atlas-mode-button.active{background:#efefef;border-color:#efefef;color:#111}
+.atlas-mode-explainer{color:#9f9f9f;font-size:11px;line-height:1.8;margin:9px 0 36px;min-height:20px}
+.topic-meta{overflow-wrap:anywhere}
+@media(max-width:600px){.atlas-mode-switch{display:grid;grid-template-columns:1fr 1fr}.atlas-mode-button{font-size:9px;padding:11px 8px}}
+@media(prefers-reduced-motion:reduce){.atlas-mode-button{transition:none!important;transform:none!important}}
