@@ -73,7 +73,8 @@ jobs:
                   continue
               # GitHub Pages project sites live under /alberth/ whereas Vercel lives at /.
               # This transformation affects only deployment artifacts; original files stay intact.
-              raw = re.sub(r'''(["'])/(?!/|alberth/)(?=[\w#?])''',
+              # Do not rewrite URL path fragments in JS concatenation (id+'/maxresdefault.jpg').
+              raw = re.sub(r'''(?<!\+)(["'])/(?!/|alberth/)(?=[\w#?])''',
                            lambda m: m.group(1) + "/alberth/", raw)
               raw = re.sub(r'''(?i)(url\(\s*)/(?!/|alberth/)''',
                            lambda m: m.group(1) + "/alberth/", raw)
