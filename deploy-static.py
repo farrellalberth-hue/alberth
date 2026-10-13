@@ -40,17 +40,20 @@ for src in root.rglob("*"):
     copied += 1
 
 for name in ("index.html", "atelier-noir-v19.css", "atelier-noir-v19.js",
+             "afh-cosmos-v20.css", "afh-cosmos-v20.js",
              "knowledge-library-v18.js", "yellow-book/index.html",
              "yellow-book/atlas.js", "yellow-book/catalog.js",
              "yellow-book/notes.js", "yellow-book/atelier-v19.css"):
     assert (dest / name).is_file(), f"Required AFH static asset not found: {name}"
 html = (dest / "index.html").read_text(encoding="utf-8")
-assert 'class="hero afh19-hero"' in html
+assert 'class="hero afh19-hero afh20-hero"' in html
+assert 'afh-cosmos-v20.css' in html
+assert 'afh-cosmos-v20.js' in html
 assert 'atelier-noir-v19.css' in html
 assert "afh4-starfield" not in html
 assert "afh3-orbit-system" not in html
 (dest / "preview-build.json").write_text(json.dumps({
-    "version": "Atelier Noir V19", "commit": os.environ.get("RENDER_GIT_COMMIT", ""),
+    "version": "Black Galaxy V20", "commit": os.environ.get("RENDER_GIT_COMMIT", ""),
     "provider": "Render Static Site"
 }), encoding="utf-8")
-print(f"AFH Atelier Noir V19 static build: {copied} public assets")
+print(f"AFH Black Galaxy V20 static build: {copied} public assets")
