@@ -91,7 +91,7 @@ body.studio-home #afh4-quote.afh33-manifesto .afh32-quote-motion{display:none}
 body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-art{position:absolute;inset:0 0 0 35%;z-index:2;pointer-events:none;opacity:.88}
 body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0a0b11bc,transparent 40%);pointer-events:none}
 /* Contact: no blank pastel block; independent rotating 3D ribbon and final statement */
-body.studio-home .end-section.afh33-contact{background:linear-gradient(125deg,#0d0d12,#171017 65%,#080a0e)!important;color:#f4e9df!important;min-height:clamp(640px,80vh,940px)!important;padding:clamp(100px,10vw,170px) 0 100px!important;isolation:isolate;overflow:hidden}
+body.studio-home .end-section.afh33-contact{position:relative!important;background:linear-gradient(125deg,#0d0d12,#171017 65%,#080a0e)!important;color:#f4e9df!important;min-height:clamp(640px,80vh,940px)!important;padding:clamp(100px,10vw,170px) 0 100px!important;isolation:isolate;overflow:hidden}
 body.studio-home .afh33-contact .container{position:relative;z-index:5}
 body.studio-home .afh33-contact .eyebrow{color:#e0bca0!important}
 body.studio-home .afh33-contact h2{font:800 clamp(65px,8vw,126px)/.95 'Manrope',sans-serif;letter-spacing:-.09em;color:#fff4ea;max-width:640px;position:relative;z-index:5}
