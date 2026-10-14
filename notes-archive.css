@@ -250,3 +250,18 @@ body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) fo
  .atlas-hero-art-caption{display:none}
 }
 @media(prefers-reduced-motion:reduce){.atlas-hero-canvas{transition:none}}
+
+/* Chronological order selector for Knowledge Atlas study and unique modes */
+.atlas-results-heading{display:flex;align-items:center;justify-content:space-between;gap:17px;flex-wrap:wrap}
+.atlas-results-actions{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.atlas-results-actions #sort-label{color:#9b9b9b;font-size:10px;letter-spacing:.1em}
+.atlas-sort-control{position:relative;min-height:47px;display:inline-flex;align-items:center;gap:11px;
+ background:#131517;border:1px solid rgba(255,255,255,.28);transition:border-color .2s,background .2s}
+.atlas-sort-control:hover,.atlas-sort-control:focus-within{border-color:#fff;background:#1b1d20}
+.atlas-sort-title{padding-left:14px;color:#b3bdca;font:700 9px/1 var(--sans);letter-spacing:.18em}
+.atlas-sort-control select{min-height:45px;appearance:none;-webkit-appearance:none;border:0;border-radius:0;background:transparent;
+ color:#f3f4f6;cursor:pointer;font:700 10px/1.4 var(--sans);letter-spacing:.02em;
+ padding:10px 31px 10px 1px}
+.atlas-sort-control option{background:#f7f7f7;color:#111}
+.atlas-sort-chevron{pointer-events:none;position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#e3e8f1}
+@media(max-width:690px){.atlas-results-heading{align-items:flex-start}.atlas-results-actions{width:100%}.atlas-sort-control{min-width:213px}}

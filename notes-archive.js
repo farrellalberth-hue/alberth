@@ -14,7 +14,7 @@ const normalize=s=>String(s).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").to
 const master=new Map(db.uniqueTopics.map(t=>[normalize(t.t),t]));
 let year=+q.get("year");if(!db.years.includes(year))year=0;
 let month=+q.get("month");if(!(month>=1&&month<=12))month=0;
-let search=q.get("q")||"",reviewOnly=q.get("review")==="1",view=q.get("mode")==="unique"?"unique":"timeline",limit=36;
+let search=q.get("q")||"",reviewOnly=q.get("review")==="1",view=q.get("mode")==="unique"?"unique":"timeline",sortOrder=q.get("sort")==="oldest"?"oldest":"newest",limit=100;
 const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
 let transition=null;
 const formatDate=s=>{const [y,m,d]=s.split("-");return d+" "+db.months[+m-1]+" "+y};
@@ -25,7 +25,7 @@ function updateURL(){
  if(month)p.set("month",String(month).padStart(2,"0"));
  if(search)p.set("q",search);
  if(reviewOnly)p.set("review","1");
- if(view==="unique")p.set("mode","unique");
+ if(view==="unique")p.set("mode","unique");if(sortOrder==="oldest")p.set("sort","oldest");
  history.replaceState(null,"",location.pathname+(p.size?"?"+p.toString():""));
 }
 function animateChange(commit){
@@ -40,8 +40,8 @@ function animateChange(commit){
   if(n&&n.animate)n.animate([{opacity:.22,transform:"translateY(12px)",filter:"blur(4px)"},{opacity:1,transform:"none",filter:"none"}],{duration:410,easing:"cubic-bezier(.2,1,.3,1)"});
  }
 }
-function newMode(m){if(m===view)return;animateChange(()=>{view=m;limit=36;updateURL();render()})}
-function selectPeriod(changes){animateChange(()=>{changes();limit=36;updateURL();render()})}
+function newMode(m){if(m===view)return;animateChange(()=>{view=m;limit=100;updateURL();render()})}
+function selectPeriod(changes){animateChange(()=>{changes();limit=100;updateURL();render()})}
 function grouped(list){
  const map=new Map();
  for(const r of list){
@@ -67,16 +67,16 @@ function setOfRecords(options){const rows=scope(options);return view==="unique"?
 function countYear(y){return setOfRecords({y,m:0,searchTerm:"",review:false}).length}
 function countMonth(m){return setOfRecords({y:year,m,searchTerm:"",review:false}).length}
 function sorted(){
- const records=setOfRecords();
- return records.sort((a,b)=>{
-   if(view==="unique")return a.firstDate.localeCompare(b.firstDate)||a.t.localeCompare(b.t);
-   return field==="all"?a.d.localeCompare(b.d)||a.t.localeCompare(b.t):b.d.localeCompare(a.d)||a.t.localeCompare(b.t)
+ return setOfRecords().sort((a,b)=>{
+  const dateA=view==="unique"?(sortOrder==="newest"?a.lastDate:a.firstDate):a.d;
+  const dateB=view==="unique"?(sortOrder==="newest"?b.lastDate:b.firstDate):b.d;
+  return (sortOrder==="newest"?dateB.localeCompare(dateA):dateA.localeCompare(dateB))||a.t.localeCompare(b.t);
  });
 }
 function renderNav(){
  $("discipline-nav").innerHTML=db.fields.map(f=>{
  const n=view==="timeline"?(f.id==="all"?db.topics.length:db.topics.filter(t=>t.f===f.id).length):(f.id==="all"?db.uniqueCount:db.uniqueTopics.filter(t=>t.f===f.id).length);
- const qs=new URLSearchParams();if(year)qs.set("year",String(year));if(view==="unique")qs.set("mode","unique");
+ const qs=new URLSearchParams();if(year)qs.set("year",String(year));if(view==="unique")qs.set("mode","unique");if(sortOrder==="oldest")qs.set("sort","oldest");
  return '<a href="/library/'+f.id+'/'+(qs.size?'?'+qs.toString():'')+'" class="'+(field===f.id?"active":"")+'" '+(field===f.id?'aria-current="page"':'')+'><span>'+escapeHTML(f.name)+'</span><span class="sidebar-count">'+n.toLocaleString("en-US")+'</span></a>';
  }).join("");
  $("field-label").textContent=spec.name;
@@ -121,7 +121,7 @@ function renderCards(){
  $("result-count").textContent=items.length.toLocaleString("en-US")+(view==="unique"?" UNIQUE TOPICS":" STUDY RECORDS");
  $("current-total").textContent=items.length.toLocaleString("en-US");
  $("current-period").textContent=month?db.months[month-1]+" "+(year||"2024–2026"):(year?String(year):"2024–2026");
- if($("sort-label"))$("sort-label").textContent=view==="unique"?"Earliest first · distinct subjects":field==="all"?"Earliest record first":"Latest record first";
+ if($("sort-label"))$("sort-label").textContent=view==="unique"?"Order by study date · unique subjects":"Order by study date · timeline";
  if(!items.length){
   $("topic-list").style.display="block";
   $("topic-list").innerHTML='<div class="empty-state"><strong>No matching subjects.</strong><p>Choose another year or month, change the study view, or clear the keyword filter.</p></div>';
@@ -138,20 +138,26 @@ function renderCards(){
  }).join("");
  const hasMore=items.length>limit;
  $("load-more").hidden=!hasMore;
- $("load-more").textContent=hasMore?"LOAD MORE ("+(items.length-limit).toLocaleString("en-US")+" REMAINING) ↓":"";
+ $("load-more").textContent=hasMore?"LOAD 100 MORE · "+(items.length-limit).toLocaleString("en-US")+" REMAINING ↓":"";
  if($("show-all"))$("show-all").hidden=field!=="all"||!hasMore;
 }
 function render(){
- renderNav();renderMode();renderYear();renderMonth();renderCards();
+ renderNav();renderMode();renderYear();renderMonth();renderCards();if($("topic-sort"))$("topic-sort").value=sortOrder;
  const b=$("review-filter");if(b){
   b.classList.toggle("active",reviewOnly);b.setAttribute("aria-pressed",String(reviewOnly));
   b.textContent=reviewOnly?"✓ REVIEWS ONLY":"◈ REVIEWS ONLY";
  }
 }
 $("topic-search").value=search;
-$("topic-search").addEventListener("input",e=>{search=e.target.value;limit=36;updateURL();renderCards()});
-$("load-more").addEventListener("click",()=>{limit+=36;renderCards()});
+$("topic-search").addEventListener("input",e=>{search=e.target.value;limit=100;updateURL();renderCards()});
+$("load-more").addEventListener("click",()=>{limit+=100;renderCards()});
 const showAll=$("show-all");if(showAll)showAll.addEventListener("click",()=>{limit=Infinity;renderCards()});
+const sortControl=$("topic-sort");
+if(sortControl)sortControl.addEventListener("change",e=>{
+ const next=e.target.value==="oldest"?"oldest":"newest";
+ if(next===sortOrder)return;
+ animateChange(()=>{sortOrder=next;limit=100;updateURL();renderCards()});
+});
 const reviewButton=$("review-filter");if(reviewButton)reviewButton.addEventListener("click",()=>selectPeriod(()=>{reviewOnly=!reviewOnly}));
 ["unique","timeline"].forEach(m=>{const b=$("mode-"+m);if(b)b.addEventListener("click",()=>newMode(m))});
 const line=$("reading-line");let ticking=false;
