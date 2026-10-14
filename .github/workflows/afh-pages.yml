@@ -8,6 +8,9 @@ on:
       - 'index.html'
       - 'afh-3d-sections-v31.css'
       - 'afh-3d-sections-v31.js'
+      - 'afh-ambient-v32.css'
+      - 'afh-ambient-v32.js'
+      - 'learning-index-v25.js'
       - 'afh-mobile-fix-v28.css'
       - 'afh-galaxy-3d-v29.css'
       - 'afh-galaxy-3d-v29.js'
@@ -92,13 +95,15 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V31 Rotating 3D Disciplines", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V32 Living Sections and Focused Learning", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "journey" / "index.html").exists()
           assert (target / "learning-index-v25.json").exists()
           assert (target / "afh-3d-sections-v31.js").exists()
           assert (target / "afh-3d-sections-v31.css").exists()
+          assert (target / 'afh-ambient-v32.js').exists()
+          assert (target / 'afh-ambient-v32.css').exists()
           assert (target / "afh-mobile-fix-v28.css").exists()
           assert (target / "afh-galaxy-3d-v29.js").exists()
           assert (target / "afh-galaxy-fallback-v29.js").exists()
@@ -123,7 +128,22 @@ jobs:
           assert "id=\"about\"" in homepage
           journey = (target / "journey" / "index.html").read_text(encoding="utf-8")
           assert "1,692" in journey
-          print("AFH V31 rotating 3D sections preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          assert "lk-new-panel" not in journey
+          assert 'data-motion="journey"' in journey
+          assert '/alberth/afh-ambient-v32.js' in homepage
+          assert 'data-motion="quote"' in homepage
+          assert 'data-motion="videos"' in homepage
+          assert homepage.count('class="afh32-video-feature ') == 3
+          assert 'z2oQe6B1Qa4' in homepage
+          assert 'vTs2IQ8OefQ' in homepage
+          ai = (target / 'library' / 'ai' / 'index.html').read_text(encoding='utf-8')
+          assert 'ONE PIECE<br>AI SYSTEM' not in ai
+          assert 'THE SECOND<br>BRAIN' not in ai
+          assert 'OBSIDIAN<br>KNOWLEDGE SYSTEM' in ai
+          assert 'data-motion="obsidian"' in ai
+          assert 'afh-ambient-v32.js' in ai
+          assert 'learning-index-v25.js?v=32' in journey
+          print("AFH V32 living 3D sections preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
 
       - name: Cache original YouTube thumbnails from source video IDs
