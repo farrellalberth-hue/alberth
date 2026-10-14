@@ -6,6 +6,13 @@ on:
     paths:
       - '.github/workflows/afh-pages.yml'
       - 'index.html'
+      - 'afh-3d-sections-v31.css'
+      - 'afh-3d-sections-v31.js'
+      - 'afh-mobile-fix-v28.css'
+      - 'afh-galaxy-3d-v29.css'
+      - 'afh-galaxy-3d-v29.js'
+      - 'afh-galaxy-fallback-v29.js'
+      - 'learning-index-v25.json'
       - 'yellow-book/**'
       - 'knowledge-library-v18.css'
       - 'knowledge-library-v18.js'
@@ -85,43 +92,38 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V25 Black Galaxy & Dual-Domain Video Thumbnails", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V31 Rotating 3D Disciplines", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
-          assert (target / "yellow-book" / "index.html").exists()
-          assert (target / "knowledge-library-v18.css").exists()
-          assert (target / "knowledge-library-v18.js").exists()
-          assert (target / "atelier-noir-v19.css").exists()
-          assert (target / "atelier-noir-v19.js").exists()
-          assert (target / "yellow-book" / "atelier-v19.css").exists()
+          assert (target / "journey" / "index.html").exists()
+          assert (target / "learning-index-v25.json").exists()
+          assert (target / "afh-3d-sections-v31.js").exists()
+          assert (target / "afh-3d-sections-v31.css").exists()
+          assert (target / "afh-mobile-fix-v28.css").exists()
+          assert (target / "afh-galaxy-3d-v29.js").exists()
+          assert (target / "afh-galaxy-fallback-v29.js").exists()
+          assert (target / "afh-video-atlas-v21.css").exists()
+          assert (target / "afh-audio-dock-v21.js").exists()
           homepage = (target / "index.html").read_text(encoding="utf-8")
-          assert '"/alberth/knowledge-library-v18.css' in homepage
-          assert '/alberth/yellow-book/' in homepage
-          assert 'class="hero afh19-hero afh20-hero"' in homepage
-          assert '"/alberth/atelier-noir-v19.css' in homepage
-          assert './afh-cosmos-v20.css?v=20' in homepage
-          assert './afh-cosmos-v20.js?v=20' in homepage
-          assert './studio-v7.js?v=25' in homepage
-          assert 'id="afh20-atmosphere"' in homepage
-          assert '<span class="afh20-word">THINK.</span>' in homepage
-          assert 'class="afh19-folio"' not in homepage
-          assert (target / 'afh-cosmos-v20.css').exists()
-          assert (target / 'afh-cosmos-v20.js').exists()
-          assert (target / 'afh-video-atlas-v21.css').exists()
-          assert (target / 'afh-audio-dock-v21.js').exists()
-          assert (target / 'alberth-brand-v24.css').exists()
-          assert (target / 'alberth-mark.svg').exists()
-          assert './afh-video-atlas-v21.css?v=22' in homepage
-          assert './studio-v7.js?v=25' in homepage
-          assert 'id="afh21-audio-expand"' in homepage
-          assert 'id="youtube-sort"' in homepage
-          assert homepage.count('afh21-feature-svg') == 3
-          assert '<title>alberth</title>' in homepage
-          assert 'alberth-wordmark' in homepage
-          assert '/alberth/alberth-mark.svg' in homepage
-          assert '/alberth/alberth-brand-v24.css?v=24' in homepage
-          assert 'href="/alberth/library/crypto/"' in homepage
-          print("AFH V25 Black Galaxy static preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          assert 'class="afh3-selected afh31-section"' in homepage
+          assert homepage.count('class="afh31-canvas"') == 4
+          for scene in ("economics","finance","ai","crypto"):
+              assert 'data-scene="'+scene+'"' in homepage, scene
+          for path in (
+              "/alberth/afh-3d-sections-v31.js",
+              "/alberth/afh-3d-sections-v31.css",
+              "/alberth/afh-mobile-fix-v28.css",
+          ):
+              assert path in homepage, path
+          assert "href=\"/alberth/library/finance/\"" in homepage
+          assert "href=\"/alberth/library/crypto/\"" in homepage
+          assert "id=\"afh29-galaxy\"" in homepage
+          assert "id=\"journey\"" in homepage
+          assert "id=\"youtube-grid\"" in homepage
+          assert "id=\"about\"" in homepage
+          journey = (target / "journey" / "index.html").read_text(encoding="utf-8")
+          assert "1,692" in journey
+          print("AFH V31 rotating 3D sections preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
 
       - name: Cache original YouTube thumbnails from source video IDs
