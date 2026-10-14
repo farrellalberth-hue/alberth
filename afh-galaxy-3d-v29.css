@@ -1,0 +1,67 @@
+/* AFH Galaxy V29 — native WebGL 3D, GPU star-cloud and orbit-control surface.
+ * Layer is opt-in: existing M51 imagery remains as fallback. Mobile-safe interactions.
+ */
+body.studio-home .hero.afh20-hero{--afh29-ivory:#f1e1d3;--afh29-ember:#eebc96}
+body.studio-home .hero.afh20-hero.afh29-enabled{overflow:clip!important;contain:paint}
+body.studio-home .hero.afh20-hero.afh29-enabled .afh20-cosmos{opacity:.17!important;filter:brightness(.5) saturate(.72) blur(3px);pointer-events:none!important;transition:opacity .8s}
+body.studio-home .hero.afh20-hero.afh29-enabled .afh20-attribution{display:none!important}
+body.studio-home .hero.afh20-hero.afh29-enabled #afh20-atmosphere{z-index:1;opacity:.38;pointer-events:none}
+.afh29-galaxy{position:absolute;right:max(0px,1vw);top:49%;width:min(72vw,1300px);height:min(92%,1040px);transform:translateY(-50%);z-index:2;isolation:isolate;pointer-events:none;overflow:hidden;contain:layout paint;--afh29-x:0px;--afh29-y:0px}
+.afh29-galaxy:before{content:"";position:absolute;inset:6% 0 0;z-index:-1;border-radius:50%;background:radial-gradient(ellipse at 53% 50%,#f5bb8644 0%,#ab677030 13%,#79528519 29%,transparent 57%);filter:blur(14px);pointer-events:none}
+.afh29-galaxy:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#030407b8 0%,#03040760 23%,transparent 49%),radial-gradient(ellipse at center,transparent 20%,#030407a8 87%);pointer-events:none;z-index:4}
+.afh29-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;transform:translate3d(var(--afh29-x),var(--afh29-y),0);pointer-events:none;will-change:transform}
+.afh29-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 55% 54%,transparent 22%,#03040715 59%,#030407b0 97%);z-index:3}
+.afh29-orbit-ring{position:absolute;width:68%;height:72%;left:17%;top:13%;border:1px solid #ffe5d23d;border-radius:50%;box-shadow:0 0 32px #eb9e6c0d,0 0 0 1px #ffca9708;z-index:2;transform:perspective(900px) rotateX(63deg) rotate(-20deg);pointer-events:none}
+.afh29-orbit-ring.r2{width:84%;height:81%;left:8%;top:9%;border-color:#d8b3df42;transform:perspective(950px) rotateX(73deg) rotate(39deg)}
+.afh29-orbit-ring.r3{width:42%;height:46%;left:30%;top:27%;border-color:#ffead51a;transform:perspective(900px) rotateX(45deg) rotate(-9deg)}
+.afh29-interaction{position:absolute;inset:9% 2% 7% 28%;z-index:6;pointer-events:auto;touch-action:pan-y;cursor:grab;border:0;background:transparent}
+.afh29-interaction:active{cursor:grabbing}
+.afh29-interaction:focus-visible{outline:2px solid #f3c597;outline-offset:-9px;border-radius:36%}
+.afh29-controls{position:absolute;right:clamp(25px,4vw,82px);bottom:clamp(32px,5vh,70px);z-index:7;display:flex;flex-direction:column;align-items:flex-end;gap:12px;pointer-events:auto}
+.afh29-hint{display:flex;align-items:center;gap:11px;font:800 9px/1.5 'Manrope',Arial,sans-serif;letter-spacing:.17em;color:#d6c6ba;text-shadow:0 2px 10px #000;pointer-events:none}
+.afh29-hint:before{content:"✳";font:400 21px Georgia,serif;color:#f3c79e}
+.afh29-buttons{display:flex;align-items:center;gap:9px}
+.afh29-button{display:flex;gap:9px;align-items:center;justify-content:center;min-height:43px;padding:10px 15px;border:1px solid #f4d8c280;border-radius:100px;background:#08070c9a;color:#f3ede5;font:850 9px/1.25 'Manrope',Arial,sans-serif;letter-spacing:.12em;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;transition:background .24s,border-color .24s,transform .24s}
+.afh29-button:hover{background:#5d3b45cb;border-color:#ffe1ca;transform:translateY(-2px)}
+.afh29-button:active{transform:scale(.96)}
+.afh29-button:focus-visible{outline:2px solid #fbd1b0;outline-offset:3px}
+.afh29-button[aria-pressed="false"]{border-color:#ffffff50;color:#d0bfb4}
+.afh29-counter{position:absolute;z-index:7;right:clamp(25px,4vw,82px);top:clamp(120px,18%,190px);display:flex;flex-direction:column;gap:8px;align-items:flex-end;text-align:right;pointer-events:none;font:750 9px/1.6 'Manrope',Arial,sans-serif;letter-spacing:.17em;color:#e9bc9e;text-shadow:0 1px 7px #000}
+.afh29-counter strong{color:#fff2e3;font-weight:900;letter-spacing:.25em}
+.afh29-counter i{width:44px;height:1px;background:linear-gradient(90deg,transparent,#eec6a5);display:block}
+body.studio-home .hero.afh20-hero.afh29-enabled .afh20-shell{z-index:5}
+body.studio-home .hero.afh20-hero.afh29-enabled .afh20-copy{position:relative;z-index:7}
+body.studio-home .hero.afh20-hero.afh29-enabled .afh20-description,
+body.studio-home .hero.afh20-hero.afh29-enabled .afh20-hero-title{text-shadow:0 2px 25px #000,0 0 15px #0008}
+@media(min-width:768px) and (max-width:1180px){
+  .afh29-galaxy{width:75vw;right:-8vw}
+  .afh29-interaction{left:34%}
+  .afh29-counter{top:19%}
+}
+@media(max-width:767px){
+  body.studio-home .hero.afh20-hero.afh29-enabled{overflow:clip!important}
+  body.studio-home .hero.afh20-hero.afh29-enabled .afh20-cosmos{opacity:.13!important;filter:brightness(.3) blur(4px)}
+  body.studio-home .hero.afh20-hero.afh29-enabled .afh20-shell{z-index:5}
+  .afh29-galaxy{width:116vw;height:clamp(310px,58svh,535px);right:-35vw;top:35%;transform:translateY(-50%);opacity:.75;filter:saturate(.9)}
+  .afh29-galaxy:after{background:linear-gradient(90deg,#030407b8,transparent 58%),radial-gradient(ellipse at 50% 50%,transparent 21%,#030407c6 89%)}
+  .afh29-interaction{inset:8% 5% 10% 43%;touch-action:pan-y;z-index:6}
+  .afh29-controls{bottom:clamp(58px,9svh,86px);right:var(--afhm-pad,20px);gap:7px;z-index:9}
+  .afh29-hint{font-size:8px;letter-spacing:.12em}
+  .afh29-buttons{gap:6px}
+  .afh29-button{min-height:42px;padding:10px 12px;font-size:8px}
+  .afh29-counter{top:16%;right:var(--afhm-pad,20px);font-size:8px}
+  .afh29-counter strong{font-size:8px}
+  .afh29-counter i{width:30px}
+}
+@media(max-width:390px){
+  .afh29-galaxy{top:35%;right:-38vw;width:119vw}
+  .afh29-counter{top:15%}
+  .afh29-hint{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .afh29-galaxy .afh29-canvas{will-change:auto}
+ .afh29-button{transition:none}
+}
+/* Kill pointer overlays only when fallback cannot draw. */
+.afh29-galaxy.afh29-failed{display:none}
+.afh29-fallback .afh29-controls,.afh29-fallback .afh29-counter{display:none}
