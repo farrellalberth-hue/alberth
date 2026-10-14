@@ -183,3 +183,70 @@ body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) fo
 .topic-meta{overflow-wrap:anywhere}
 @media(max-width:600px){.atlas-mode-switch{display:grid;grid-template-columns:1fr 1fr}.atlas-mode-button{font-size:9px;padding:11px 8px}}
 @media(prefers-reduced-motion:reduce){.atlas-mode-button{transition:none!important;transform:none!important}}
+
+/* CATEGORY-SPECIFIC 3D HEROES — local procedural projected geometry.
+   Each archive page has its own scene; no external visuals or canvas library. */
+.atlas-hero{
+ position:relative;isolation:isolate;overflow:hidden;min-height:690px;
+ display:flex;align-items:center;
+ background:radial-gradient(ellipse 75% 95% at 79% 45%,#222b38,#10131b 52%,#050506 99%);
+}
+.atlas-hero .shell{position:relative;z-index:4}
+.atlas-hero:before{
+ content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+ background:linear-gradient(90deg,#050505 0%,rgba(5,5,7,.99) 18%,rgba(5,5,7,.88) 34%,rgba(5,5,7,.47) 52%,rgba(5,5,7,.04) 77%,rgba(5,5,7,.18) 100%);
+}
+.atlas-hero:after{
+ content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(ellipse 44% 65% at 78% 49%,rgba(222,232,255,.12),transparent 77%),
+ linear-gradient(0deg,rgba(0,0,0,.39),transparent 24%,transparent 76%,rgba(0,0,0,.28));
+}
+.atlas-hero-art{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.atlas-hero-art:before{
+ content:"";position:absolute;inset:0;
+ background-image:linear-gradient(rgba(225,232,248,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(225,232,248,.035) 1px,transparent 1px);
+ background-size:74px 74px;transform:perspective(580px) rotateX(7deg) scale(1.2);
+ mask-image:radial-gradient(ellipse 67% 100% at 77% 46%,black,transparent 87%)
+}
+.atlas-hero-canvas{
+ display:block;position:absolute;inset:0;width:100%;height:100%;
+ filter:drop-shadow(0 0 32px rgba(175,193,230,.20));
+}
+.atlas-hero-art-caption{
+ position:absolute;right:clamp(24px,4.8vw,96px);bottom:36px;
+ display:flex;gap:12px;align-items:flex-end;flex-direction:column;text-align:right;
+ color:rgba(226,235,251,.7);font:700 9px/1.6 var(--sans);letter-spacing:.22em;
+}
+.atlas-hero-art-caption:before{content:"";height:1px;width:90px;background:rgba(218,231,249,.4)}
+.atlas-art-serial{color:#f0f5ff;font-size:10px}
+.atlas-art-descriptor{font-size:9px;color:#a9b8d0}
+.atlas-hero[data-scene="economics"]{background:radial-gradient(ellipse 70% 98% at 79% 44%,#202c3b,#0a1018 61%,#050505 100%)}
+.atlas-hero[data-scene="finance"]{background:radial-gradient(ellipse 70% 98% at 79% 44%,#242a35,#0c1017 61%,#050505 100%)}
+.atlas-hero[data-scene="crypto"]{background:radial-gradient(ellipse 70% 98% at 79% 44%,#142a40,#0a111b 61%,#050505 100%)}
+.atlas-hero[data-scene="others"]{background:radial-gradient(ellipse 70% 98% at 79% 44%,#242036,#100e19 61%,#050505 100%)}
+.atlas-hero[data-scene="all"]{background:radial-gradient(ellipse 70% 98% at 79% 44%,#252d3b,#0f141c 61%,#050505 100%)}
+.atlas-hero .micro{color:#d0d8e5}
+.atlas-hero h1{position:relative;max-width:900px;text-shadow:0 12px 43px rgba(0,0,0,.65)}
+.atlas-hero p{color:#c2ccd9;max-width:620px;text-shadow:0 3px 16px rgba(0,0,0,.85)}
+.atlas-hero .metric span{color:#a9b5c5}
+.atlas-hero .hero-metrics{gap:clamp(22px,2.9vw,46px)}
+.atlas-hero .metric b{text-shadow:0 3px 24px rgba(0,0,0,.4)}
+.atlas-mode-button#mode-timeline{order:0}
+.atlas-mode-button#mode-unique{order:1}
+@media(max-width:960px){
+ .atlas-hero{min-height:635px}
+ .atlas-hero:before{background:linear-gradient(90deg,rgba(5,5,6,.96),rgba(5,5,7,.80) 51%,rgba(5,5,7,.18))}
+ .atlas-hero-art-caption{right:20px;bottom:20px;font-size:8px}
+}
+@media(max-width:680px){
+ .atlas-hero{min-height:610px;padding:54px 0 64px}
+ .atlas-hero:before{background:linear-gradient(90deg,rgba(5,5,6,.88),rgba(5,5,7,.60)),linear-gradient(0deg,rgba(5,5,7,.88),transparent 36%,rgba(5,5,6,.45))}
+ .atlas-hero .micro{margin-top:38px}
+ .atlas-hero h1{font-size:clamp(61px,13vw,89px);margin:20px 0 21px}
+ .atlas-hero .hero-metrics{margin-top:35px;gap:21px 27px}
+ .atlas-hero .metric{flex-wrap:wrap;gap:5px 10px;min-width:39%}
+ .atlas-hero .metric b{font-size:29px}
+ .atlas-hero .metric span{font-size:8px}
+ .atlas-hero-art-caption{display:none}
+}
+@media(prefers-reduced-motion:reduce){.atlas-hero-canvas{transition:none}}
