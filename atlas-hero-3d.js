@@ -1,5 +1,5 @@
-/* Kentzo Atlas 3D gallery — five custom interactive projected-geometry scenes.
-   Canvas 2D uses an actual 3D camera, depth perspective and volumetric wire geometry;
+/* Kentzo Atlas 3D gallery — five autonomous animated projected-geometry scenes.
+   Canvas 2D uses a 3D camera, depth perspective and volumetric wire geometry;
    self-hosted, no external libraries or assets. Respect reduced-motion and visibility.
 */
 (function(){"use strict";
@@ -11,8 +11,7 @@ const scene=["all","economics","finance","crypto","others"].includes(root.datase
 const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
 const TAU=Math.PI*2;
 let w=0,h=0,dpr=1,unit=200,centerX=0,centerY=0;
-let pointerX=0,pointerY=0,targetX=0,targetY=0,angle=0,raf=0,last=0,visible=true;
-const clamp=(x,min,max)=>Math.min(max,Math.max(min,x));
+let angle=0,raf=0,last=0,visible=true;
 const data={
  finance:[.24,.4,.13,.5,.68,.48,.75,.61,.89,.66,.95,.81,1.05,.83,1.16,1.03,1.35,1.13,1.41,1.59],
  econColor:[218,232,255],cryptoColor:[179,215,255],financeColor:[216,226,246],othersColor:[225,215,255],allColor:[214,223,255]
@@ -36,7 +35,7 @@ const rotate=(p,yaw,pitch)=>{
  const x=p[0]*cy+p[2]*sy,z=p[2]*cy-p[0]*sy;
  return [x,p[1]*cp-z*sp,p[1]*sp+z*cp]
 };
-function proj(p,yaw=angle*.12+pointerX*.32,pitch=-.21+pointerY*.21){
+function proj(p,yaw=angle*.17,pitch=-.21+Math.sin(angle*.27)*.12){
  const a=rotate(p,yaw,pitch),f=4.6/(4.6-a[2]*.38);
  return {x:centerX+a[0]*unit*f,y:centerY+a[1]*unit*f,z:a[2],f};
 }
@@ -233,8 +232,6 @@ function draw(t){
 function loop(now){
  raf=0;if(!visible||document.hidden)return;
  let dt=last?Math.min(45,now-last):16;last=now;
- const smooth=Math.min(1,dt*.006);
- pointerX+=(targetX-pointerX)*smooth;pointerY+=(targetY-pointerY)*smooth;
  if(!reduce.matches)angle+=dt*.001;
  draw(angle);
  if(!reduce.matches)raf=requestAnimationFrame(loop);
@@ -244,13 +241,6 @@ function start(){
  last=0;if(reduce.matches){draw(0);return}raf=requestAnimationFrame(loop);
 }
 function stop(){if(raf)cancelAnimationFrame(raf);raf=0}
-hero.addEventListener("pointermove",e=>{
- if(reduce.matches)return;
- const r=hero.getBoundingClientRect();
- targetX=clamp((e.clientX-r.left)/r.width*2-1,-1,1);
- targetY=clamp((e.clientY-r.top)/r.height*2-1,-1,1);
-},{passive:true});
-hero.addEventListener("pointerleave",()=>{targetX=0;targetY=0});
 if("IntersectionObserver" in window){
  const observer=new IntersectionObserver(entries=>{
   visible=entries[0].isIntersecting;if(visible)start();else stop();
