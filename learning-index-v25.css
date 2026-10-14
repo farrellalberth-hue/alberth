@@ -1,5 +1,5 @@
 /* ALBERTH — Learning Index V25. Compatible with existing Atelier V19 & brand V24. */
-#lk-index{position:relative;margin:75px 0 100px;padding:clamp(28px,4vw,62px) 0 30px;border-top:1px solid #37271965;--lk-paper:#f0e5d3;--lk-muted:#a99c90;--lk-gold:#e4b991;--lk-line:#c79c6c48;font-family:'Manrope',Arial,sans-serif;color:var(--lk-paper)}
+#lk-index{position:relative;margin:75px 0 100px;padding:clamp(25px,4vw,58px);border:1px solid #bd93634f;background:radial-gradient(ellipse at 90% 2%,#7b4d292c,transparent 44%),#1a110c;box-shadow:0 20px 70px #281b1345;--lk-paper:#f0e5d3;--lk-muted:#a99c90;--lk-gold:#e4b991;--lk-line:#c79c6c48;font-family:'Manrope',Arial,sans-serif;color:var(--lk-paper)}
 #lk-index .lk-eyebrow{font-size:10px;letter-spacing:.22em;font-weight:800;color:var(--lk-gold);text-transform:uppercase}
 #lk-index .lk-intro{display:flex;align-items:end;justify-content:space-between;gap:35px;margin:22px 0 38px}
 #lk-index .lk-intro h3{font-size:clamp(49px,6.3vw,91px);line-height:.99;letter-spacing:-.075em;font-weight:660;margin:0}
