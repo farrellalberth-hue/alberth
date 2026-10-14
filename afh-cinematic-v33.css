@@ -1,0 +1,148 @@
+/* AFH V33: CINEMATIC LEARNING PORTFOLIO — production responsive art direction.
+   Original AFH typographic identity retained; animated 3D supplied by afh-cinematic-v33.js. */
+:root{--v33-gold:#ecd0b0;--v33-white:#f8eee6;--v33-muted:#c7b6aa;--v33-ink:#0a0b10}
+body.studio-home .au27-library.afh33-learning{background:#0c0d13!important;color:var(--v33-white)!important;padding:clamp(98px,9vw,150px) 0 120px!important;isolation:isolate}
+body.studio-home .au27-library.afh33-learning:before{background:radial-gradient(ellipse 32% 30% at 10% 38%,#34335359,transparent 80%),radial-gradient(ellipse 35% 40% at 92% 30%,#53403232,transparent 79%),repeating-linear-gradient(0deg,transparent 0 147px,#d0c5d507 148px 149px)!important}
+body.studio-home .afh33-learning .container{z-index:5}
+body.studio-home .afh33-learning .afh32-atlas-motion{opacity:.17!important;mix-blend-mode:screen!important}
+body.studio-home .afh33-learning .au27-head{align-items:end;margin-bottom:35px;grid-template-columns:minmax(0,1.25fr) minmax(220px,.56fr)}
+body.studio-home .afh33-learning .au27-head h2{font:780 clamp(55px,6.6vw,106px)/.93 'Manrope',Arial,sans-serif;letter-spacing:-.087em;color:var(--v33-white);margin:17px 0 0}
+body.studio-home .afh33-learning .au27-head h2 em{color:var(--v33-gold);font-weight:400}
+body.studio-home .afh33-learning .au27-head p{color:#d0c0b6;font-size:14px;line-height:1.85}
+body.studio-home .afh33-learning .au27-kicker{color:var(--v33-gold)}
+body.studio-home .afh33-learning .au27-metrics{margin:0 0 28px;border-color:#d9c8b338;padding:20px 0}
+body.studio-home .afh33-learning .au27-metrics strong{color:var(--v33-white)!important;font-size:clamp(25px,3vw,42px)}
+body.studio-home .afh33-learning .au27-metrics span{color:#af9a8f}
+body.studio-home .afh33-learning .au27-cards{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+body.studio-home .afh33-learning .au27-card{
+ --v33-tone:#9aafde;position:relative;display:flex;flex-direction:column;justify-content:space-between;
+ min-height:clamp(290px,26vw,380px)!important;padding:24px 26px 26px!important;
+ border:1px solid #efcfb12c;border-radius:9px!important;background:linear-gradient(145deg,#141c2c,#0e121d 65%,#101420)!important;
+ box-shadow:0 14px 40px #0003!important;color:var(--v33-white)!important;overflow:hidden;
+ transform:none;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s!important;
+ text-decoration:none;-webkit-tap-highlight-color:rgba(228,187,146,.2)
+}
+body.studio-home .afh33-learning .au27-card[data-slug=finance]{--v33-tone:#e6bc9e;background:linear-gradient(145deg,#28211e,#141116 75%)!important}
+body.studio-home .afh33-learning .au27-card[data-slug=ai]{--v33-tone:#9bceb6;background:linear-gradient(145deg,#162720,#0e1618 80%)!important}
+body.studio-home .afh33-learning .au27-card[data-slug=blockchain]{--v33-tone:#bcb2fc;background:linear-gradient(145deg,#251d3d,#11111d 80%)!important}
+body.studio-home .afh33-learning .au27-card[data-slug=quant]{--v33-tone:#e6c896;background:linear-gradient(145deg,#2b231b,#161215 80%)!important}
+body.studio-home .afh33-learning .au27-card[data-slug=accounting]{--v33-tone:#d7c6e8;background:linear-gradient(145deg,#281c31,#17131c 80%)!important}
+body.studio-home .afh33-learning .au27-card:before{content:"";position:absolute;inset:-22%;border-radius:0;box-shadow:none;background:radial-gradient(ellipse at 66% 42%,color-mix(in srgb,var(--v33-tone) 15%,transparent),transparent 53%);pointer-events:none;z-index:0}
+body.studio-home .afh33-learning .au27-card:after{display:none!important}
+body.studio-home .afh33-learning .au27-card:hover,body.studio-home .afh33-learning .au27-card:focus-visible{transform:translateY(-6px)!important;border-color:color-mix(in srgb,var(--v33-tone) 66%,transparent);box-shadow:0 23px 52px #0009!important}
+body.studio-home .afh33-learning .au27-card:focus-visible{outline:2px solid var(--v33-gold);outline-offset:3px}
+body.studio-home .afh33-learning .au27-card-top{position:relative;z-index:5;color:var(--v33-tone)}
+body.studio-home .afh33-learning .au27-card-arrow{color:var(--v33-white);border-color:#e9dcc17d;background:#090a0b35;width:47px;height:47px}
+body.studio-home .afh33-learning .au27-card-bottom{position:relative;z-index:5;margin-top:auto}
+body.studio-home .afh33-learning .au27-card h3{font:760 clamp(26px,2.45vw,38px)/1.06 'Manrope',Arial,sans-serif;letter-spacing:-.07em;color:#fff2e9!important;max-width:82%;margin:0 0 12px}
+body.studio-home .afh33-learning .au27-card p{font-size:12px;line-height:1.65;color:#c5b9b8!important;max-width:81%;opacity:1}
+body.studio-home .afh33-learning .afh33-field-canvas{position:absolute;top:3%;right:-8%;height:80%;width:100%;display:block;z-index:2;pointer-events:none;opacity:.84;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--v33-tone) 27%,transparent))}
+body.studio-home .afh33-learning .afh33-field-canvas:after{display:none}
+body.studio-home .afh33-learning .au27-open{background:#21191b;border:1px solid #c9ab9767;border-radius:9px;margin-top:18px;box-shadow:none}
+body.studio-home .afh33-learning .au27-open:hover{background:#473033}
+body.studio-home .afh33-learning .au27-open h3{color:#f9ebde}
+body.studio-home .afh33-learning .au27-open p{color:#c9b6b3}
+body.studio-home .afh33-learning .au27-provenance{color:#aa9a99}
+body.studio-home .afh33-learning .au27-provenance strong{color:#e8c5a4}
+/* V33 Featured Lectures: first-class video showcase, followed by editable searchable archive */
+body.studio-home #youtube.afh33-youtube{background:#080a10!important;color:var(--v33-white)!important;padding-top:clamp(92px,9vw,155px)!important}
+body.studio-home .afh33-youtube .youtube-section-intro{display:flex!important;align-items:center!important;gap:35px;position:relative;isolation:isolate;min-height:350px;margin:0 0 25px!important;padding:15px 0 40px;overflow:hidden}
+body.studio-home .afh33-youtube .youtube-section-intro>div:not(.afh33-video-sculpture),body.studio-home .afh33-youtube .youtube-section-intro>p{z-index:5;position:relative}
+body.studio-home .afh33-youtube .youtube-section-intro>p{max-width:340px;color:#c6b6ac;font-size:13px;line-height:1.85;margin:150px 1% 0 auto}
+body.studio-home .afh33-youtube .youtube-section-intro h2{font-size:clamp(59px,7vw,111px)!important;line-height:.93!important;letter-spacing:-.08em;color:var(--v33-white)!important}
+body.studio-home .afh33-youtube .youtube-section-intro h2 .serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;color:var(--v33-gold)!important;font-size:1.1em}
+body.studio-home .afh33-youtube .youtube-section-intro .eyebrow{color:var(--v33-gold);letter-spacing:.19em}
+body.studio-home .afh33-video-sculpture{position:absolute;pointer-events:none;z-index:1;inset:-14% 1% -10% 30%;height:122%;overflow:hidden}
+body.studio-home .afh33-video-sculpture:after{content:"";inset:0;position:absolute;background:linear-gradient(90deg,#080a1099,transparent 34%),linear-gradient(0deg,#080a10ad,transparent 30%);pointer-events:none}
+body.studio-home .afh33-youtube .afh32-videos{background:transparent!important;border:0!important;box-shadow:none!important;margin:0 0 40px!important;padding:0!important}
+body.studio-home .afh33-youtube .afh32-video-header{display:none!important}
+body.studio-home .afh33-youtube .afh32-video-stage{padding:0}
+body.studio-home .afh33-youtube .afh32-video-feature-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:15px}
+body.studio-home .afh33-youtube .afh32-video-feature.primary{grid-column:auto;display:flex}
+body.studio-home .afh33-youtube .afh32-video-feature.primary .afh32-feature-image{height:auto;aspect-ratio:16/9;min-height:0}
+body.studio-home .afh33-youtube .afh32-video-feature{border-color:#dec3b84d;background:#13131a;box-shadow:0 12px 27px #0005;border-radius:8px}
+body.studio-home .afh33-youtube .afh32-video-feature:hover{transform:translateY(-6px);border-color:#f6c8a4af}
+body.studio-home .afh33-youtube .afh32-feature-image img{filter:brightness(.93) saturate(1.04);image-rendering:auto}
+body.studio-home .afh33-youtube .afh32-feature-content{padding:20px 20px 23px;min-height:156px}
+body.studio-home .afh33-youtube .afh32-feature-content h3{font-size:clamp(20px,1.8vw,27px);line-height:1.17}
+body.studio-home .afh33-youtube .youtube-summary{border-top:1px solid #d7c7b525;border-bottom:1px solid #d7c7b525;margin:30px 0!important;padding:14px 0!important}
+body.studio-home .afh33-youtube .youtube-source-notice{font-size:10px;line-height:1.7;max-width:860px}
+body.studio-home .afh33-youtube .yt-toolbar{border-color:#d7c7b52a}
+body.studio-home .afh33-youtube #youtube-grid .video-card{min-width:0}
+body.studio-home .afh33-youtube .yt-result-meta{padding-top:28px;border-top:1px solid #ffffff1e;margin-top:20px}
+body.studio-home .afh33-youtube .afh33-archive-title{margin:42px 0 15px;font:760 clamp(28px,3vw,43px)/1.15 'Manrope',sans-serif;letter-spacing:-.06em;color:#fff2e6}
+body.studio-home .afh33-youtube .afh33-archive-title em{font:italic 1.12em 'Instrument Serif',Georgia,serif;color:var(--v33-gold)}
+/* Quote becomes a cinematic manifesto with a real moving 3D armature */
+body.studio-home #afh4-quote.afh33-manifesto{display:flex!important;align-items:center;isolation:isolate;min-height:clamp(640px,78vh,960px)!important;padding:90px clamp(23px,6vw,110px)!important;background:radial-gradient(ellipse at 70% 45%,#2d2530,#0a0b11 64%)!important;color:#f6eae0}
+body.studio-home #afh4-quote.afh33-manifesto:before{display:none!important}
+body.studio-home #afh4-quote.afh33-manifesto .afh4-quote-corners,body.studio-home #afh4-quote.afh33-manifesto .afh19-quote-corners{opacity:.2}
+body.studio-home #afh4-quote.afh33-manifesto .afh4-quote-frame{margin:0;max-width:760px;text-align:left;position:relative;z-index:5;pointer-events:none;transform:none!important}
+body.studio-home #afh4-quote.afh33-manifesto .afh4-quote-overline{color:#f0c8a7;font-size:10px;letter-spacing:.18em;margin-bottom:29px}
+body.studio-home #afh4-quote.afh33-manifesto h2{font:800 clamp(53px,7.2vw,122px)/.91 'Manrope',Arial,sans-serif;letter-spacing:-.085em;margin:0;color:#fff5eb;text-shadow:0 3px 22px #0009}
+body.studio-home #afh4-quote.afh33-manifesto h2 em{font:italic .93em 'Instrument Serif',Georgia,serif;letter-spacing:-.04em;color:#eac3a8;display:block;margin-top:10px}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-copy{font-size:clamp(13px,1.24vw,17px);line-height:1.85;max-width:510px;color:#cdbeb8;margin:27px 0 30px}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-link{display:inline-flex;gap:20px;align-items:center;padding:14px 19px;border:1px solid #d7b89d8f;border-radius:50px;font:820 10px 'Manrope',sans-serif;letter-spacing:.13em;color:#fae8d8;text-decoration:none;pointer-events:auto}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-link:hover{background:#ae887e36}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-stats{display:flex;align-items:center;gap:35px;margin-top:45px}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-stats>span{display:flex;flex-direction:column;font:550 12px 'Manrope',sans-serif;color:#c9b7b6}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-stats strong{font:760 clamp(27px,3vw,43px) 'Manrope',sans-serif;color:#ffe9d9;letter-spacing:-.06em}
+body.studio-home #afh4-quote.afh33-manifesto .afh4-quote-footer{display:none}
+body.studio-home #afh4-quote.afh33-manifesto .afh32-quote-motion{display:none}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-art{position:absolute;inset:0 0 0 35%;z-index:2;pointer-events:none;opacity:.88}
+body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0a0b11bc,transparent 40%);pointer-events:none}
+/* Contact: no blank pastel block; independent rotating 3D ribbon and final statement */
+body.studio-home .end-section.afh33-contact{background:linear-gradient(125deg,#0d0d12,#171017 65%,#080a0e)!important;color:#f4e9df!important;min-height:clamp(640px,80vh,940px)!important;padding:clamp(100px,10vw,170px) 0 100px!important;isolation:isolate;overflow:hidden}
+body.studio-home .afh33-contact .container{position:relative;z-index:5}
+body.studio-home .afh33-contact .eyebrow{color:#e0bca0!important}
+body.studio-home .afh33-contact h2{font:800 clamp(65px,8vw,126px)/.95 'Manrope',sans-serif;letter-spacing:-.09em;color:#fff4ea;max-width:640px;position:relative;z-index:5}
+body.studio-home .afh33-contact h2 .serif{font:italic 1.04em 'Instrument Serif',Georgia,serif;letter-spacing:-.045em;color:#edc4aa!important}
+body.studio-home .afh33-contact .end-bottom{display:flex;flex-direction:column;align-items:flex-start;max-width:580px;border-color:#c3afa850!important;position:relative;z-index:4;gap:25px;margin-top:32px}
+body.studio-home .afh33-contact .end-bottom p{font-size:clamp(13px,1.3vw,17px);line-height:1.9;color:#d4c7c0;max-width:540px}
+body.studio-home .afh33-contact .end-bottom a{border:1px solid #d5b5968c;border-radius:80px;padding:16px 24px;color:#f2e4db;font:810 11px 'Manrope',sans-serif;letter-spacing:.13em}
+body.studio-home .afh33-contact .end-bottom a:hover{background:#7d5a593b}
+body.studio-home .afh33-contact .afh33-contact-art{position:absolute;inset:0 0 0 42%;z-index:1;pointer-events:none;opacity:.95}
+body.studio-home .afh33-contact .afh33-contact-art:before{content:"";position:absolute;inset:10% 0;background:radial-gradient(ellipse at 56% 44%,#be8c7254,transparent 61%);filter:blur(20px);pointer-events:none}
+body.studio-home .afh33-contact .afh33-contact-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0d0d12d4,transparent 45%),linear-gradient(0deg,#0b0b11a8,transparent 29%);pointer-events:none}
+/* V33 native Canvas 3D gallery layer */
+.afh33-stage{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+body.studio-home .afh33-learning .au27-card .afh33-stage{width:100%;height:100%;z-index:2}
+body.studio-home .afh33-manifesto .afh33-stage,body.studio-home .afh33-contact .afh33-stage{width:100%;height:100%;z-index:2}
+@media(max-width:1050px){
+ body.studio-home .afh33-learning .au27-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.studio-home .afh33-learning .au27-card{min-height:330px!important}
+ body.studio-home .afh33-youtube .afh32-video-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.studio-home .afh33-youtube .afh32-video-feature:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}
+ body.studio-home .afh33-youtube .afh32-video-feature:last-child .afh32-feature-image{height:100%;aspect-ratio:auto}
+}
+@media(max-width:767px){
+ body.studio-home .au27-library.afh33-learning{padding:88px 0!important}
+ body.studio-home .afh33-learning .au27-head{display:block;margin-bottom:22px}
+ body.studio-home .afh33-learning .au27-head h2{font-size:clamp(49px,12vw,74px)}
+ body.studio-home .afh33-learning .au27-head p{font-size:13px;margin-top:25px}
+ body.studio-home .afh33-learning .au27-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.studio-home .afh33-learning .au27-cards{grid-template-columns:minmax(0,1fr)!important;gap:13px!important}
+ body.studio-home .afh33-learning .au27-card{min-height:266px!important;padding:20px 22px!important}
+ body.studio-home .afh33-learning .au27-card h3{font-size:clamp(27px,8vw,35px);max-width:75%}
+ body.studio-home .afh33-learning .au27-card p{font-size:11px;max-width:86%}
+ body.studio-home .afh33-learning .au27-card .afh33-stage{opacity:.8}
+ body.studio-home #youtube.afh33-youtube{padding-top:88px!important}
+ body.studio-home .afh33-youtube .youtube-section-intro{display:block!important;min-height:275px;padding-bottom:25px}
+ body.studio-home .afh33-youtube .youtube-section-intro h2{font-size:clamp(54px,12vw,78px)!important}
+ body.studio-home .afh33-youtube .youtube-section-intro>p{max-width:300px;margin:18px 0 0;font-size:12px}
+ body.studio-home .afh33-youtube .afh33-video-sculpture{inset:0 -26% 0 30%;height:115%;opacity:.38}
+ body.studio-home .afh33-youtube .afh32-video-feature-grid{grid-template-columns:minmax(0,1fr)!important}
+ body.studio-home .afh33-youtube .afh32-video-feature:last-child{grid-column:auto;display:flex}
+ body.studio-home .afh33-youtube .afh32-video-feature:last-child .afh32-feature-image{height:auto;aspect-ratio:16/9}
+ body.studio-home .afh33-youtube .afh32-feature-content{min-height:115px}
+ body.studio-home #afh4-quote.afh33-manifesto{padding:95px 23px!important;min-height:680px!important}
+ body.studio-home #afh4-quote.afh33-manifesto h2{font-size:clamp(53px,13vw,82px)}
+ body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-copy{font-size:13px;max-width:300px}
+ body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-art{inset:0 -35% 0 3%;opacity:.43}
+ body.studio-home #afh4-quote.afh33-manifesto .afh33-manifesto-stats{gap:25px}
+ body.studio-home .end-section.afh33-contact{padding:92px 0 100px!important;min-height:660px!important}
+ body.studio-home .afh33-contact h2{font-size:clamp(62px,14vw,90px)}
+ body.studio-home .afh33-contact .afh33-contact-art{inset:0 -49% 0 7%;opacity:.41}
+ body.studio-home .afh33-contact .end-bottom{max-width:100%;margin-top:20px}
+ body.studio-home .afh33-contact .end-bottom p{font-size:13px;max-width:300px}
+}
+@media(prefers-reduced-motion:reduce){body.studio-home .afh33-learning .au27-card,body.studio-home .afh33-youtube .afh32-video-feature{transition:none}}
