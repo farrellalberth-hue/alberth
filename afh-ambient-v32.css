@@ -93,3 +93,25 @@ body.studio-home .au27-library .au27-card:hover{transform:translateY(-6px) persp
  .afh32-feature-image:before{animation:none}
  .afh32-video-feature,.afh32-feature-image img{transition:none}
 }
+
+/* V32.1 — Repair inherited archive grid overflow on phones; keep 3D case-study cards touchable. */
+@media(max-width:767px){
+ html,body.archive-v4{max-width:100%;overflow-x:clip!important}
+ body.archive-v4 #contentShell,body.archive-v4 .shell{box-sizing:border-box;max-width:100%;min-width:0!important}
+ body.archive-v4 #browseView.archive-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;gap:24px!important
+ }
+ body.archive-v4 #browseView>*{min-width:0!important;width:100%!important;max-width:100%!important}
+ body.archive-v4 .archive-side,body.archive-v4 #topicResults,body.archive-v4 .section-group,
+ body.archive-v4 .group-head,body.archive-v4 .topic-grid{
+  box-sizing:border-box;width:100%!important;max-width:100%!important;min-width:0!important
+ }
+ body.archive-v4 .topic-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+ body.archive-v4 .topic-card{width:100%!important;max-width:100%!important;min-width:0!important}
+ body.archive-v4 .field-tabs,body.archive-v4 .side-buttons{max-width:100%;overflow-x:auto}
+ body.archive-v4 .ai-lab-grid{grid-template-columns:minmax(0,1fr)!important}
+ body.archive-v4 .ai-lab-card{min-width:0!important;max-width:100%}
+ body.archive-v4 .ai-lab-title-row{display:block!important}
+ body.archive-v4 .archive-banner h1{overflow-wrap:break-word}
+}
