@@ -434,3 +434,49 @@ body.intro-leaving .hero-v4>.shell{animation:vlHeroContentReveal .93s cubic-bezi
 @media(prefers-reduced-motion:reduce){
  .quote-kinetic-layer:before{animation:none!important}
 }
+
+/* A quiet orbital connection sculpture for the contact section, distinct from
+   the 3D quote and Knowledge Atlas heroes. Self-animating, pointer-independent. */
+.final-section#contact{position:relative;isolation:isolate;overflow:hidden;
+padding:clamp(128px,13vw,185px) 0 clamp(114px,11vw,154px);
+background:radial-gradient(ellipse 77% 88% at 82% 44%,#1d2836,#0d131c 48%,#050607 88%)}
+.final-section#contact .shell{position:relative;z-index:3}
+.final-section#contact:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+background:linear-gradient(90deg,#06080b 0%,#06080be9 27%,#06080ba3 49%,#06080b17 90%),
+linear-gradient(0deg,#050608bd,transparent 25%,transparent 70%,#05060890)}
+.contact-ambient{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.contact-ambient-mesh{position:absolute;width:min(90vw,1170px);height:142%;min-height:720px;
+right:-13%;top:-27%;filter:drop-shadow(0 0 27px #cadbff48);
+animation:contactOrbitDrift 34s ease-in-out infinite alternate;transform-origin:50% 49%}
+.contact-connection-svg{display:block;width:100%;height:100%;overflow:visible}
+.contact-rings{transform-origin:center;animation:contactRingSpin 48s linear infinite}
+.contact-connections path{stroke-dasharray:12 13;animation:contactSignal 22s linear infinite}
+.contact-connections path:nth-child(2n){animation-direction:reverse}
+.contact-nodes circle{filter:drop-shadow(0 0 9px #d8e7ff91);animation:contactPulse 7s ease-in-out infinite alternate;
+transform-box:fill-box;transform-origin:center}
+.contact-nodes circle:nth-child(3n){animation-delay:-3.1s}
+.contact-nodes circle:nth-child(4n){animation-delay:-5s}
+.contact-ambient-halo{position:absolute;width:min(64vw,790px);aspect-ratio:1;border-radius:50%;
+filter:blur(82px);opacity:.3;animation:contactHalo 24s ease-in-out infinite alternate}
+.contact-halo-one{top:-18%;right:-14%;background:radial-gradient(circle,#9bb3d39c,transparent 67%)}
+.contact-halo-two{bottom:-51%;left:30%;background:radial-gradient(circle,#4d719c90,transparent 73%);animation-delay:-8s}
+.contact-ambient-grid{position:absolute;inset:0;opacity:.24;
+background:linear-gradient(#d8e5fa18 1px,transparent 1px),linear-gradient(90deg,#d8e5fa18 1px,transparent 1px);
+background-size:92px 92px;mask-image:radial-gradient(ellipse 74% 95% at 85% 47%,#000,transparent 95%)}
+.final-section#contact .contact-social-grid{max-width:790px;margin:43px 0 35px;gap:15px}
+.final-section#contact .contact-social-link{min-height:218px;backdrop-filter:blur(17px);
+background:linear-gradient(145deg,#eaf2ff16,#e4eafa08 52%,#05070938);border-color:#d4e5ff55}
+.final-section#contact .contact-social-link:hover{background:linear-gradient(145deg,#eaf2ff2a,#e4eafa14);
+border-color:#e1eeffb6;box-shadow:0 13px 40px #0005}
+@keyframes contactOrbitDrift{from{transform:translate(-3%,-2%) rotate(-8deg) scale(.95)}
+to{transform:translate(3%,3%) rotate(6deg) scale(1.06)}}
+@keyframes contactRingSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes contactSignal{to{stroke-dashoffset:-270}}
+@keyframes contactPulse{from{opacity:.42;transform:scale(.88)}to{opacity:1;transform:scale(1.17)}}
+@keyframes contactHalo{from{transform:translate(-5%,3%) scale(.86)}to{transform:translate(7%,-4%) scale(1.18)}}
+@media(max-width:790px){.final-section#contact{padding:115px 0 104px}
+.contact-ambient-mesh{width:130vw;right:-45%;height:120%;top:-10%}
+.final-section#contact:after{background:linear-gradient(90deg,#050609ef,#050609a8 78%,#05060966),
+linear-gradient(0deg,#050609c2,transparent 44%)}
+.final-section#contact .contact-social-link{min-height:170px}}
+@media(prefers-reduced-motion:reduce){.contact-ambient *, .contact-ambient *:before,.contact-ambient *:after{animation:none!important}}
