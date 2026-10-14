@@ -1,0 +1,110 @@
+/* AFH MOBILE / 2026-10 — mobile-only corrective design system.
+   Goals: zero horizontal page panning, readable typography, one-thumb controls.
+   No rules below apply to desktop/tablet > 767px. */
+@media (max-width:767px){
+  :root{--afhm-pad:clamp(18px,5.5vw,26px);--afhm-bg:#09080e;--afhm-cream:#f0e9de;--afhm-accent:#edb28c}
+  html{width:100%;max-width:100%;overflow-x:clip!important;scroll-padding-top:78px}
+  body.studio-home{max-width:100%;overflow-x:clip!important;overscroll-behavior-x:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body.studio-home main,body.studio-home main>section{max-width:100%;min-width:0;box-sizing:border-box}
+  body.studio-home *,body.studio-home *:before,body.studio-home *:after{box-sizing:border-box}
+  body.studio-home .container{width:calc(100% - (2 * var(--afhm-pad)))!important;max-width:none!important;margin-inline:auto}
+  body.studio-home .site-header{height:70px!important}
+  body.studio-home .site-header .container{width:calc(100% - (2 * var(--afhm-pad)))!important}
+  body.studio-home .identity{min-width:0;gap:10px}
+  body.studio-home .brand-glyph{font-size:clamp(24px,6.7vw,29px)}
+  body.studio-home .site-nav{max-width:calc(100vw - 2 * var(--afhm-pad));max-height:calc(100dvh - 80px);overflow-y:auto;overscroll-behavior:contain}
+  body.studio-home .site-nav.open{border-radius:12px;padding:13px;box-shadow:0 25px 60px #000b}
+  body.studio-home .site-nav.open a{min-height:48px;display:flex;align-items:center}
+  body.studio-home .menu-button{width:46px;height:46px;min-width:46px;min-height:46px;display:grid;place-items:center;touch-action:manipulation}
+  body.studio-home a,body.studio-home button{touch-action:manipulation}
+  /* Hero: restore sensible text margins while preserving the existing galaxy/brand. */
+  body.studio-home .hero.afh19-hero.afh20-hero{overflow:clip!important;min-height:100svh!important;padding:94px 0 33px!important}
+  body.studio-home .afh20-shell{width:100%!important;min-width:0!important;max-width:100%!important;min-height:min(650px,calc(100svh - 134px));padding:0 var(--afhm-pad)!important;align-items:center}
+  body.studio-home .afh20-copy{width:100%!important;max-width:100%!important;min-width:0!important;z-index:5}
+  body.studio-home .afh20-hero-title{font-size:clamp(51px,14.3vw,75px)!important;letter-spacing:-.102em;line-height:.93;max-width:100%!important;overflow-wrap:normal}
+  body.studio-home .afh20-hero-title .afh20-word--serif{font-size:clamp(76px,18vw,112px)!important;line-height:.92}
+  body.studio-home .afh20-description{font-size:clamp(13px,3.6vw,15px)!important;line-height:1.82!important;max-width:calc(100% - 8px)!important;margin-top:25px!important;color:#f3e6dc!important}
+  body.studio-home .afh20-actions{display:flex;gap:12px 16px;flex-wrap:wrap;align-items:center;margin-top:23px!important;max-width:100%!important}
+  body.studio-home .afh20-primary{min-height:51px;padding:14px 19px!important;font-size:9px!important;white-space:normal;text-align:center;max-width:100%}
+  body.studio-home .afh20-secondary{padding:11px 2px;min-height:44px;display:inline-flex;align-items:center}
+  body.studio-home .afh20-metadata{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:32px!important;font-size:8px!important}
+  body.studio-home .afh20-cosmos{pointer-events:none;max-width:none!important}
+  /* About chapter: stack everything instead of squeezing editorial columns. */
+  body.studio-home .about{overflow:clip!important;padding-top:90px;padding-bottom:85px}
+  body.studio-home .about-layout{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:27px!important}
+  body.studio-home .about-layout>*{min-width:0;max-width:100%}
+  body.studio-home .about h2{font-size:clamp(58px,15vw,85px)!important;line-height:.92!important;max-width:100%;overflow-wrap:break-word}
+  body.studio-home .about-description{padding-top:2px!important}
+  body.studio-home .about-description p{font-size:14px!important;line-height:1.9}
+  body.studio-home .about-footnote{padding-top:22px;gap:10px;flex-wrap:wrap}
+  body.studio-home .about-link{width:100%;max-width:100%;min-height:87px;padding:20px 22px;border-radius:9px;gap:15px}
+  /* Personal timeline is a native single column mobile journey; no 3D side panels. */
+  body.studio-home .lifetime-section{max-width:100%;margin-top:83px;padding-top:65px!important;overflow:clip!important;perspective:none!important}
+  body.studio-home .lifetime-section .lifetime-intro{display:block;min-width:0}
+  body.studio-home .lifetime-heading{font-size:clamp(51px,12.5vw,68px)!important;line-height:.98}
+  body.studio-home .lifetime-description{font-size:14px;line-height:1.85;margin-top:22px!important}
+  body.studio-home .lifetime-layout{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:34px!important;max-width:100%}
+  body.studio-home .lifetime-profile{position:relative!important;top:auto!important;width:100%;min-width:0;min-height:0!important;padding:23px!important;border-radius:10px;transform:none!important}
+  body.studio-home .lifetime-profile .lifetime-monogram{font-size:clamp(100px,27vw,145px)!important;margin:25px 0}
+  body.studio-home .lifetime-content{width:100%;min-width:0;max-width:100%}
+  body.studio-home .lifetime-timeline-top{gap:12px;flex-wrap:wrap;font-size:9px}
+  body.studio-home .lifetime-step{min-width:0;max-width:100%;padding:23px 19px!important;margin-bottom:12px!important;border-radius:9px!important;transform:none!important}
+  body.studio-home .lifetime-step h4{overflow-wrap:break-word;max-width:100%}
+  body.studio-home .lifetime-step .lifetime-age{font-size:clamp(37px,11vw,50px)!important;line-height:1.1}
+  body.studio-home .lifetime-step p{font-size:13px;line-height:1.8}
+  body.studio-home .lifetime-timeline-cta{width:100%;max-width:100%;padding:24px!important;border-radius:12px!important;margin-top:28px}
+  body.studio-home .lifetime-timeline-cta h4{font-size:clamp(29px,8vw,38px)!important;line-height:1.12!important;letter-spacing:-.055em;overflow-wrap:break-word}
+  body.studio-home .lifetime-timeline-cta p{font-size:13px;line-height:1.8;margin:20px 0}
+  body.studio-home .lifetime-open{width:100%;max-width:100%;min-height:58px;padding:15px 17px!important;display:flex;align-items:center;justify-content:space-between;border-radius:8px!important;font-size:10px;line-height:1.6;gap:10px;white-space:normal}
+  body.studio-home .lifetime-story-link{min-height:44px;padding:12px 0;white-space:normal}
+  /* Unified atlas: shorter text lines, compact accessible navigation. */
+  body.studio-home .au27-library{padding:88px 0 101px!important;overflow:clip}
+  body.studio-home .au27-head{display:block!important;margin-bottom:30px}
+  body.studio-home .au27-kicker{font-size:9px;letter-spacing:.14em}
+  body.studio-home .au27-head h2{font-size:clamp(52px,13.4vw,77px)!important;line-height:.94;margin-top:19px;letter-spacing:-.085em;max-width:100%}
+  body.studio-home .au27-head p{font-size:14px!important;line-height:1.8;margin-top:23px;max-width:100%}
+  body.studio-home .au27-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:21px 12px;padding:22px 0}
+  body.studio-home .au27-metrics strong{font-size:clamp(31px,8vw,45px)}
+  body.studio-home .au27-cards{grid-template-columns:minmax(0,1fr)!important;gap:12px}
+  body.studio-home .au27-card{min-height:177px;max-width:100%;border-radius:13px;padding:21px 23px;gap:26px;box-shadow:0 10px 25px #35232511}
+  body.studio-home .au27-card h3{font-size:clamp(26px,7.5vw,38px);max-width:86%;line-height:1.12}
+  body.studio-home .au27-card p{font-size:12px;max-width:95%}
+  body.studio-home .au27-card-arrow{width:48px;height:48px}
+  body.studio-home .au27-open{border-radius:13px;display:flex;align-items:center;gap:14px;padding:24px 21px;margin-top:13px}
+  body.studio-home .au27-open h3{font-size:clamp(24px,6.9vw,31px)}
+  body.studio-home .au27-open p{font-size:12px;line-height:1.7}
+  body.studio-home .au27-open>b{width:48px;height:48px;min-width:48px}
+  body.studio-home .au27-provenance{font-size:11px;line-height:1.8}
+  /* The actual root cause: filter row was 842px wide inside a 345px mobile column. */
+  body.studio-home .youtube-unified{overflow:clip!important}
+  body.studio-home .youtube-unified .container{min-width:0;max-width:100%}
+  body.studio-home .youtube-unified .youtube-toolbar{display:flex!important;flex-wrap:wrap!important;min-width:0;max-width:100%;width:100%;overflow:hidden;gap:12px 0;padding:15px!important;border-radius:11px}
+  body.studio-home .youtube-unified .youtube-filters{display:flex!important;min-width:0!important;width:100%!important;max-width:100%!important;flex:0 0 100%!important;overflow-x:auto!important;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:thin;-webkit-overflow-scrolling:touch;padding-bottom:9px!important}
+  body.studio-home .youtube-unified .youtube-filters .filter-button{min-height:43px;flex-shrink:0;scroll-snap-align:start;padding-inline:15px;font-size:10px}
+  body.studio-home .youtube-unified .youtube-searchbar{display:flex!important;min-width:0!important;width:100%!important;max-width:100%!important;flex:0 0 100%!important;flex-wrap:wrap;gap:11px;padding:0!important;box-sizing:border-box}
+  body.studio-home .youtube-unified .youtube-searchbar .yt-search{box-sizing:border-box;min-width:0!important;width:100%!important;max-width:100%!important;flex:1 1 100%!important;min-height:50px;font-size:14px;border-radius:8px!important}
+  body.studio-home .youtube-unified .youtube-searchbar select{max-width:100%;min-width:0;min-height:44px;font-size:12px}
+  body.studio-home .youtube-unified .youtube-searchbar>*{min-width:0;max-width:100%}
+  body.studio-home .youtube-unified .youtube-summary{max-width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  body.studio-home .youtube-unified .youtube-summary>div{min-width:0}
+  body.studio-home .youtube-unified .section-head h2{font-size:clamp(51px,13vw,75px)!important;line-height:.94!important;overflow-wrap:break-word}
+  body.studio-home .youtube-unified .section-head p{font-size:13px;line-height:1.8}
+  body.studio-home .youtube-unified .video-grid{grid-template-columns:minmax(0,1fr)!important;gap:15px;max-width:100%;min-width:0}
+  body.studio-home .youtube-unified .video-card{border-radius:12px;overflow:hidden;max-width:100%;min-width:0}
+  body.studio-home .youtube-unified .video-body{padding:17px}
+  body.studio-home .youtube-unified .video-body h3{overflow-wrap:break-word}
+  /* Decorative full-bleed elements stay decorative, never increase document width. */
+  body.studio-home .marquee,body.studio-home .afh20-galaxy,body.studio-home .afh20-cosmos{pointer-events:none}
+  body.studio-home .end-section,body.studio-home #afh4-quote{max-width:100%;overflow:clip!important}
+  body.studio-home .end-section h2{font-size:clamp(65px,15vw,88px)!important;line-height:1}
+  body.studio-home .end-bottom{gap:20px;flex-wrap:wrap}
+}
+@media (max-width:370px){
+ body.studio-home .afh20-hero-title{font-size:clamp(46px,13.8vw,56px)!important}
+ body.studio-home .afh20-hero-title .afh20-word--serif{font-size:clamp(67px,17vw,76px)!important}
+ body.studio-home .au27-head h2{font-size:clamp(49px,13vw,60px)!important}
+ body.studio-home .au27-card{padding:19px 18px}
+}
+@media(max-width:767px) and (prefers-reduced-motion:reduce){
+ body.studio-home .au27-card,body.studio-home .lifetime-step{transform:none!important;transition:none!important}
+}
