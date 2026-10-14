@@ -348,89 +348,89 @@ body.intro-leaving .hero-v4>.shell{animation:vlHeroContentReveal .93s cubic-bezi
 .contact-social-footer b{color:#ededed;font-size:19px;font-weight:400}
 @media(max-width:600px){.contact-social-grid{grid-template-columns:1fr;max-width:530px}.contact-social-link{min-height:157px}.contact-social-name{font-size:38px}}
 
-/* Interactive 3D study-orbit: self-contained CSS geometry, no external WebGL dependencies. */
-.quote-panel.quote-cosmos{--quote-x:0deg;--quote-y:0deg;--quote-light-x:50%;--quote-light-y:46%;position:relative;isolation:isolate;
-padding:clamp(150px,18vw,235px) 0 clamp(160px,18vw,230px);
-background:#05060a;overflow:hidden}
-.quote-cosmos:before{display:none}
-.quote-space{position:absolute;inset:-5%;z-index:-1;overflow:hidden;pointer-events:none;
-background:radial-gradient(ellipse 62% 63% at 50% 45%,rgba(97,103,134,.24),transparent 72%),
-radial-gradient(ellipse 52% 62% at var(--quote-light-x) var(--quote-light-y),rgba(182,195,225,.135),transparent 72%),
-linear-gradient(130deg,#04050a 3%,#0c111d 53%,#040507 100%)}
-.quote-space-grid{position:absolute;left:-20%;right:-20%;top:60%;height:105%;
-opacity:.44;transform:perspective(440px) rotateX(66deg) translateY(0);transform-origin:50% 0;
-background-image:linear-gradient(rgba(160,186,239,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(160,186,239,.14) 1px,transparent 1px);
-background-size:84px 84px;mask-image:linear-gradient(180deg,transparent,#000 23%,transparent 96%);
-animation:quoteGridDrift 21s linear infinite}
-.quote-space:before{content:"";position:absolute;left:50%;top:49%;width:min(65vw,900px);height:min(65vw,900px);
-border-radius:50%;transform:translate(-50%,-50%);filter:blur(64px);
-background:radial-gradient(circle,rgba(125,153,227,.14),rgba(8,9,13,0) 68%)}
-.quote-gyro{position:absolute;left:50%;top:47%;width:min(74vw,690px);aspect-ratio:1;transform:translate(-50%,-50%);
-perspective:1100px;transform-style:preserve-3d}
-.quote-gyro-inner{position:absolute;inset:0;transform-style:preserve-3d;
-transform:rotateX(calc(63deg + var(--quote-x))) rotateY(calc(12deg + var(--quote-y))) rotateZ(-8deg);
-transition:transform .24s cubic-bezier(.18,.8,.27,1);will-change:transform}
-.quote-ring{position:absolute;inset:14%;border:2px solid rgba(187,211,255,.34);
-border-radius:50%;transform-style:preserve-3d;box-shadow:0 0 28px rgba(165,182,240,.1),inset 0 0 22px rgba(175,195,255,.09);
-background:transparent;animation:quoteRingRotate var(--ring-speed,20s) linear infinite}
-.quote-ring:after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid transparent;border-left-color:rgba(244,248,255,.95);
-border-top-color:rgba(231,239,255,.65);filter:drop-shadow(0 0 14px rgba(196,220,255,.45))}
-.quote-ring-a{--ring-speed:22s;transform:rotateX(68deg);animation-name:quoteRingA}
-.quote-ring-b{inset:22%;--ring-speed:16s;border-color:rgba(239,241,252,.46);animation-name:quoteRingB}
-.quote-ring-c{inset:6%;--ring-speed:32s;border-color:rgba(117,153,237,.24);animation-name:quoteRingC}
-.quote-ring-d{inset:33%;--ring-speed:13s;border-color:rgba(227,232,252,.43);animation-name:quoteRingD}
-.quote-axis{position:absolute;left:50%;top:50%;width:66%;height:1px;transform:translate(-50%,-50%);background:linear-gradient(90deg,transparent,#ccdeff70,transparent)}
-.quote-axis-y{transform:translate(-50%,-50%) rotateZ(90deg)}
-.quote-core{position:absolute;left:50%;top:50%;width:24%;aspect-ratio:1;border-radius:50%;
-transform:translate(-50%,-50%) translateZ(100px);
-border:1px solid rgba(240,245,255,.7);
-background:radial-gradient(circle at 29% 25%,#f1f5ff 0%,#9caecb 9%,#3e536d 27%,#151d31 55%,#06090e 75%);
-box-shadow:inset -13px -21px 28px #03070dd9,inset 6px 10px 19px #dae8f052,0 0 35px rgba(211,224,255,.38),0 0 100px rgba(114,160,229,.2);
-display:grid;place-items:center;animation:quoteCorePulse 7s ease-in-out infinite}
-.quote-core-reflection{position:absolute;inset:13% 42% 65% 18%;transform:rotate(-23deg);border-radius:50%;filter:blur(7px);background:#ffffffaa}
-.quote-core-mark{font:400 clamp(22px,4vw,55px)/1 Georgia,serif;letter-spacing:-.13em;color:rgba(242,247,255,.85);
-text-shadow:0 2px 15px #ffffff5c}
-.quote-orbit-dot{position:absolute;width:12px;height:12px;left:17%;top:32%;border-radius:50%;
-background:radial-gradient(circle at 30% 30%,white,#aebfdc 40%,#2c3659 90%);box-shadow:0 0 25px #c7deff90;
-transform:translateZ(80px);animation:quoteDotOrbit 15s ease-in-out infinite}
-.quote-orbit-dot-b{left:81%;top:63%;width:8px;height:8px;animation-duration:12s;animation-delay:-7s}
-.quote-orbit-dot-c{left:58%;top:14%;width:6px;height:6px;animation-duration:17s;animation-delay:-4s}
-.quote-starlight{position:absolute;inset:0;opacity:.75;background-image:radial-gradient(#eff6ffab 1px,transparent 1.5px),
-radial-gradient(#a3b9ec88 1px,transparent 2px);background-size:133px 151px,227px 217px;
-background-position:38px 60px,92px 11px;mask-image:linear-gradient(90deg,#000,transparent 62%,#000);
-animation:quoteStars 29s ease-in-out infinite}
-.quote-starlight-b{transform:rotate(19deg);opacity:.4;animation-duration:36s;animation-direction:reverse}
-.quote-space-sheen{position:absolute;inset:0;background:linear-gradient(180deg,#04050955 0%,transparent 33%,#030507c7 100%);
-pointer-events:none}
-.quote-cosmos .quote-front{position:relative;z-index:2;max-width:1100px;text-align:center;
-text-shadow:0 5px 42px rgba(0,0,0,.72)}
-.quote-cosmos .kicker{display:flex;align-items:center;gap:13px;justify-content:center;letter-spacing:.25em;color:#d5dded}
-.quote-kicker-rule{height:1px;width:46px;background:rgba(230,238,255,.5)}
-.quote-cosmos blockquote{max-width:1100px;margin:39px auto 35px;font:400 clamp(42px,6.5vw,95px)/1.19 var(--serif);
-letter-spacing:-.066em;color:#f5f7ff;text-wrap:balance}
-.quote-cosmos blockquote em{font-style:italic;color:#d0def9;background:linear-gradient(140deg,#fff,#b2c9ef 70%,#7d96c2);
--webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.quote-bottom{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
-.quote-cosmos .quote-bottom p{margin:0;color:#bec9de;font-size:10px}
-.quote-motion-toggle{position:relative;z-index:3;border:1px solid rgba(221,232,255,.42);color:#e0e8f5;background:#111a2780;
-font:700 9px/1.3 var(--sans);letter-spacing:.18em;padding:12px 15px;display:inline-flex;align-items:center;gap:11px;
-transition:background .2s,border-color .2s}
-.quote-motion-toggle:hover,.quote-motion-toggle:focus-visible{background:#dce6f1;color:#0a0d16;border-color:#fff}
-.quote-toggle-icon{font-size:13px;letter-spacing:0}
-.quote-drag-hint{position:absolute;bottom:23px;right:clamp(20px,4vw,80px);font:600 9px/1.5 var(--sans);
-letter-spacing:.21em;color:#a4b6d4;opacity:.77}
-.quote-cosmos.is-paused .quote-space-grid,.quote-cosmos.is-paused .quote-starlight,
-.quote-cosmos.is-paused .quote-ring,.quote-cosmos.is-paused .quote-orbit-dot,
-.quote-cosmos.is-paused .quote-core{animation-play-state:paused}
-@keyframes quoteRingA{from{transform:rotateX(68deg) rotateZ(0)}to{transform:rotateX(68deg) rotateZ(360deg)}}
-@keyframes quoteRingB{from{transform:rotateY(72deg) rotateZ(0)}to{transform:rotateY(72deg) rotateZ(-360deg)}}
-@keyframes quoteRingC{from{transform:rotateY(56deg) rotateX(34deg) rotateZ(0)}to{transform:rotateY(56deg) rotateX(34deg) rotateZ(360deg)}}
-@keyframes quoteRingD{from{transform:rotateX(-59deg) rotateZ(0)}to{transform:rotateX(-59deg) rotateZ(-360deg)}}
-@keyframes quoteDotOrbit{0%,100%{opacity:.5;transform:translateZ(55px) scale(.75)}50%{opacity:1;transform:translateZ(110px) scale(1.4)}}
-@keyframes quoteCorePulse{0%,100%{filter:brightness(.92);box-shadow:inset -13px -21px 28px #03070dd9,0 0 35px #d3e0ff50}50%{filter:brightness(1.15);box-shadow:inset -13px -21px 28px #03070dd9,0 0 65px #d3e0ffa8}}
-@keyframes quoteGridDrift{from{background-position:0 0,0 0}to{background-position:0 84px,84px 0}}
-@keyframes quoteStars{0%,100%{opacity:.5;transform:translateY(0)}50%{opacity:.8;transform:translateY(-18px)}}
-@media(max-width:800px){.quote-gyro{width:110vw;top:48%}.quote-cosmos blockquote{font-size:clamp(39px,9.3vw,70px)}.quote-desktop-break{display:none}.quote-panel.quote-cosmos{padding:148px 0 155px}.quote-cosmos .quote-front{width:calc(100% - 40px)}.quote-drag-hint{display:none}.quote-core-mark{font-size:32px}}
-@media(max-width:420px){.quote-gyro{width:130vw}.quote-panel.quote-cosmos{padding:130px 0 145px}.quote-cosmos blockquote{font-size:42px}.quote-bottom{gap:18px}}
-@media(prefers-reduced-motion:reduce){.quote-cosmos .quote-space *, .quote-cosmos .quote-space:before{animation:none!important;transition:none!important}
- .quote-cosmos .quote-gyro-inner{transform:rotateX(55deg) rotateY(16deg) rotateZ(-8deg)!important}}
+
+/* Kinetic mathematical sculpture — a luminous, unbranded, self-running Möbius
+ * surface. All interactivity is intentionally removed from this section. */
+.quote-panel.quote-mobius{
+ position:relative;isolation:isolate;overflow:hidden;min-height:710px;
+ display:flex;align-items:center;
+ padding:clamp(160px,15vw,222px) 0 clamp(145px,14vw,202px);
+ background:radial-gradient(ellipse 76% 93% at 52% 49%,#19202d 0%,#101622 34%,#07090f 67%,#030406 100%);
+}
+.quote-panel.quote-mobius:before{display:none}
+.quote-panel.quote-mobius:after{
+ content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(180deg,#03040680 0%,transparent 18%,transparent 74%,#030406d6 100%),
+ radial-gradient(ellipse 51% 51% at 50% 49%,rgba(4,5,9,.68),rgba(4,5,9,.35) 59%,transparent 99%);
+}
+.quote-kinetic-layer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.quote-kinetic-layer:before{
+ content:"";position:absolute;inset:-18%;z-index:0;
+ background:radial-gradient(ellipse 58% 62% at 51% 48%,rgba(170,199,248,.12),transparent 79%),
+ radial-gradient(ellipse 25% 44% at 77% 38%,rgba(152,183,225,.12),transparent 89%);
+ filter:blur(26px);animation:quoteAuraBreath 15s ease-in-out infinite alternate;
+}
+.quote-kinetic-canvas{position:absolute;inset:0;z-index:1;display:block;width:100%;height:100%;
+ filter:drop-shadow(0 0 19px rgba(203,219,246,.23))}
+.quote-kinetic-veil{position:absolute;inset:0;z-index:2;
+ background:linear-gradient(90deg,rgba(3,5,10,.28),transparent 36%,transparent 61%,rgba(3,4,9,.13)),
+ linear-gradient(180deg,#03040655,transparent 25%,transparent 76%,#030406b0);
+ pointer-events:none}
+.quote-kinetic-grain{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.25;
+ background-image:radial-gradient(rgba(225,232,251,.43) .5px,transparent .6px);
+ background-size:4px 4px;mask-image:linear-gradient(0deg,transparent,black 17%,black 83%,transparent)}
+.quote-mobius .quote-front{
+ position:relative;z-index:4;text-align:center;
+ max-width:1120px;
+ text-shadow:0 5px 35px rgba(0,0,0,.83),0 0 80px rgba(0,0,0,.58);
+}
+.quote-mobius .kicker{
+ color:#d7e1f0;display:flex;justify-content:center;align-items:center;gap:15px;
+ letter-spacing:.27em;font-size:10px;
+}
+.quote-kicker-rule{display:inline-block;flex:none;height:1px;width:52px;background:#d8e3f58c}
+.quote-mobius blockquote{
+ margin:37px auto 34px;
+ max-width:1100px;
+ font:400 clamp(44px,6.6vw,97px)/1.19 var(--serif);
+ letter-spacing:-.065em;
+ color:#f7f8fc;text-wrap:balance;
+}
+.quote-mobius blockquote em{
+ font-style:italic;
+ background:linear-gradient(135deg,#fff 0%,#e8edf7 45%,#a9c0de 83%,#92a9ce 100%);
+ -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.quote-mobius .quote-bottom{display:flex;justify-content:center;align-items:center;gap:25px}
+.quote-mobius .quote-bottom p{
+ margin:0;color:#b9c7d8;font-size:10px;letter-spacing:.22em;
+ text-shadow:0 3px 22px #050607;
+}
+.quote-form-caption{
+ position:absolute;z-index:4;right:clamp(25px,5.3vw,90px);bottom:32px;
+ color:#a5b6d0;font:700 9px/1.6 var(--sans);letter-spacing:.19em;
+ text-align:right;opacity:.67;
+}
+.quote-form-caption span{color:#f2f6ff;padding:0 9px}
+@keyframes quoteAuraBreath{
+ from{opacity:.35;transform:scale(.93)}
+ to{opacity:.82;transform:scale(1.08)}
+}
+@media(max-width:800px){
+ .quote-panel.quote-mobius{min-height:600px;padding:135px 0 152px}
+ .quote-mobius .quote-front{width:calc(100% - 40px)}
+ .quote-mobius blockquote{font-size:clamp(39px,9.3vw,69px)}
+ .quote-desktop-break{display:none}
+ .quote-form-caption{font-size:8px;right:22px;bottom:20px}
+}
+@media(max-width:460px){
+ .quote-panel.quote-mobius{min-height:545px;padding:115px 0 126px}
+ .quote-mobius blockquote{font-size:clamp(35px,9.3vw,47px)}
+ .quote-mobius .kicker{letter-spacing:.14em;font-size:9px}
+ .quote-kicker-rule{width:26px}
+ .quote-mobius .quote-bottom p{font-size:9px}
+ .quote-form-caption{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ .quote-kinetic-layer:before{animation:none!important}
+}
