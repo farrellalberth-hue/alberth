@@ -18,8 +18,58 @@ function updateStats(x){
  }
  if(note){const m=x.stats;note.textContent='All '+format(m.yellowBookEntries||0)+' PDF source entries are now included in the topic index: '+format(m.yellowBookExisting||0)+' linked to existing topics and '+format(m.sourceOnly||0)+' added as distinct source-only concepts. Source entries are not proof of personal mastery.'}
 }
-function sectorGrid(){grid.replaceChildren();data.sectors.forEach((s,i)=>{const button=node('button','lk-sector');button.type='button';button.setAttribute('aria-pressed',String(s.slug===selected));button.dataset.sector=s.slug;const header=node('div','lk-sector-top');header.append(node('span','',String(i+1).padStart(2,'0')+' / '+String(data.sectors.length).padStart(2,'0')),node('span','',format(sum(s))+' TOPICS'));const title=node('strong','',s.name);const bottom=node('div','lk-sector-foot');bottom.append(node('span','',s.chapters.length+' CHAPTERS · '+subs(s)+' SUBTOPICS'),node('i','','↗'));button.append(header,title,bottom);button.addEventListener('click',()=>{selected=s.slug;renderSectors();renderPanel();if(!reduce)panel.scrollIntoView({behavior:'smooth',block:'start'});else panel.scrollIntoView()});grid.append(button)})}
-function renderSectors(){grid.querySelectorAll('button[data-sector]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sector===selected)))}
+const focusSectors=['economics','finance','blockchain','ai','quant','accounting'];
+let showAllSectors=false;
+function sectorGrid(){
+ grid.replaceChildren();
+ const sorted=[...data.sectors].sort((a,b)=>{
+  const ai=focusSectors.indexOf(a.slug),bi=focusSectors.indexOf(b.slug);
+  return (ai<0?99:ai)-(bi<0?99:bi)||data.sectors.indexOf(a)-data.sectors.indexOf(b);
+ });
+ sorted.forEach(s=>{
+  const i=data.sectors.indexOf(s),button=node('button','lk-sector');
+  button.type='button';
+  button.setAttribute('aria-pressed',String(s.slug===selected));
+  button.dataset.sector=s.slug;
+  const isSecondary=!focusSectors.includes(s.slug);
+  button.dataset.secondary=String(isSecondary);
+  if(isSecondary&&!showAllSectors)button.dataset.collapsed='true';
+  const header=node('div','lk-sector-top');
+  header.append(node('span','',String(i+1).padStart(2,'0')+' / '+String(data.sectors.length).padStart(2,'0')),node('span','',format(sum(s))+' TOPICS'));
+  const title=node('strong','',s.name);
+  const bottom=node('div','lk-sector-foot');
+  bottom.append(node('span','',s.chapters.length+' CHAPTERS · '+subs(s)+' SUBTOPICS'),node('i','','↗'));
+  button.append(header,title,bottom);
+  button.addEventListener('click',()=>{
+   selected=s.slug;renderSectors();renderPanel();
+   panel.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+  grid.append(button);
+ });
+ let more=root.querySelector('#lk-show-all');
+ if(!more){
+  more=node('button','lk-show-all');
+  more.type='button';more.id='lk-show-all';
+  more.setAttribute('aria-controls','lk-sector-grid');
+  grid.insertAdjacentElement('afterend',more);
+  more.addEventListener('click',()=>{
+   showAllSectors=!showAllSectors;refreshVisibility();
+  });
+ }
+ refreshVisibility();
+}
+function refreshVisibility(){
+ const more=root.querySelector('#lk-show-all');
+ const showExtra=showAllSectors||!focusSectors.includes(selected);
+ grid.querySelectorAll('[data-secondary="true"]').forEach(b=>{
+  b.dataset.collapsed=String(!showExtra);
+ });
+ if(more){
+  more.textContent=showExtra?'SHOW 6 MAIN FIELDS ↑':'EXPLORE ALL 16 FIELDS ↓';
+  more.setAttribute('aria-expanded',String(showExtra));
+ }
+}
+function renderSectors(){grid.querySelectorAll('button[data-sector]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sector===selected)));refreshVisibility()}
 function matches(t,s,c){
  if(stage!=='all'&&t.stage!==stage)return false;
  if(!query)return true;
