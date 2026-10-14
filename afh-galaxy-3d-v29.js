@@ -26,7 +26,7 @@ const vertex=[
 ' float persp=5.15/max(2.0,7.2-p.z);',
 ' vec2 pt=vec2(p.x/max(.75,uAspect),p.y)*persp*uScale;',
 ' gl_Position=vec4(pt,clamp(p.z/8.,-.9,.9),1.);',
-' gl_PointSize=clamp(aSize*persp*uDpr,1.0,22.0);',
+' gl_PointSize=clamp(aSize*persp*uDpr*1.45,1.4,22.0);',
 ' vColor=aColor;','}'
 ].join('\n');
 const fragment=[
@@ -36,7 +36,7 @@ const fragment=[
 ' float d=dot(xy,xy);',' if(d>1.0)discard;',
 ' float halo=pow(max(0.0,1.0-d),3.4);',
 ' float core=pow(max(0.0,1.0-d*2.4),6.0);',
-' float alpha=.28*halo+.72*core;',
+' float alpha=.40*halo+.92*core;',
 ' gl_FragColor=vec4(vColor*(1.12+.28*core),alpha);','}'
 ].join('\n');
 function compile(type,src){
