@@ -10,6 +10,8 @@ on:
       - 'afh-3d-sections-v31.js'
       - 'afh-ambient-v32.css'
       - 'afh-ambient-v32.js'
+      - 'afh-cinematic-v33.css'
+      - 'afh-cinematic-v33.js'
       - 'learning-index-v25.js'
       - 'afh-mobile-fix-v28.css'
       - 'afh-galaxy-3d-v29.css'
@@ -95,7 +97,7 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V32 Living Sections and Focused Learning", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V33 Cinematic Portfolio — Interactive 3D", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "journey" / "index.html").exists()
@@ -143,7 +145,20 @@ jobs:
           assert 'data-motion="obsidian"' in ai
           assert 'afh-ambient-v32.js' in ai
           assert 'learning-index-v25.js?v=32' in journey
-          print("AFH V32 living 3D sections preview prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+          assert (target / 'afh-cinematic-v33.css').exists()
+          assert (target / 'afh-cinematic-v33.js').exists()
+          assert '/alberth/afh-cinematic-v33.css' in homepage
+          assert '/alberth/afh-cinematic-v33.js' in homepage
+          assert homepage.count('class="afh33-stage afh33-field-canvas"') == 6
+          assert 'data-v33="featured"' in homepage
+          assert 'data-v33="manifesto"' in homepage
+          assert 'data-v33="contact"' in homepage
+          assert 'STAY CURIOUS.' in homepage
+          assert 'ALWAYS<br>' in homepage
+          assert 'value="featured"' in homepage
+          assert 'href="/alberth/journey/' in homepage
+          assert (target / 'studio-v7.js').read_text(encoding='utf-8').find("sorting='featured'") >= 0
+          print("AFH V33 cinematic interactive portfolio prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
           PY
 
       - name: Cache original YouTube thumbnails from source video IDs
