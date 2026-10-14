@@ -14,7 +14,7 @@ const normalize=s=>String(s).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").to
 const master=new Map(db.uniqueTopics.map(t=>[normalize(t.t),t]));
 let year=+q.get("year");if(!db.years.includes(year))year=0;
 let month=+q.get("month");if(!(month>=1&&month<=12))month=0;
-let search=q.get("q")||"",reviewOnly=q.get("review")==="1",view=q.get("mode")==="timeline"?"timeline":"unique",limit=36;
+let search=q.get("q")||"",reviewOnly=q.get("review")==="1",view=q.get("mode")==="unique"?"unique":"timeline",limit=36;
 const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
 let transition=null;
 const formatDate=s=>{const [y,m,d]=s.split("-");return d+" "+db.months[+m-1]+" "+y};
@@ -25,7 +25,7 @@ function updateURL(){
  if(month)p.set("month",String(month).padStart(2,"0"));
  if(search)p.set("q",search);
  if(reviewOnly)p.set("review","1");
- if(view==="timeline")p.set("mode","timeline");
+ if(view==="unique")p.set("mode","unique");
  history.replaceState(null,"",location.pathname+(p.size?"?"+p.toString():""));
 }
 function animateChange(commit){
@@ -75,18 +75,18 @@ function sorted(){
 }
 function renderNav(){
  $("discipline-nav").innerHTML=db.fields.map(f=>{
- const n=f.id==="all"?db.uniqueCount:db.uniqueTopics.filter(t=>t.f===f.id).length;
- const qs=new URLSearchParams();if(year)qs.set("year",String(year));if(view==="timeline")qs.set("mode","timeline");
+ const n=view==="timeline"?(f.id==="all"?db.topics.length:db.topics.filter(t=>t.f===f.id).length):(f.id==="all"?db.uniqueCount:db.uniqueTopics.filter(t=>t.f===f.id).length);
+ const qs=new URLSearchParams();if(year)qs.set("year",String(year));if(view==="unique")qs.set("mode","unique");
  return '<a href="/library/'+f.id+'/'+(qs.size?'?'+qs.toString():'')+'" class="'+(field===f.id?"active":"")+'" '+(field===f.id?'aria-current="page"':'')+'><span>'+escapeHTML(f.name)+'</span><span class="sidebar-count">'+n.toLocaleString("en-US")+'</span></a>';
  }).join("");
  $("field-label").textContent=spec.name;
  $("hero-field").textContent=spec.name;
  $("hero-desc").textContent=spec.desc;
- $("all-topics").textContent=uniq.length.toLocaleString("en-US");
- if($("all-sessions"))$("all-sessions").textContent=records.length.toLocaleString("en-US");
+ $("all-topics").textContent=records.length.toLocaleString("en-US");
+ if($("all-sessions"))$("all-sessions").textContent=uniq.length.toLocaleString("en-US");
  $("active-years").textContent=db.years.filter(y=>records.some(t=>yearNumber(t.d)===y)).length;
  $("area-name").textContent=spec.name;
- document.title=spec.name+" — Unique Study Topics | Kentzo Honggo Limkajaya";
+ document.title=spec.name+" — Study Timeline | Kentzo Honggo Limkajaya";
 }
 function renderMode(){
  for(const m of ["unique","timeline"]){
