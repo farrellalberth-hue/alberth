@@ -86,7 +86,7 @@ function renderNav(){
  if($("all-sessions"))$("all-sessions").textContent=uniq.length.toLocaleString("en-US");
  $("active-years").textContent=db.years.filter(y=>records.some(t=>yearNumber(t.d)===y)).length;
  $("area-name").textContent=spec.name;
- document.title=spec.name+" — Study Timeline | Kentzo Honggo Limkajaya";
+ document.title=spec.name+" — Study Timeline | Viel Personal Website";
 }
 function renderMode(){
  for(const m of ["unique","timeline"]){
