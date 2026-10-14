@@ -1,0 +1,95 @@
+/* AFH 2026 / V32 — FOCUSED DISCIPLINES & LIVING 3D SECTIONS.
+   Single-purpose layer. Keeps 16 subjects searchable, limits landing grid to six.
+   Every canvas is decorative; interactions and text remain clickable. */
+:root{--afh32-cream:#f3eee7;--afh32-copper:#eac6a5}
+#lk-index .lk-sector[data-collapsed="true"]{display:none!important}
+#lk-index .lk-show-all{width:100%;display:flex;align-items:center;justify-content:center;min-height:57px;margin:17px 0 25px;padding:15px 25px;cursor:pointer;border:1px solid #bd9e816d;background:#1c1718;color:#ead8c5;border-radius:6px;font:820 11px/1.5 'Manrope',Arial,sans-serif;letter-spacing:.15em;transition:background .3s}
+#lk-index .lk-show-all:hover,#lk-index .lk-show-all:focus-visible{background:#49352d;outline-color:#e3c4a5}
+#lk-index .lk-sector-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#lk-index .lk-sector{min-height:210px}
+#lk-index .lk-sector strong{font-size:clamp(19px,2vw,30px)}
+.route-intro#subjects{position:relative;isolation:isolate;overflow:hidden;min-height:390px;display:flex;align-items:center;justify-content:space-between;background:radial-gradient(ellipse 42% 65% at 83% 40%,#76616a13,transparent 85%);border-top:1px solid #d3b69824}
+.route-intro#subjects>div:not(.afh32-journey-orbit),.route-intro#subjects>p{position:relative;z-index:2}
+.afh32-journey-orbit{position:absolute;inset:0 0 0 35%;z-index:0;overflow:hidden;pointer-events:none}
+.afh32-journey-orbit:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0d0d10 0%,transparent 38%),linear-gradient(0deg,#0d0d108a,transparent 29%);pointer-events:none}
+.afh32-motion{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0}
+body.studio-home .au27-library{isolation:isolate}
+body.studio-home .au27-library .container{position:relative;z-index:2}
+body.studio-home .au27-library .afh32-atlas-motion{position:absolute;inset:0 0 auto auto;width:58%;height:610px;opacity:.26;mix-blend-mode:multiply;z-index:1}
+body.studio-home .au27-library .au27-head{position:relative;z-index:2}
+body.studio-home .au27-library .au27-card{transition:transform .45s,box-shadow .45s}
+body.studio-home .au27-library .au27-card:hover{transform:translateY(-6px) perspective(900px) rotateX(2deg) rotateY(-2deg)}
+/* Featured YouTube theatre — clean, source-backed, original images rather than generated claims. */
+.afh32-videos{margin:26px 0 48px;padding:clamp(23px,3.6vw,52px);position:relative;isolation:isolate;background:linear-gradient(145deg,#1b1821,#111018 60%,#17121c);border:1px solid #e6c9b838;border-radius:18px;box-shadow:0 25px 70px #0004;overflow:hidden}
+.afh32-video-header{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:26px}
+.afh32-video-eyebrow{display:block;font:850 10px 'Manrope',Arial,sans-serif;letter-spacing:.2em;color:#eac4a2;margin-bottom:16px}
+.afh32-video-header h3{margin:0;font:790 clamp(35px,5vw,77px)/.99 'Manrope',Arial,sans-serif;letter-spacing:-.075em;color:#fff4e7}
+.afh32-video-header h3 em{font:italic 1.09em/.99 'Instrument Serif',Georgia,serif;color:#eec5a4}
+.afh32-video-header p{max-width:390px;font-size:12px;line-height:1.8;color:#c9bdb7;margin:0}
+.afh32-video-stage{position:relative;isolation:isolate;min-width:0}
+.afh32-video-stage:before{content:"";position:absolute;inset:-50px -80px;pointer-events:none;z-index:-1;background:radial-gradient(circle at 59% 51%,#e8b4ba0e,transparent 64%)}
+.afh32-video-feature-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:15px;align-items:stretch}
+.afh32-video-feature{color:#f3e7df;text-decoration:none;min-width:0;display:flex;flex-direction:column;overflow:hidden;background:#14121c;border:1px solid #d9bfd439;border-radius:10px;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .3s;transform:translateY(0) rotateX(0deg);transform-style:preserve-3d;perspective:1100px}
+.afh32-video-feature:hover{transform:translateY(-10px) rotateX(1deg) rotateY(-2deg);border-color:#f2c9aa90;box-shadow:0 30px 60px #0007}
+.afh32-video-feature:focus-visible{outline:2px solid #f2c9aa;outline-offset:4px}
+.afh32-feature-image{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(155deg,#393450,#191323);flex:0 0 auto}
+.afh32-feature-image:before{content:"";position:absolute;inset:-20%;background:repeating-conic-gradient(from 20deg at center,#f3bcaf16 0 6deg,transparent 6deg 26deg);animation:afh32-slowspin 48s linear infinite;z-index:0}
+.afh32-feature-image img{position:relative;width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.75) saturate(.85);transition:transform .65s,filter .65s}
+.afh32-video-feature:hover img{transform:scale(1.075);filter:brightness(.89) saturate(1.05)}
+.afh32-video-play{position:absolute;right:14px;bottom:14px;z-index:2;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;color:#19141b;background:#fff1e5;font-size:24px;transition:transform .3s}
+.afh32-video-feature:hover .afh32-video-play{transform:rotate(45deg)}
+.afh32-feature-content{padding:22px 22px 24px;min-height:155px;flex:1;display:flex;flex-direction:column;align-items:flex-start}
+.afh32-feature-content>span{font:850 9px/1.6 'Manrope',Arial,sans-serif;letter-spacing:.13em;color:#e2b79e}
+.afh32-feature-content h3{font:760 clamp(19px,2.25vw,29px)/1.19 'Manrope',Arial,sans-serif;letter-spacing:-.045em;margin:13px 0 8px;color:#fff4eb}
+.afh32-feature-content p{font:500 11px/1.7 'Manrope',Arial,sans-serif;margin:auto 0 0;color:#bab4b7}
+.afh32-video-feature.primary .afh32-feature-content{background:linear-gradient(135deg,#32283e2e,#0c0b14)}
+@keyframes afh32-slowspin{to{transform:rotate(1turn)}}
+/* Henry Ford section: animated depth field frames the quote, never covers it. */
+#afh4-quote{isolation:isolate;overflow:hidden}
+#afh4-quote .afh32-quote-motion{z-index:0;opacity:.42;filter:drop-shadow(0 0 13px #b1a7cc65)}
+#afh4-quote .afh4-quote-frame{position:relative;z-index:2;text-shadow:0 3px 36px #100e11}
+#afh4-quote .afh4-quote-footer{position:relative;z-index:2}
+#afh4-quote:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 72% 35%,#d2b4e11a,transparent 55%),radial-gradient(ellipse at 25% 70%,#a8859117,transparent 62%);z-index:1}
+#afh4-quote .afh4-quote-title,#afh4-quote .afh4-quote-again{filter:drop-shadow(0 6px 20px #0008)}
+/* AI case study cards: functional explanations on top of a living network/Obsidian graph. */
+.ai-lab-card{position:relative;isolation:isolate;overflow:hidden}
+.ai-lab-card .ai-lab-visual{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;opacity:.96}
+.ai-lab-card .ai-lab-visual .afh32-motion{position:absolute;inset:0;width:100%;height:100%;opacity:.54;z-index:2}
+.ai-lab-card>div:not(.ai-lab-visual){position:relative;z-index:3}
+.ai-lab-card .ai-lab-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#13161091,transparent 85%),linear-gradient(0deg,#13161090,transparent 65%);pointer-events:none;z-index:4}
+.ai-lab-card h3{font-size:clamp(35px,4vw,61px);overflow-wrap:break-word;max-width:95%}
+.ai-lab-card p{max-width:640px;line-height:1.85}
+@media(max-width:1100px){
+ .afh32-video-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .afh32-video-feature.primary{grid-column:1/-1;display:grid;grid-template-columns:1.1fr 1fr}
+ .afh32-video-feature.primary .afh32-feature-image{height:100%;aspect-ratio:auto;min-height:255px}
+ .afh32-video-feature.primary .afh32-feature-content{justify-content:center}
+ #lk-index .lk-sector-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:767px){
+ #lk-index .lk-sector-grid{grid-template-columns:minmax(0,1fr)!important}
+ #lk-index .lk-sector{min-height:145px;padding:19px!important}
+ #lk-index .lk-show-all{min-height:52px;font-size:10px}
+ .route-intro#subjects{min-height:305px;display:block;padding:82px 0 35px}
+ .afh32-journey-orbit{inset:7% -8% 0 5%;opacity:.38}
+ .route-intro#subjects>div:not(.afh32-journey-orbit),.route-intro#subjects>p{max-width:100%;position:relative;z-index:4}
+ body.studio-home .au27-library .afh32-atlas-motion{width:90%;height:450px;opacity:.13}
+ .afh32-videos{padding:21px 17px;margin:24px 0 38px;border-radius:13px}
+ .afh32-video-header{display:block;margin-bottom:21px}
+ .afh32-video-header h3{font-size:clamp(34px,10vw,49px)}
+ .afh32-video-header p{font-size:12px;line-height:1.7;margin-top:18px}
+ .afh32-video-feature-grid{grid-template-columns:minmax(0,1fr)!important;gap:13px}
+ .afh32-video-feature.primary{grid-column:auto;display:flex}
+ .afh32-video-feature.primary .afh32-feature-image{height:auto;min-height:0;aspect-ratio:16/9}
+ .afh32-feature-content{min-height:126px;padding:17px}
+ .afh32-feature-content h3{font-size:23px}
+ .afh32-video-feature:hover{transform:translateY(-4px)}
+ .afh32-video-play{width:44px;height:44px}
+ #afh4-quote .afh32-quote-motion{opacity:.23}
+ .ai-lab-card .ai-lab-visual .afh32-motion{opacity:.31}
+ .ai-lab-card h3{font-size:clamp(32px,9.3vw,45px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .afh32-feature-image:before{animation:none}
+ .afh32-video-feature,.afh32-feature-image img{transition:none}
+}
