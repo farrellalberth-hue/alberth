@@ -29,7 +29,7 @@ addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(s
 if(!reduce&&matchMedia('(pointer:fine)').matches)addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')},{passive:true});
 
 const grid=$('#youtube-grid');if(!grid)return;
-let videos=[],sector='All',query='',year='All',sorting='latest',visible=0,filtered=[];
+let videos=[],sector='All',query='',year='All',sorting='featured',visible=0,filtered=[];
 const buttons=$$('.filter-button[data-sector]'),search=$('#youtube-search'),counter=$('#youtube-count'),empty=$('#youtube-empty'),sel=$('#youtube-year'),sortSel=$('#youtube-sort'),more=$('#youtube-more'),total=$('#youtube-total'),sortNote=$('#youtube-sort-note'),visibleNote=$('#youtube-visible');
 const clean=(s)=>String(s||'').trim();
 const tidy=(s)=>clean(s).replace(/\s+/g,' ');
@@ -132,7 +132,17 @@ function append(){
 }
 function sortedVideos(list){
  const sorted=[...list];
- if(sorting==='oldest')sorted.sort((a,b)=>a.date.localeCompare(b.date)||a.title.localeCompare(b.title));
+ if(sorting==='featured'){
+  const chosen=['z2oQe6B1Qa4','CD_HqiEdNOw','vTs2IQ8OefQ','5auv_xrvoJk','n4rlqluNA-Q','J7d3vcaS9-o'];
+  const rank=v=>{
+   const position=chosen.indexOf(v.id);
+   if(position>=0)return position;
+   if(/MIT OpenCourseWare|YaleCourses/i.test(v.channel||''))return 10;
+   return 20;
+  };
+  sorted.sort((a,b)=>rank(a)-rank(b)||b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
+ }
+ else if(sorting==='oldest')sorted.sort((a,b)=>a.date.localeCompare(b.date)||a.title.localeCompare(b.title));
  else if(sorting==='title')sorted.sort((a,b)=>a.title.localeCompare(b.title));
  else if(sorting==='creator')sorted.sort((a,b)=>clean(a.channel).localeCompare(clean(b.channel))||b.date.localeCompare(a.date));
  else sorted.sort((a,b)=>b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
@@ -141,7 +151,7 @@ function sortedVideos(list){
 function render(){
  filtered=sortedVideos(videos.filter(v=>(sector==='All'||v.sector===sector)&&(year==='All'||v.date.startsWith(year))&&(!query||[v.title,v.channel,v.sector,v.topic,v.date].join(' ').toLowerCase().includes(query))));
  counter.textContent=nfmt(filtered.length)+' archived videos';
- if(sortNote)sortNote.textContent=sorting==='latest'?'NEWEST FIRST':sorting==='oldest'?'OLDEST FIRST':sorting==='title'?'SORTED BY TITLE':'SORTED BY CREATOR';
+ if(sortNote)sortNote.textContent=sorting==='featured'?'ACADEMIC LECTURES FIRST':sorting==='latest'?'NEWEST FIRST':sorting==='oldest'?'OLDEST FIRST':sorting==='title'?'SORTED BY TITLE':'SORTED BY CREATOR';
  grid.replaceChildren();visible=0;empty.hidden=filtered.length>0;more.hidden=filtered.length===0;if(visibleNote)visibleNote.textContent='0 / '+nfmt(filtered.length);
  if(filtered.length)append();
 }
