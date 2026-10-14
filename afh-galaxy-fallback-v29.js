@@ -72,9 +72,9 @@ function paint(){
  const cx=w*.5,cy=h*.5;
  ctx.globalCompositeOperation='lighter';
  let glow=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.min(w,h)*.32);
- glow.addColorStop(0,'rgba(255,222,174,.42)');
- glow.addColorStop(.18,'rgba(251,173,138,.16)');
- glow.addColorStop(.47,'rgba(143,116,173,.075)');
+ glow.addColorStop(0,'rgba(255,231,181,.68)');
+ glow.addColorStop(.18,'rgba(251,173,138,.30)');
+ glow.addColorStop(.47,'rgba(143,116,173,.13)');
  glow.addColorStop(1,'rgba(21,14,31,0)');
  ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
  const ca=Math.cos(yaw),sa=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
@@ -89,16 +89,38 @@ function paint(){
   ctx.strokeStyle=i===0?'rgba(255,191,155,.20)':'rgba(184,180,239,.16)';
   ctx.lineWidth=.75;ctx.stroke();
  }
+
+ // Four luminous arms in projected 3D: subtle emission beneath crisp particle field.
+ for(let arm=0;arm<4;arm++){
+  ctx.beginPath();
+  for(let step=0;step<=85;step++){
+    const r=.14+step/85*2.54,angle=arm*Math.PI/2+r*2.52;
+    const p=project(Math.cos(angle)*r,Math.sin(angle)*r,Math.sin(r*1.8+arm)*.04,ca,sa,cp,sp);
+    if(step===0)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);
+  }
+  const warm=arm%2===0;
+  ctx.lineCap='round';
+  ctx.lineWidth=mobile?8:14;
+  ctx.strokeStyle=warm?'rgba(254,137,102,.13)':'rgba(120,175,248,.13)';
+  ctx.shadowColor=warm?'#f9ad8d':'#789deb';
+  ctx.shadowBlur=mobile?17:25;
+  ctx.stroke();
+  ctx.shadowBlur=0;
+  ctx.lineWidth=mobile?1.5:2.3;
+  ctx.strokeStyle=warm?'rgba(255,198,147,.14)':'rgba(173,200,250,.13)';
+  ctx.stroke();
+ }
+ 
  for(let i=0;i<stars.length;i++){
   const star=stars[i];
   const [x,y,depth]=project(star.x,star.y,star.z,ca,sa,cp,sp);
   if(x<1||x>w-1||y<1||y>h-1)continue;
-  const rad=Math.max(.5,Math.min(4.3,star.size*depth*.78));
-  ctx.fillStyle='rgba('+star.color+','+(star.alpha*.6).toFixed(3)+')';
+  const rad=Math.max(.5,Math.min(4.3,star.size*depth*1.12));
+  ctx.fillStyle='rgba('+star.color+','+(star.alpha*.9).toFixed(3)+')';
   ctx.fillRect(x-rad*.5,y-rad*.5,rad,rad);
   if(rad>1.3&&i%4===0){
    ctx.fillStyle='rgba('+star.color+',.16)';
-   ctx.beginPath();ctx.arc(x,y,rad*2.1,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.arc(x,y,rad*2.45,0,Math.PI*2);ctx.fill();
   }
  }
  ctx.globalCompositeOperation='source-over';dirty=false;
