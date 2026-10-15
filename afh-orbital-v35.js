@@ -5,7 +5,8 @@ const root=document.getElementById('afh-intro-2026');
 if(!root||!root.classList.contains('afh35-opening'))return;
 const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches,KEY='afh-orbital-v35-seen';
 let seen=false;try{seen=sessionStorage.getItem(KEY)==='1'}catch(_){}
-if(reduced||seen){root.remove();return}
+const replay=new URLSearchParams(location.search).has('intro');
+if(reduced||(seen&&!replay)){root.remove();return}
 const canvas=root.querySelector('#afh35-webgl'),mobile=matchMedia('(max-width:767px)').matches;
 const duration=4850;let dead=false,started=performance.now(),raf=0,finishTimer=0,gl=null;
 document.body.classList.add('afc-lock');
