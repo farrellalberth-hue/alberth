@@ -265,3 +265,12 @@ body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) fo
 .atlas-sort-control option{background:#f7f7f7;color:#111}
 .atlas-sort-chevron{pointer-events:none;position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#e3e8f1}
 @media(max-width:690px){.atlas-results-heading{align-items:flex-start}.atlas-results-actions{width:100%}.atlas-sort-control{min-width:213px}}
+
+/* Contextual parent → child subject naming. A topic's archival name and
+ * review provenance remain unchanged in the data layer. */
+.topic-card h3 .topic-parent-name{color:#f1f2f5;font-weight:400}
+.topic-card h3 .topic-child-name{color:#b8c4d5;font-style:italic;overflow-wrap:anywhere}
+.topic-card:hover h3 .topic-child-name{color:#d7e2ef}
+@media(max-width:610px){
+ .topic-card h3 .topic-parent-name,.topic-card h3 .topic-child-name{line-height:1.42}
+}

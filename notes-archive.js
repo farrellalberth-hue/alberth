@@ -61,7 +61,7 @@ function grouped(list){
 }
 function scope({y=year,m=month,searchTerm=search,review=reviewOnly}={}){
  const s=searchTerm.toLowerCase().trim();
- return records.filter(t=>(!y||yearNumber(t.d)===y)&&(!m||monthNumber(t.d)===m)&&(!review||t.review)&&(!s||t.t.toLowerCase().includes(s)||t.d.includes(s)));
+ return records.filter(t=>(!y||yearNumber(t.d)===y)&&(!m||monthNumber(t.d)===m)&&(!review||t.review)&&(!s||t.t.toLowerCase().includes(s)||(t.parentTopic&&t.parentTopic.toLowerCase().includes(s))||t.d.includes(s)));
 }
 function setOfRecords(options){const rows=scope(options);return view==="unique"?grouped(rows):rows;}
 function countYear(y){return setOfRecords({y,m:0,searchTerm:"",review:false}).length}
@@ -134,7 +134,12 @@ function renderCards(){
   const meta=view==="unique"
     ?'<span>FIRST: '+escapeHTML(formatDate(t.firstDate))+'</span><span>'+t.occurrences+' '+(t.occurrences===1?"RECORD":"RECORDS")+(t.reviewSessions?' · '+t.reviewSessions+' REVIEW':'')+'</span>'
     :'<span>'+escapeHTML(formatDate(t.d))+'</span><span>'+escapeHTML(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+escapeHTML(t.s)+'</span>';
-  return '<article class="topic-card" style="--topic-order:'+Math.min(i,10)+'"><div class="topic-card-heading"><h3>'+escapeHTML(t.t)+'</h3>'+(t.review?'<span class="review-badge">REVIEW'+(view==="unique"&&t.reviewSessions>1?" × "+t.reviewSessions:"")+'</span>':'')+'</div><div class="topic-meta">'+meta+'</div></article>';
+  // Parent labels are display-only metadata: original child title, date and
+  // REVIEW identity are not changed by the presentation hierarchy.
+  const label=t.parentTopic
+    ?'<span class="topic-parent-name">'+escapeHTML(t.parentTopic)+'</span> <span class="topic-child-name">('+escapeHTML(t.t)+')</span>'
+    :escapeHTML(t.t);
+  return '<article class="topic-card" style="--topic-order:'+Math.min(i,10)+'"><div class="topic-card-heading"><h3>'+label+'</h3>'+(t.review?'<span class="review-badge">REVIEW'+(view==="unique"&&t.reviewSessions>1?" × "+t.reviewSessions:"")+'</span>':'')+'</div><div class="topic-meta">'+meta+'</div></article>';
  }).join("");
  const hasMore=items.length>limit;
  $("load-more").hidden=!hasMore;
