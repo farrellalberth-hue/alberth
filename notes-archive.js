@@ -173,33 +173,3 @@ window.addEventListener("scroll",()=>{if(ticking)return;ticking=true;requestAnim
 render();updateURL();
 })();
 
-/* Preserve the original slide page transition on archive links, with a dark
-   overlay matched to the homepage. No 3D gateway or route-name interstitial. */
-(()=>{"use strict";
- const key="af-transition-v4",body=document.body,overlay=document.getElementById("page-wipe");
- if(!overlay)return;
- const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
- if(!reduced)try{
-  if(sessionStorage.getItem(key)==="1"){
-   sessionStorage.removeItem(key);
-   body.classList.add("transition-in");
-   setTimeout(()=>body.classList.remove("transition-in"),970);
-  }
- }catch(e){}
- document.addEventListener("click",ev=>{
-  const a=ev.target.closest?.("a[href]");
-  if(!a||reduced||ev.defaultPrevented||ev.button!==0||ev.metaKey||ev.ctrlKey||ev.shiftKey||ev.altKey||a.hasAttribute("download")||(a.target&&a.target!=="_self"))return;
-  let to;try{to=new URL(a.href,location.href)}catch(e){return}
-  if(to.origin!==location.origin)return;
-  if(to.pathname===location.pathname&&to.search===location.search)return;
-  ev.preventDefault();
-  if(body.classList.contains("transition-out"))return;
-  body.classList.remove("transition-in");
-  body.classList.add("transition-out");
-  try{sessionStorage.setItem(key,"1")}catch(e){}
-  setTimeout(()=>location.assign(to.href),610);
- });
- window.addEventListener("pageshow",ev=>{
-  if(ev.persisted)body.classList.remove("transition-out","transition-in");
- });
-})();

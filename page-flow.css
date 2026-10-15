@@ -1,0 +1,28 @@
+/* ONE continuous page-change crossfade shared by Home and Knowledge Atlas.
+ * Native cross-document View Transitions blend outgoing/incoming pages in the
+ * same 640ms timeline, instead of two sequential slide panels. */
+@view-transition { navigation: auto; }
+html{background:#05070b}
+::view-transition{background:#05070b}
+::view-transition-old(root),
+::view-transition-new(root){
+ animation-duration:640ms;
+ animation-timing-function:cubic-bezier(.22,.65,.25,1);
+ animation-fill-mode:both;
+ mix-blend-mode:normal;
+}
+/* Only used on older browsers without document.startViewTransition:
+ * a single short outgoing dark fade; no second arrival effect. */
+html.page-flow-fallback-out body{
+ animation:pageFlowLegacyExit 370ms cubic-bezier(.22,.65,.25,1) forwards!important;
+ pointer-events:none;
+}
+@keyframes pageFlowLegacyExit{
+ from{opacity:1;filter:blur(0)}
+ to{opacity:0;filter:blur(3px)}
+}
+@media(prefers-reduced-motion:reduce){
+ @view-transition {navigation:none}
+ ::view-transition-old(root),::view-transition-new(root){animation:none!important}
+ html.page-flow-fallback-out body{animation:none!important}
+}

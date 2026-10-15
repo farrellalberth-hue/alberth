@@ -1,6 +1,6 @@
 (()=>{"use strict";
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
-const body=document.body, intro=document.getElementById("intro-v4"),wipe=document.getElementById("page-wipe");
+const body=document.body, intro=document.getElementById("intro-v4");
 const introMs=5000;
 if(intro){
  const skip=intro.querySelector(".skip"),timer=intro.querySelector(".intro-timer"),start=performance.now();
@@ -13,18 +13,8 @@ if(intro){
  raf=requestAnimationFrame(tick);
  }
 }
-try{if(!reduced&&sessionStorage.getItem("af-transition-v4")==="1"){body.classList.add("transition-in");sessionStorage.removeItem("af-transition-v4");setTimeout(()=>body.classList.remove("transition-in"),970)}}catch(e){}
 const menu=document.querySelector(".menu-trigger"),links=document.querySelector(".top-links");
 if(menu&&links){menu.addEventListener("click",()=>{const isOpen=links.classList.toggle("open");menu.setAttribute("aria-expanded",String(isOpen));menu.textContent=isOpen?"×":"☰"});links.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{links.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.textContent="☰"}))}
-document.querySelectorAll("a[href]").forEach(a=>a.addEventListener("click",ev=>{
- if(reduced||!wipe||ev.defaultPrevented||ev.button!==0||ev.metaKey||ev.ctrlKey||ev.shiftKey||ev.altKey||a.hasAttribute("download")||a.getAttribute("target")==="_blank")return;
- let url;try{url=new URL(a.href,location.href)}catch(e){return}
- if(url.origin!==location.origin)return;
- if(url.pathname===location.pathname&&url.search===location.search)return;
- ev.preventDefault();if(body.classList.contains("transition-out"))return;
- body.classList.add("transition-out");try{sessionStorage.setItem("af-transition-v4","1")}catch(e){}
- setTimeout(()=>location.assign(url.href),610);
-}));
 if(body.classList.contains("archive-v4")){document.querySelectorAll(".section-group").forEach((el,i)=>el.setAttribute("data-reveal",i%2?"right":"left"));}
 const revealEls=Array.from(document.querySelectorAll("[data-reveal]"));
 if(reduced||!("IntersectionObserver" in window)){revealEls.forEach(el=>el.classList.add("in-view"))}else{
