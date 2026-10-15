@@ -34,6 +34,10 @@ function sectorGrid(){
   const isSecondary=!focusSectors.includes(s.slug);
   button.dataset.secondary=String(isSecondary);
   if(isSecondary&&!showAllSectors)button.dataset.collapsed='true';
+  const orbit=node('span','afh36-sector-object');
+  orbit.setAttribute('aria-hidden','true');
+  for(let k=0;k<3;k++)orbit.append(document.createElement('span'));
+  button.append(orbit);
   const header=node('div','lk-sector-top');
   header.append(node('span','',String(i+1).padStart(2,'0')+' / '+String(data.sectors.length).padStart(2,'0')),node('span','',format(sum(s))+' TOPICS'));
   const title=node('strong','',s.name);
@@ -77,14 +81,14 @@ function matches(t,s,c){
  const hay=[t.name,s.name,c.name,...(t.subtopics||[]),t.summary||'',...(source?.definitions||[]).map(x=>x.text||''),...(source?.examples||[]).map(x=>x.title||''),...(source?.reviews||[]).map(x=>x.question||'')].join(' ');
  return norm(hay).includes(norm(query));
 }
-function buildTopic(t){
+function buildTopic(t,index){
  const children=t.subtopics||[],source=t.yellowBook;
  const hasDetail=!!(children.length||t.summary||source);
  let element,head;
  if(hasDetail){element=node('details','lk-topic');head=node('summary');}
  else{element=node('div','lk-topic-plain');head=element;}
  const part=node('span','lk-topic-marker');
- part.append(node('span','lk-topic-name',t.name));
+ part.append(node('span','lk-topic-index',String(index+1).padStart(2,'0')),node('span','lk-topic-name',t.name));
  if(t.stage!=='indexed')part.append(node('span','lk-status lk-status--'+t.stage,labels[t.stage]||t.stage));
  const right=node('span','lk-topic-end');
  if(hasDetail){
@@ -127,7 +131,7 @@ function buildTopic(t){
  }
  return element;
 }
-function buildChapter(c,si){const details=node('details','lk-chapter');details.open=si===0;const summary=node('summary');const count=c.topics.length;summary.append(node('span','lk-chapter-id',String(si+1).padStart(2,'0')),node('span','lk-chapter-name',c.name),node('span','lk-chapter-count',format(count)+' TOPICS'),node('span','lk-chapter-arrow','＋'));details.append(summary);const list=node('div','lk-topic-list');const fragment=document.createDocumentFragment();c.topics.forEach(t=>fragment.append(buildTopic(t)));list.append(fragment);details.append(list);return details}
+function buildChapter(c,si){const details=node('details','lk-chapter');details.open=si===0;const summary=node('summary');const count=c.topics.length;summary.append(node('span','lk-chapter-id',String(si+1).padStart(2,'0')),node('span','lk-chapter-name',c.name),node('span','lk-chapter-count',format(count)+' TOPICS'),node('span','lk-chapter-arrow','＋'));details.append(summary);const list=node('div','lk-topic-list');const fragment=document.createDocumentFragment();c.topics.forEach((t,i)=>fragment.append(buildTopic(t,i)));list.append(fragment);details.append(list);return details}
 function renderPanel(){if(!data)return;const current=data.sectors.find(s=>s.slug===selected)||data.sectors[0];panel.replaceChildren();const title=node('div','lk-panel-title');const left=node('div');left.append(node('span','lk-eyebrow','SECTOR / '+String(data.sectors.indexOf(current)+1).padStart(2,'0')));left.append(node('h4','',current.name));left.append(node('p','',current.description));title.append(left,node('span','lk-panel-meta',format(sum(current))+' TOPICS · '+format(subs(current))+' SUBTOPICS'));panel.append(title);
 if(current.legacy&&current.legacy.startsWith('/library/')){const link=node('a','lk-legacy','EXPLORE EARLIER STUDY NOTES ↗');link.href=current.legacy;panel.append(link)}
 const queryMode=!!query;const chapters=current.chapters.map(c=>({name:c.name,topics:c.topics.filter(t=>matches(t,current,c))})).filter(c=>c.topics.length);
