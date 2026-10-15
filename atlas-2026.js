@@ -6,7 +6,7 @@ const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const intro=$('#afh-intro-2026');
 const body=document.body;
-if(intro){
+if(intro&&!intro.classList.contains('afh34-opening')){
  const key='afh-atlas-2026-intro';
  let seen=false;
  try{seen=sessionStorage.getItem(key)==='seen'}catch(_){}
