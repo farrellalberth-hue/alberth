@@ -266,3 +266,23 @@ body.studio-home #afh4-quote.afh36-quote .afh4-quote-frame{max-width:800px}
  #lk-index.afh36-library .lk-sector{transform:none!important;transition:none!important}
  .afh36-method-diagram path,.afh36-method-diagram line,.afh36-method-diagram circle{stroke-dashoffset:0!important;transition:none!important}
 }
+
+/* V36.1 typography QA — the prior timeline's absolute chapter counter must not
+ * overlap long editorial facts on mobile or desktop. */
+body.studio-home #lifetime.afh36-money .lifetime-step-index{
+ position:static!important;inset:auto!important;float:none!important;display:block!important;
+ width:max-content;max-width:100%;margin:0 0 17px!important;
+ color:#e9baa0!important;font:820 10px/1.6 Manrope,Arial,sans-serif!important;
+ letter-spacing:.15em!important;white-space:normal!important;text-align:left!important;
+}
+body.studio-home #lifetime.afh36-money .lifetime-step .lifetime-age{
+ display:block;max-width:100%;overflow-wrap:anywhere;text-wrap:balance;margin:0 0 10px!important;
+}
+body.studio-home #lifetime.afh36-money .lifetime-step h4:not(.lifetime-age){
+ display:block;max-width:100%;overflow-wrap:break-word;margin:0 0 13px!important;
+}
+@media(max-width:767px){
+ body.studio-home #lifetime.afh36-money .lifetime-step-index{font-size:9px!important;margin-bottom:12px!important;letter-spacing:.13em!important}
+ body.studio-home #lifetime.afh36-money .lifetime-step .lifetime-age{font-size:clamp(27px,8vw,38px)!important;line-height:1.09!important}
+ body.studio-home #lifetime.afh36-money .lifetime-step h4:not(.lifetime-age){font-size:12px!important;line-height:1.6!important}
+}
