@@ -156,6 +156,45 @@ body.studio-home #afh4-quote.afh36-quote .afh4-quote-frame{max-width:800px}
 /* Small, viewport-scoped 2D reveals. */
 .afh36-fade{opacity:0;transform:translateY(19px);transition:opacity .8s ease,transform .85s cubic-bezier(.2,.8,.2,1)}
 .afh36-fade.afh36-inview{opacity:1;transform:none}
+
+/* The learning hero becomes an animated editorial diagram, never a giant blank header. */
+.sub-hero.afh36-journey-hero{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse 50% 73% at 88% 40%,#293c3d,#090c0c 72%)!important;min-height:85vh}
+.sub-hero.afh36-journey-hero:before{content:"";position:absolute;width:min(69vw,880px);aspect-ratio:1;border:1px solid #edc6ab66;right:-9%;top:7%;border-radius:50%;transform:rotateX(60deg) rotate(-28deg);box-shadow:0 0 0 31px #dcc7ad13,0 0 0 93px #dcc7ad09,0 0 0 150px #dcc7ad06;pointer-events:none;animation:afh36-introline 18s linear infinite}
+.sub-hero.afh36-journey-hero:after{content:"?";position:absolute;right:5%;top:5%;font:italic clamp(220px,27vw,500px)/1 'Instrument Serif',Georgia,serif;color:#ecc1b81a;pointer-events:none}
+.sub-hero.afh36-journey-hero .container{position:relative;z-index:4}
+.sub-hero.afh36-journey-hero h1{font-size:clamp(75px,11vw,175px);line-height:.86}
+.sub-hero.afh36-journey-hero h1 .serif{color:#f0bc9a!important}
+.sub-hero.afh36-journey-hero p{font-size:clamp(15px,1.28vw,19px);line-height:1.85;max-width:840px}
+.sub-hero.afh36-journey-hero .text-cta{display:inline-flex;min-height:48px;align-items:center}
+@keyframes afh36-introline{to{transform:rotateX(60deg) rotate(332deg)}}
+#lk-index.afh36-library .afh36-sector-object{transform-origin:center;backface-visibility:hidden}
+#lk-index.afh36-library .lk-sector[aria-pressed=true] .afh36-sector-object{animation:afh36-cardspin 18s linear infinite}
+#lk-index.afh36-library .lk-sector:is(:hover,:focus-visible) .afh36-sector-object{animation:afh36-cardspin 10s linear infinite}
+@keyframes afh36-cardspin{0%{transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg)}100%{transform:rotateX(360deg) rotateY(360deg) rotateZ(12deg)}}
+.about-page .story-hero{background:radial-gradient(ellipse 45% 90% at 85% 48%,#55405664,transparent 75%),#14111b!important}
+.about-page .story-hero:after{content:"";position:absolute;width:min(50vw,650px);height:min(50vw,650px);right:-10%;top:4%;border:1px solid #e6b8a18b;border-radius:50%;box-shadow:0 0 0 30px #e6b8a10b,0 0 0 90px #e6b8a108;transform:rotateX(60deg) rotate(20deg);animation:afh36-introline 22s linear infinite;pointer-events:none}
+.about-page .story-hero .container{position:relative;z-index:3}
+.about-page .story-hero h1{font-size:clamp(75px,11vw,155px)}
+.about-page .story-hero h1 em{color:#f4b99e}
+.about-page .life-chapter{border-radius:12px!important;transition:background .35s,border-color .35s}
+.about-page .life-chapter.is-active{box-shadow:0 17px 42px #05020555}
+.about-page .profile-card{border-radius:13px!important}
+.about-page .story-cta{border-radius:13px!important}
+.about-page .story-cta a{border-radius:8px!important;min-height:58px;display:flex;align-items:center}
+@media(max-width:767px){
+ .sub-hero.afh36-journey-hero{min-height:690px;padding:110px 0 80px!important}
+ .sub-hero.afh36-journey-hero h1{font-size:clamp(63px,13vw,100px)}
+ .sub-hero.afh36-journey-hero p{font-size:14px}
+ .sub-hero.afh36-journey-hero:before{width:110vw;top:5%;right:-60%;opacity:.55}
+ .sub-hero.afh36-journey-hero:after{font-size:270px;right:-8%;top:23%}
+ .about-page .story-hero:after{width:85vw;height:85vw;right:-40%;opacity:.43}
+ #lk-index.afh36-library .lk-sector:is(:hover,:focus-visible) .afh36-sector-object{animation:none}
+ #lk-index.afh36-library .lk-sector[aria-pressed=true] .afh36-sector-object{animation:afh36-cardspin 28s linear infinite}
+}
+@media(prefers-reduced-motion:reduce){
+ .sub-hero.afh36-journey-hero:before,.about-page .story-hero:after,
+ #lk-index.afh36-library .lk-sector .afh36-sector-object{animation:none!important}
+}
 @media(max-width:1050px){
  #lk-index.afh36-library .lk-sector{min-height:224px!important}
  #milestones.afh36-theses .afh36-data-ribbon{grid-template-columns:repeat(3,minmax(0,1fr))}
