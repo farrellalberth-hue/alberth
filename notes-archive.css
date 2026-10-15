@@ -7,7 +7,7 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 [hidden]{display:none!important}::selection{background:#ddd;color:#111}
 .shell{width:min(1380px,calc(100% - 100px));margin:auto}
 #reading-line{position:fixed;top:0;left:0;z-index:200;height:2px;width:0;background:linear-gradient(90deg,#888,#fff);pointer-events:none}
-#page-wipe{position:fixed;inset:0;pointer-events:none;z-index:500;background:#ddd;transform:translateY(101%)}
+#page-wipe{position:fixed;inset:0;pointer-events:none;z-index:500;background:linear-gradient(154deg,#030405 0%,#0b0f16 52%,#131822 100%);transform:translateY(101%);box-shadow:0 -8px 40px rgba(0,0,0,.48),0 -1px 0 rgba(198,217,241,.18)}
 body.transition-out #page-wipe{animation:wipeIn .6s cubic-bezier(.76,0,.24,1) forwards}
 body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) forwards}
 @keyframes wipeIn{to{transform:translateY(0)}}@keyframes wipeOut{from{transform:translateY(0)}to{transform:translateY(-101%)}}
@@ -274,3 +274,9 @@ body.transition-in #page-wipe{animation:wipeOut .9s cubic-bezier(.76,0,.24,1) fo
 @media(max-width:610px){
  .topic-card h3 .topic-parent-name,.topic-card h3 .topic-child-name{line-height:1.42}
 }
+
+/* Matches the homepage's original slide transition, now charcoal/silver. */
+#page-wipe::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;pointer-events:none;
+ background:linear-gradient(90deg,transparent 3%,rgba(220,232,250,.24) 42%,rgba(247,249,255,.43) 50%,rgba(220,232,250,.24) 58%,transparent 97%)}
+body.transition-out #page-wipe{will-change:transform}
+@media(prefers-reduced-motion:reduce){#page-wipe{display:none!important}}
