@@ -6,6 +6,10 @@ on:
     paths:
       - '.github/workflows/afh-pages.yml'
       - 'index.html'
+      - 'afh-intro-v40.css'
+      - 'afh-intro-v40.js'
+      - 'afh-atlas-v38.css'
+      - 'afh-atlas-v38.js'
       - 'afh-3d-sections-v31.css'
       - 'afh-3d-sections-v31.js'
       - 'afh-ambient-v32.css'
@@ -97,7 +101,7 @@ jobs:
               out.write_text(raw, encoding="utf-8")
           (target / ".nojekyll").write_text("", encoding="utf-8")
           (target / "afh-preview-build.json").write_text(
-              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V33 Cinematic Portfolio — Interactive 3D", "provider": "GitHub Pages"}),
+              json.dumps({"sha": os.environ.get("AFH_SHA"), "version": "AFH V40 Dimensional Portal", "provider": "GitHub Pages"}),
               encoding="utf-8")
           assert (target / "index.html").exists()
           assert (target / "journey" / "index.html").exists()
@@ -112,56 +116,38 @@ jobs:
           assert (target / "afh-video-atlas-v21.css").exists()
           assert (target / "afh-audio-dock-v21.js").exists()
           homepage = (target / "index.html").read_text(encoding="utf-8")
-          assert 'class="afh3-selected afh31-section"' in homepage
-          assert homepage.count('class="afh31-canvas"') == 4
-          for scene in ("economics","finance","ai","crypto"):
-              assert 'data-scene="'+scene+'"' in homepage, scene
-          for path in (
-              "/alberth/afh-3d-sections-v31.js",
-              "/alberth/afh-3d-sections-v31.css",
-              "/alberth/afh-mobile-fix-v28.css",
+          # Validate CURRENT V40 source, not retired V32/V33 content or video IDs.
+          # Pages adds /alberth/ to root-relative paths when publishing a project site.
+          expected = (
+              "/alberth/afh-intro-v40.css",
+              "/alberth/afh-intro-v40.js",
+              'id="afh-intro-v40"',
+              'id="afh40-canvas"',
+              'id="afh40-enter"',
+              'id="afh40-skip"',
+              'id="journey"',
+              'id="youtube-grid"',
+          )
+          for snippet in expected:
+              assert snippet in homepage, "Missing homepage element/asset: " + snippet
+          for asset in (
+              "afh-intro-v40.css","afh-intro-v40.js",
+              "afh-atlas-v38.css","afh-atlas-v38.js",
+              "knowledge-data.js","studio-v7.js",
           ):
-              assert path in homepage, path
-          assert "href=\"/alberth/library/finance/\"" in homepage
-          assert "href=\"/alberth/library/crypto/\"" in homepage
-          assert "id=\"afh29-galaxy\"" in homepage
-          assert "id=\"journey\"" in homepage
-          assert "id=\"youtube-grid\"" in homepage
-          assert "id=\"about\"" in homepage
-          journey = (target / "journey" / "index.html").read_text(encoding="utf-8")
-          assert "1,692" in journey
-          assert "lk-new-panel" not in journey
-          assert 'data-motion="journey"' in journey
-          assert '/alberth/afh-ambient-v32.js' in homepage
-          assert 'data-motion="quote"' in homepage
-          assert 'data-motion="videos"' in homepage
-          assert homepage.count('class="afh32-video-feature ') == 3
-          assert 'z2oQe6B1Qa4' in homepage
-          assert 'vTs2IQ8OefQ' in homepage
-          ai = (target / 'library' / 'ai' / 'index.html').read_text(encoding='utf-8')
-          assert 'ONE PIECE<br>AI SYSTEM' not in ai
-          assert 'THE SECOND<br>BRAIN' not in ai
-          assert 'OBSIDIAN<br>KNOWLEDGE SYSTEM' in ai
-          assert 'data-motion="obsidian"' in ai
-          assert 'afh-ambient-v32.js' in ai
-          assert 'learning-index-v25.js?v=32' in journey
-          assert (target / 'afh-cinematic-v33.css').exists()
-          assert (target / 'afh-cinematic-v33.js').exists()
-          assert '/alberth/afh-cinematic-v33.css' in homepage
-          assert '/alberth/afh-cinematic-v33.js' in homepage
-          assert homepage.count('class="afh33-stage afh33-field-canvas"') == 6
-          assert 'data-v33="featured"' in homepage
-          assert 'data-v33="manifesto"' in homepage
-          assert 'data-v33="contact"' in homepage
-          assert 'STAY CURIOUS.' in homepage
-          assert 'ALWAYS<br>' in homepage
-          assert 'value="featured"' in homepage
-          assert 'href="/alberth/journey/' in homepage
-          assert (target / 'studio-v7.js').read_text(encoding='utf-8').find("sorting='featured'") >= 0
-          print("AFH V33 cinematic interactive portfolio prepared:", sum(1 for _ in target.rglob("*") if _.is_file()), "files")
+              assert (target / asset).is_file(), "Missing asset: " + asset
+          for section in ("economics", "finance", "ai", "crypto", "math", "business"):
+              page = target / "library" / section / "index.html"
+              assert page.is_file(), "Missing atlas page " + section
+              assert "/alberth/afh-atlas-v38.css" in page.read_text(encoding="utf-8"), section
+          assert (target / "journey" / "index.html").exists()
+          assert (target / "about" / "index.html").exists()
+          print("AFH V40 preview prepared:", sum(1 for f in target.rglob("*") if f.is_file()), "files")
+
           PY
 
-      - name: Cache original YouTube thumbnails from source video IDs
+      - name: Cache optional YouTube thumbnails
+        continue-on-error: true
         run: |
           python3 build-thumbnails.py
           python3 - <<'PY'
