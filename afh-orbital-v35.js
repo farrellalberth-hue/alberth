@@ -121,7 +121,8 @@ function paint(ms){
  const ease=x=>x*x*(3-2*x);
  const enter=ease(Math.min(1,p/.22));
  const exit=ease(Math.max(0,Math.min(1,(p-.80)/.20)));
- const scale=(.47+enter*.53)*(1+exit*2.5);
+ // A restrained final dolly makes the handoff to the homepage feel continuous.
+ const scale=(.53+enter*.47)*(1+exit*.23);
  const aspect=Math.max(.38,w/h);
  const targetY=mobile?(h<680?.40:.28):.085;
  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
