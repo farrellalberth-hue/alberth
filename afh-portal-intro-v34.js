@@ -8,7 +8,8 @@
  const key='afh-portal-v35-seen';
  let seen=false;
  try{seen=sessionStorage.getItem(key)==='1'}catch(_){}
- if(reduced||seen){root.remove();return;}
+ const replay=new URLSearchParams(location.search).get('intro')==='replay';
+ if(reduced||(seen&&!replay)){root.remove();return;}
  const canvas=root.querySelector('#afh34-canvas'),ctx=canvas?.getContext('2d',{alpha:true});
  const mobile=matchMedia('(max-width:767px)').matches;
  const save=()=>{try{sessionStorage.setItem(key,'1')}catch(_){}};
