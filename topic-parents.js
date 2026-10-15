@@ -22,7 +22,7 @@
  ["Microeconomics",/\b(?:demand curve|supply curve|law of demand|law of supply|demand\b|supply\b|market equilibrium|market clearing|price floor|price ceiling|shortage|surplus|minimum wage|elasticit|subsidies|economic incidence|price controls?|ceteris paribus|opportunity cost|scarcity|economic choice|goods|services|market mechanism|marginal analysis|rational choice)\b/i]
  ],
  finance:[
- ["Accounting",/\b(?:ledger|general journal|journal entries|journal entry|chart of accounts|double.entry|trial balance|balance sheet|income statement|cash flow statement|statement of cash flow|statement of changes in equity|financial statement|adjusting entr|closing entr|accounting cycle|accounting equation|accounting principle|accrual|cash accounting|bookkeeping|financial reporting|account payable|accounts? payable|account receiv|accounts? receiv|accounting policy|accounting standard|revenue recognition|expense recognition|revenue\b|expense\b|cost of goods sold|COGS\b|gross profit|net income|earnings|operating income|asset[s]?\b|liabilit|share capital|share premium|treasury stock|retained earnings|inventory|FIFO\b|LIFO\b|weighted average cost|deprecia|amortiz|impairment|goodwill|consolidat|business combination|purchase price allocation|equity method|matching principle|IFRS\b|IAS\b|PSAK\b|GAAP\b|audit|auditability|other comprehensive income|OCI\b|amortized cost|fair value accounting|deferred tax|tax assets?|tax liabilit|lease accounting|earnings management|big bath|earnings quality|asset revaluation|PPE\b|property plant|capital expendit|capitalization|research expenditure|development cost|impairment loss|net book value|revaluation reserve|financial ratios|profit margin|accounts ledger|statement of equity|post.closing|adjusted trial|unadjusted trial|inventor[yies] turnover)\b/i],
+ ["Accounting",/\b(?:ledger|general journal|journal entries|journal entry|chart of accounts|double.entry|trial balance|balance sheet|income statement|cash flow statement|statement of cash flow|statement of changes in equity|financial statement|adjusting entr|closing entr|accounting cycle|accounting equation|accounting principle|accrual|cash accounting|bookkeeping|financial reporting|account payable|accounts? payable|account receiv|accounts? receiv|accounting policy|accounting standard|revenue recognition|expense recognition|revenue\b|expense\b|cost of goods sold|COGS\b|gross profit|net income|earnings|operating income|asset revaluation|asset turnover|asset impairment|liabilit|share capital|share premium|treasury stock|retained earnings|inventory|FIFO\b|LIFO\b|weighted average cost|deprecia|amortiz|impairment|goodwill|consolidat|business combination|purchase price allocation|equity method|matching principle|IFRS\b|IAS\b|PSAK\b|GAAP\b|audit|auditability|other comprehensive income|OCI\b|amortized cost|fair value accounting|deferred tax|tax assets?|tax liabilit|lease accounting|earnings management|big bath|earnings quality|asset revaluation|PPE\b|property plant|capital expendit|capitalization|research expenditure|development cost|impairment loss|net book value|revaluation reserve|financial ratios|profit margin|accounts ledger|statement of equity|post.closing|adjusted trial|unadjusted trial|inventor[yies] turnover)\b/i],
  ["Statistics",/\b(?:statistics?|descriptive statist|inferential statist|variance\b|covariance\b|varians|covarians|standard deviation|standard deviasi|standard error|probabilit|probability distribution|normal distribution|Gaussian|binomial distribution|poisson|uniform distribution|sampling|sample size|skewness|kurtosis|fat tails|p.value|p-value|hypothesis test|confidence interval|confidence level|statistical inference|t.statistic|f.statistic|quantile|percentile|moment[s]?|correlation\b|correlation coefficient|expected value|random variable|geometric distribution|chi.square|Bayesian statistics|conditional probability)\b/i],
  ["Econometrics",/\b(?:econometric|regression|OLS\b|ordinary least squares|least squares|heteroskedastic|homoskedastic|autocorrelat|endogeneity|instrumental variables?|IV regression|time series|AR\b|ARMA\b|ARIMA\b|ARCH\b|GARCH\b|EGARCH\b|EWMA\b|autoregress|autoregressive|moving average model|stationarity|unit.root|co.integration|cointegration|Johansen|Granger causal|Kalman filter|forecast model|predictive regression|variance ratio|residual|white noise|Brownian|Wiener|stochastic process|Monte Carlo|Markov|HMM\b|hidden markov|lagged variable|heteroscedastic|econometric model)\b/i],
  ["Mathematics",/\b(?:mathematics?|Lagrange|Lagrangian|optimization|calculus|differential equation|linear algebra|matrix|eigenvalue|eigenvector|irreducibilit|recurrence|Bessel|derivative math|mathematical|nonlinear|stochastic calculus|derivative of|integration|integral|convexity of function|concavity of function|linear programming|discrete mathematics)\b/i],
@@ -108,14 +108,93 @@
  "value propositions":"Business Model Canvas",
  "operating expenses":"Accounting",
  "market cap":"Financial Markets",
- "indifference curves":"Consumer Theory"
+ "indifference curves":"Consumer Theory",
+ "capital asset pricing model (capm)":"Portfolio Theory",
+ "capital asset pricing models (capm)":"Portfolio Theory",
+ "introduction to capital asset pricing model":"Portfolio Theory",
+ "price-to-earnings ratio":"Equity Valuation",
+ "price-to-book value ratio":"Equity Valuation",
+ "variance swaps":"Derivatives",
+ "efficient market hypothesis":"Market Efficiency",
+ "random walk hypothesis":"Market Efficiency",
+ "hypothesis twin deficits":"Macroeconomic Models",
+ "government failure":"Market Failure & Welfare Economics",
+ "market failure":"Market Failure & Welfare Economics",
+ "adverse selection":"Market Failure & Welfare Economics",
+ "sequential games":"Game Theory",
+ "simultaneous games":"Game Theory",
+ "repeated games":"Game Theory",
+ "dominant strategy":"Game Theory",
+ "dominated strategy":"Game Theory",
+ "best response":"Game Theory",
+ "pure strategy":"Game Theory",
+ "mixed strategy":"Game Theory",
+ "stackelberg model":"Industrial Organization",
+ "futures":"Derivatives",
+ "free cash flow to firm":"Equity Valuation",
+ "public economics":"Market Failure & Welfare Economics",
+ "cpi":"Macroeconomic Models",
+ "monte carlo simulation":"Econometrics",
+ "game theory basics":"Game Theory",
+ "profit maximization":"Producer Theory",
+ "expected utility theory":"Consumer Theory",
+ "gross domestic product":"Macroeconomic Models",
+ "gross national product":"Macroeconomic Models",
+ "sui":"", "solana":"", "bitcoin":"", "ethereum":""
  };
  const fallback={economics:"Economics",finance:"Finance",crypto:"Blockchain & Cryptocurrency",others:"Interdisciplinary Studies"};
+ // Contextual overrides catch terse source titles and protect technical
+ // concepts from broad words like "assets", "options" or "interest".
+ const precision={
+ economics:[
+ ["Game Theory",/\b(?:sequential games?|simultaneous games?|repeated games?|pure strategies?|mixed strategies?|non.cooperative games?|dominated strategies?|dominant strategies?|best responses?|coordination games?|battle of sexes|prisoner|credible|subgame|trigger strateg|folk theorem|backward induction|Bayesian games?|payoff matrices?|zero.sum games?|non.zero.sum games?|grim trigger|discount factor in game|strategic games?|mechanism design)\b/i],
+ ["Consumer Theory",/\b(?:Slutsky|Engel\b|marginal propensity to consume|MPC\b|permanent income hypothesis|life.cycle hypothesis|intertemporal elasticity|IES\b|marginal rate of substitution|MRS\b|consumer preference|preference\b|ordinal utility|utility maximization|compensated demand|Hicksian demand|Marshallian demand|Edgeworth Box|contract curve)\b/i],
+ ["Producer Theory",/\b(?:MC\b|AC\b|AFC\b|AVC\b|MPL\b|MPK\b|Cobb.Douglas|short.run|long.run|return to scale|profit maximation|output maximation|rate of technical substitution|isocost|isoquant|capital accumulation rule|production possibility|CES\b|marginal efficiency of capital)\b/i],
+ ["Industrial Organization",/\b(?:monopoly\b|oligopoly\b|perfect competition|monopsony|cartel\b|Collusive|Bertrand|Cournot|Stackelberg|market stucture|market structure|double marginalization|Lerner|markup|monopolistic competition|price maker|price taker)\b/i],
+ ["Market Failure & Welfare Economics",/\b(?:welfare theorems?|first fundamental theorem|second fundamental theorem|Rawls|utilitarian|social welfare|welfare function|Pareto|Parreto|Pigou|Coase|externalit|deadweight loss|public economics|information asymmetry|adverse.selection|adverse gselection|signaling theory|incentive contract|hidden action|hidden information|moral hazard|principal.agent|agency theory|Arrow.Debreu|general equilibrium|equilibrium theory|theorem of welfare|public goods|club goods)\b/i],
+ ["International Economics",/\b(?:currency|rupiah|kuwait|peg[s]?\b|revaluation currency|devaluation|trade agreement|trade flows|import\b|export\b|ekspor|impor|cross.elasticity in trade|j curve|Marshall.Lerner|dornbusch|exchange|international payment|interest rate parity|currency war|CIPS\b|currency trilemma|trilemma|law of one price|Gresham|gesham|FDI\b|real wages|NAFTA|USMCA|triffin|original sin|money balance external|primary income|secondary income|service balance|unilateral transfer|trade balance|income balance|FEER|BEER|foreign exchange)\b/i],
+ ["Monetary Economics",/\b(?:monetary|money|M0\b|M1\b|M2\b|M3\b|monetaris|MMT\b|quantity theory|liquidity preference|fisher index|Fisher effect|fisher equation|central bank|seigniorage|repo\b|QT\b|QE\b|flight to safety|interest rate|inflation|deflation|Taylor rule|Laubach.Williams|phillips curve|curve of phillips|modern monetary theory)\b/i],
+ ["Macroeconomic Models",/\b(?:recession|depression|counter.cyclical|stabilizers?|business cycle|GDP\b|GNI\b|GNP\b|CPI\b|consumer price index|producer price index|fiscal|tax shield|policy fiskal|tax policy|gross domestic product|gross national product|Harrod|IS.LM|DSGE|dynamic.general|static.general|AK model|economics complexity|Hodrick.Prescott|Ramsey.rule|ICOR|growth model|income approach|output approach|fiscal contraction)\b/i],
+ ["Macroeconomic Growth Theory",/\b(?:economic growth|growth neoklasik|growth accounting|growth endogen|neoclassical growth|solow|romer|ramsey.cass|capital accumulation|theory of growth|model AK\b|AK model\b)\b/i],
+ ["Economic Thought",/\b(?:paradox|invisible hand|Adam Smith|David Ricardo|Karl Marx|John Maynard Keynes|Communist Manifesto|the Wealth of Nations|Theory of Moral Sentiments|natural liberty|labour theory of value|labour embodied|Austrian economic|Monetarism|mercantilism|classical economic|Marxian|capitalism|post.keynesian|neoclassical econom|new classical|Laissez.Faire|Cantillon|hegemoni)\b/i],
+ ["Microeconomics",/\b(?:elasticit|price floor|price ceiling|fixed\b|variable\b|consumer price|producer price|supply\b|demand\b|shortage|surplus|tarif|tariff|price\b|income\b|cross\b|goods\b|scarcity|opportunity cost|market equilibrium|market equilibrium|point elasticity)\b/i]
+ ],
+ finance:[
+ ["Derivatives",/\b(?:variance swap|implied volatility|initial volatility|local volatility|smile|skew|vol of vol|fixed strike|floating strike|Opsi\b|options?\b|option pricing|swaps?\b|futures?\b|forwards?\b|call option|put option|Greeks\b|theta\b|vega\b|rho\b|gamma\b|delta\b|Black.Scholes|Merton Model|Cox.Ross.Rubinstein|CRR\b|binomial tree|barrier\b|asian\b|compound\b|digital\b|Heston|SABR|XVA\b|CVA\b|DVA\b|FVA\b|FBA\b|FCA\b|KVA\b|volatility modelling|volatility modeling|volatility model|volatility skew|volatility smile)\b/i],
+ ["Accounting",/\b(?:first.in.first.out|last.in.first.out|straight.line|declining balance|double declining|trial balance|adjusting entries|closing entries|current liabilities|non.current liabilities|cash\b|cash equivalents|AOCI\b|APIC\b|FVOCI\b|FVTPL\b|IFRS|IAS\b|PPE\b|payables?|receivables?|intangible assets?|liabilities|franchise rights|licenses|trademarks|patents|consolidation|financial statements|revenue recognition|cost accounting|management accounting|cost structures?|inventory|expense\b|expenditure\b|CapEx\b|Opex\b|capital expenditure|operational expenditure|liability\b|balance sheet|earnings management|purchase price allocation|accounting principles|profitability index)\b/i],
+ ["Econometrics",/\b(?:GARCH|ARIMA|ARMA|ARCH\b|autoregression|autoregressive|ordinary least square|OLS\b|Homoskedastic|Heteroskedastic|hypothesis testing|statistical model|random walk|autocorrelation|moving average|mean reversion|forecast\b|time.series|econometric)\b/i],
+ ["Statistics",/\b(?:geometric mean index|covariance|variance\b|statistical inference|statistics|standard deviation|skew\b|distribution|standard error|fat tails|right.skewed)\b/i],
+ ["Corporate Finance",/\b(?:equity restructuring|financial restructuring|stock dilution|dilution|dividend\b|dividend capture|preferred|saham preferen|lock.up|clawback|capital\b|NPV\b|IRR\b|cost of capital|leverage|profitability index|dividend buyback|cash conversion cycle|working capital|capital budget|debt overhang|SAFE\b|simple agreement for future equity|fully diluted|management fee|hurdle|stock options employee)\b/i],
+ ["Bond Valuation",/\b(?:yield\b|curve|duration|convexity|interest rate structure|perpetual|Mortages.backed|overcollateralization|MBS\b|BBGA|Global Agg|SOFR\b|secured repo|repo\b|security yield|shadow rate|Wu.Xia|Vasicek|CIR\b|Laubach.Williams|CDO\b|CLO\b|fixed income|forward rate)\b/i],
+ ["Risk Management",/\b(?:credit spreads|default probability|EAD\b|PD\b|LGD\b|expected loss|default risk|volatility\b|risk\b|tail\b|stress testing|downside|tracking error|information ratio|bid.ask analysis|time.to.liquidate|market depth|excess spread|reserve account)\b/i],
+ ["Equity Valuation",/\b(?:market cap|market capitalization|valuation\b|asset pricing|earnings\b|EPS\b|EBITDA|WACC\b|ROIC\b|ROA\b|ROE\b|P\/E|PBV\b|P\/B|intrinsic|comparable analysis|income approach|Gordon Growth|stock to flow|S2F|cash flow valuation|free cash flow|DFC\b|DCF\b|value investing|return on (?:equity|asset))\b/i],
+ ["Banking",/\b(?:banks?\b|banking|deposit[s]?\b|cadangan wajib|giro\b|credit|loan|mortgage|Basel|Tier 2|CoCos|collateral|discount window|subordinat|NPL\b|capital adequacy|GWM\b|countercyclical capital|liquidity savings)\b/i],
+ ["Taxation",/\b(?:bea cukai|tax\b|taxation|perpajakan|exemption method|residence|source principle|treaty shopping|amount A|pillars?|thin capitallization|tax avoidance|withholding)\b/i],
+ ["Portfolio Theory",/\b(?:Capital Allocation Line|beta\b|alpha\b|APT\b|CAPM\b|Arbitrage Pricing|Fama|French \d|Carhart|Markowitz|efficient frontier|factor investing|risk aversion|risk.seeking|Portfolio|VaR\b|risk premium|asset allocation)\b/i],
+ ["Investment Strategy",/\b(?:ETF\b|ETN\b|ETP\b|Hedge Funds?|trading\b|ICT\b|order book|OTC\b|market micro|market depth|market conduct|stock \(|Stock\b|IHSG\b|MSCI\b|price discovery|investment\b|DCA\b|index fund|investor|A.Book|B.Book|cryptomarket|managed account|proprietary trading|copy trade|FX market)\b/i],
+ ["Financial Markets",/\b(?:Capital Market|Financial Market|Cash Equivalents|liquidity\b|Financial management|Financial Instruments?|Banking Economics|yield\b|broker|market maker|marketable securities)\b/i]
+ ],
+ crypto:[
+ ["Blockchain Consensus",/\b(?:DPoS\b|PoSA\b|PoS\b|PoW\b|proof.of.staked|proof.of.stake|proof.of.work|PBFT\b|practical byzantine|consensus\b|block producer|block reward|finality|Gossip protocol|difficulty target|mining pool|block reward|staking mechanism|validator selection|validator)\b/i],
+ ["Blockchain Security",/\b(?:RIPEMD|SHA512|SHA.256|HMAC\b|wallet|seed\b|digital signature|tanda tangan digital|private key|public key|merke root|Merkle tree|Merkle proofs?|UTXO|malleability|SPV\b|Escrow multi sig|Tree\b|sybil|denial of service|cryptograph|MPC.AA|key derivation)\b/i],
+ ["Crypto Market Analysis",/\b(?:Terra|token unlock|market crypto|hyperliquid 4M|crypto loses?|Trump effect|cryptowave|losses news|token supply|market capitalization|whitelist|faucet|CEX\b|trading crypto|technical crypto)\b/i],
+ ["Crypto Protocols",/\b(?:LayerZero|Polygon|0G\b|2Z\b|DoubleZero|Plasma\b|Ondo|Origin trail|TokenFi|Fetch.Ai|Render\b|Doge\b|Dogecoin|ICP\b|Hyperliquid|Hyperliquid|Sahara AI|BitGo|Fireblocks)\b/i]
+ ],
+ others:[
+ ["Artificial Intelligence",/\b(?:evaluation|monitoring|language model|data collection|model training|pre.processing|backpropagation|training model|generative|BERT|GPT|AGI|robot|AI\b)\b/i],
+ ["Business Law",/\b(?:pembentukan kontrak|kontrak|tort|Law of|Perdata|perseroan|humaniter|agraria|regulation|Tilang)\b/i],
+ ["Management",/\b(?:business research|business idea|introduction to management|Introduction to business|busniness|hybrid\b|formulation|management)\b/i]
+ ]
+ };
  const parentOf=(t)=>{
   const title=String(t.t||"").trim(),low=canon(title),field=t.f;
   if(!title||roots.has(low))return null;
   if(Object.prototype.hasOwnProperty.call(specific,low)){
    const p=specific[low];return p&&canon(p)!==low?p:null;
+  }
+  const precisionRules=precision[field]||[];
+  for(const [parent,pattern] of precisionRules){
+   if(pattern.test(title)&&canon(parent)!==low)return parent;
   }
   const cat=rules[field]||[];
   for(const [parent,regex]of cat){
