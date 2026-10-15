@@ -196,3 +196,20 @@ body.archive-v4 #browseView .archive-side{align-self:start}
  body.archive-v4 .afh38-orb{animation:none!important}
  body.archive-v4 .topic-card,body.archive-v4 .ai-lab-card{transition:none!important}
 }
+
+/* A minimal return control, activated by the V38 atlas script. */
+body.archive-v4 .afh38-backtotop{
+ position:fixed;right:25px;bottom:24px;z-index:85;
+ width:48px;height:48px;border:1px solid #dfbd99;
+ border-radius:50%;background:#241b19;color:#e9decf;
+ display:grid;place-items:center;font:500 27px/1 Georgia,serif;
+ cursor:pointer;touch-action:manipulation;
+ opacity:0;visibility:hidden;transform:translateY(12px);
+ transition:opacity .2s,transform .2s,visibility .2s;
+ box-shadow:0 10px 26px #130a0a40;
+}
+body.archive-v4 .afh38-backtotop.is-visible{opacity:1;visibility:visible;transform:none}
+body.archive-v4 .afh38-backtotop:hover{background:#e8cfb4;color:#251a17}
+body.archive-v4 .afh38-backtotop:focus-visible{outline:2px solid #abc87f;outline-offset:3px}
+@media(max-width:767px){body.archive-v4 .afh38-backtotop{right:15px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:45px;height:45px}}
+@media(prefers-reduced-motion:reduce){body.archive-v4 .afh38-backtotop{transition:none!important}}
