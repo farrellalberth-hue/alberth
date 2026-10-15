@@ -1,0 +1,100 @@
+/* VIEL KNOWLEDGE PORTAL — silver light, perspective tunnels, kinetic geometry.
+   Shared by homepage and all five dedicated Knowledge Atlas category routes. */
+.atlas-passage{
+ --passage-x:50vw;--passage-y:50vh;
+ position:fixed;inset:0;z-index:4000;isolation:isolate;overflow:hidden;
+ visibility:hidden;opacity:0;pointer-events:none;background:#030509;
+}
+.atlas-passage-shade{position:absolute;inset:0;z-index:1;
+ background:radial-gradient(ellipse 45vw 48vw at 50% 48%,#b0c6e728,#1b2b477a 52%,#030509 100%)}
+.atlas-passage-grid{position:absolute;inset:-55%;z-index:1;opacity:.48;transform-origin:center;
+ background-image:linear-gradient(#bad1ee12 1px,transparent 1px),linear-gradient(90deg,#bad1ee12 1px,transparent 1px);
+ background-size:88px 88px;transform:perspective(600px) rotateX(62deg) scale(1.8);
+ mask-image:radial-gradient(circle at center,#000 0%,transparent 75%)}
+.atlas-passage-depth{position:absolute;inset:0;z-index:2;pointer-events:none;perspective:900px;transform-style:preserve-3d;
+ background:radial-gradient(circle at 50% 48%,#f3f7ff15 0%,transparent 30%)}
+.atlas-passage-ring{position:absolute;left:50%;top:48%;width:min(54vw,650px);aspect-ratio:1;
+ border:1px solid #d5e5ff94;border-radius:50%;transform-style:preserve-3d;
+ box-shadow:inset 0 0 28px #dbeaff20,0 0 50px #a8c7ee3c;
+ background:radial-gradient(circle,transparent 45%,#bacbe916 65%,transparent 73%);
+ opacity:.48;will-change:transform}
+.atlas-passage-ring:after{content:"";position:absolute;inset:14%;border:1px solid #b4d0f54b;border-radius:50%;
+ transform:rotateX(71deg) rotateY(23deg);box-shadow:0 0 25px #bdd8ff29}
+.atlas-passage-ring.ring-outer{transform:translate(-50%,-50%) rotateX(72deg) rotateY(-25deg)}
+.atlas-passage-ring.ring-middle{width:min(46vw,540px);opacity:.5;border-color:#f1f5ffb4;
+ transform:translate(-50%,-50%) rotateX(-43deg) rotateY(57deg)}
+.atlas-passage-ring.ring-inner{width:min(31vw,375px);opacity:.6;border-width:2px;border-color:#ecf3ffb0;
+ transform:translate(-50%,-50%) rotateX(64deg) rotateZ(42deg)}
+.atlas-passage-streak{position:absolute;left:0;right:0;top:50%;height:1px;
+ background:linear-gradient(90deg,transparent,#bdcfea36,#eef4ffc9,#bdcfea36,transparent);
+ filter:blur(.3px);transform-origin:center;opacity:.3}
+.atlas-passage-streak.streak-one{transform:rotate(29deg)}
+.atlas-passage-streak.streak-two{transform:rotate(-36deg)}
+.atlas-passage-crosshair{position:absolute;left:50%;top:48%;width:12px;height:12px;z-index:3;
+ transform:translate(-50%,-50%);border:1px solid #f1f7ffad;
+ box-shadow:0 0 18px #c9dfff8f;border-radius:50%}
+.atlas-passage-label{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,calc(-50% + 40px));
+ display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+ width:calc(100% - 36px);max-width:950px;opacity:0;color:#f7faff;
+ text-shadow:0 8px 30px #02040ae3}
+.atlas-passage-kicker{font:700 9px/1.8 "Manrope","DM Sans",sans-serif;color:#c9d7ea;letter-spacing:.24em;
+ display:flex;align-items:center;gap:13px;text-transform:uppercase}
+.atlas-passage-kicker i{width:25px;height:1px;background:#eff5ff91}
+.atlas-passage-index{margin-top:37px;color:#9dafca;letter-spacing:.28em;font:700 12px/1.3 "Manrope",sans-serif}
+.atlas-passage-label strong{font:400 clamp(55px,10.5vw,148px)/1.08 "Playfair Display",Georgia,serif;
+ letter-spacing:-.075em;text-transform:uppercase;text-wrap:balance;overflow-wrap:anywhere}
+.atlas-passage-caption{margin-top:11px;color:#b8c7db;font:600 11px/1.7 "Manrope",sans-serif;letter-spacing:.19em}
+.atlas-passage-progress{position:relative;width:min(350px,63vw);height:1px;margin-top:37px;background:#ffffff24;overflow:hidden}
+.atlas-passage-progress:after{content:"";position:absolute;inset:0;
+ background:linear-gradient(90deg,transparent,#f8fbff,#afc9f1);transform:translateX(-101%)}
+.atlas-passage-serial{position:absolute;z-index:4;bottom:clamp(25px,5vh,60px);left:0;right:0;text-align:center;
+ font:600 9px/1.6 "Manrope",sans-serif;letter-spacing:.24em;color:#9dafc4;opacity:0}
+.atlas-passage--leaving,.atlas-passage--arriving{visibility:visible;pointer-events:auto}
+.atlas-passage--leaving{animation:atlasPortalCover .82s cubic-bezier(.16,.78,.3,1) both}
+.atlas-passage--leaving .atlas-passage-shade{animation:atlasPortalAperture .82s cubic-bezier(.14,.87,.26,1) both}
+.atlas-passage--leaving .atlas-passage-grid{animation:atlasPortalGrid .82s cubic-bezier(.15,.84,.28,1) both}
+.atlas-passage--leaving .ring-outer{animation:atlasPortalOrbitOuter .82s cubic-bezier(.13,.82,.24,1) both}
+.atlas-passage--leaving .ring-middle{animation:atlasPortalOrbitMiddle .82s cubic-bezier(.13,.82,.24,1) both}
+.atlas-passage--leaving .ring-inner{animation:atlasPortalOrbitInner .82s cubic-bezier(.13,.82,.24,1) both}
+.atlas-passage--leaving .atlas-passage-label{animation:atlasPortalTitle .72s .16s cubic-bezier(.17,.83,.27,1) both}
+.atlas-passage--leaving .atlas-passage-progress:after{animation:atlasPortalProgress .58s .2s ease-out both}
+.atlas-passage--leaving .atlas-passage-serial{animation:atlasPortalSerial .7s .3s both}
+.atlas-passage--arriving{animation:atlasPortalRelease .92s cubic-bezier(.2,.8,.33,1) both}
+.atlas-passage--arriving .atlas-passage-label{opacity:1;animation:atlasPortalLandText .82s ease both}
+.atlas-passage--arriving .atlas-passage-ring{animation:atlasPortalLandRing .9s cubic-bezier(.18,.81,.24,1) both}
+.atlas-passage--arriving .atlas-passage-serial{opacity:1}
+@keyframes atlasPortalCover{
+ 0%{opacity:0;clip-path:circle(0% at var(--passage-x) var(--passage-y))}
+ 30%{opacity:1}
+ 100%{opacity:1;clip-path:circle(155% at var(--passage-x) var(--passage-y))}
+}
+@keyframes atlasPortalAperture{0%{opacity:.1;transform:scale(1.5)}60%{opacity:.8}100%{opacity:1;transform:scale(.93)}}
+@keyframes atlasPortalGrid{0%{opacity:0;transform:perspective(600px) rotateX(64deg) scale(2.6)}
+ 100%{opacity:.48;transform:perspective(600px) rotateX(62deg) scale(1.75)}}
+@keyframes atlasPortalOrbitOuter{0%{opacity:0;transform:translate(-50%,-50%) scale(2.3) rotateX(70deg) rotateY(-50deg)}
+ 100%{opacity:.58;transform:translate(-50%,-50%) scale(.94) rotateX(72deg) rotateY(135deg)}}
+@keyframes atlasPortalOrbitMiddle{0%{opacity:0;transform:translate(-50%,-50%) scale(.16) rotateX(-60deg) rotateY(-30deg)}
+ 100%{opacity:.8;transform:translate(-50%,-50%) scale(1.1) rotateX(-43deg) rotateY(200deg)}}
+@keyframes atlasPortalOrbitInner{0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotateX(80deg) rotateZ(-45deg)}
+ 100%{opacity:.85;transform:translate(-50%,-50%) scale(1.32) rotateX(64deg) rotateZ(190deg)}}
+@keyframes atlasPortalTitle{0%{opacity:0;filter:blur(14px);transform:translate(-50%,calc(-50% + 40px)) scale(.85)}
+ 100%{opacity:1;filter:none;transform:translate(-50%,-50%) scale(1)}}
+@keyframes atlasPortalProgress{to{transform:translateX(0)}}
+@keyframes atlasPortalSerial{from{opacity:0}to{opacity:1}}
+@keyframes atlasPortalRelease{0%{opacity:1;clip-path:circle(160% at center)}50%{opacity:1}
+ 100%{opacity:0;clip-path:circle(0% at center);visibility:hidden}}
+@keyframes atlasPortalLandText{0%{opacity:1;filter:none;transform:translate(-50%,-50%) scale(1)}
+ 100%{opacity:0;filter:blur(9px);transform:translate(-50%,calc(-50% - 40px)) scale(1.17)}}
+@keyframes atlasPortalLandRing{from{opacity:.85}
+ to{opacity:0;transform:translate(-50%,-50%) scale(2.8) rotateX(58deg) rotateY(210deg)}}
+@media(max-width:700px){
+ .atlas-passage-ring.ring-outer{width:92vw}
+ .atlas-passage-ring.ring-middle{width:74vw}
+ .atlas-passage-ring.ring-inner{width:57vw}
+ .atlas-passage-label strong{font-size:clamp(42px,12.5vw,78px)}
+ .atlas-passage-kicker{font-size:8px;letter-spacing:.12em}
+ .atlas-passage-kicker i{width:15px}
+ .atlas-passage-caption{font-size:9px}
+ .atlas-passage-index{margin-top:22px}
+}
+@media(prefers-reduced-motion:reduce){.atlas-passage{display:none!important}}
