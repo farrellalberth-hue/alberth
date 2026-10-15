@@ -122,11 +122,12 @@ function paint(ms){
  const enter=ease(Math.min(1,p/.22));
  const exit=ease(Math.max(0,Math.min(1,(p-.80)/.20)));
  // A restrained final dolly makes the handoff to the homepage feel continuous.
- const scale=(.53+enter*.47)*(1+exit*.23);
+ const size=mobile?.78:.72;
+ const scale=(.48+enter*(size-.48))*(1+exit*.075);
  const aspect=Math.max(.38,w/h);
- const targetY=mobile?(h<680?.40:.28):.085;
+ const targetY=mobile?(h<680?.42:.33):.09;
  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
- gl.uniform1f(uni.aspect,aspect);gl.uniform2f(uni.offset,mobile?0:.19,targetY);
+ gl.uniform1f(uni.aspect,aspect);gl.uniform2f(uni.offset,mobile?0:.52,targetY);
  drawMesh(ball,[.16+Math.sin(t*.27)*.14,t*.4,.03],[.6,.64,.75],0,t,scale);
  rings.forEach((o,i)=>{
   const a=o.ang,turn=t*(i===1?-.47:.35);
