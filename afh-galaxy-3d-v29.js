@@ -121,7 +121,7 @@ function paint(){
  gl.drawArrays(gl.POINTS,0,points);dirty=false;
 }
 function tick(t){
- frame=0;if(dead||!visible||document.hidden)return;
+ frame=0;if(dead||!visible||document.hidden||document.body.classList.contains('afc-lock'))return;
  const delta=lastTime?Math.min(60,t-lastTime):interval;
  if(delta<interval-3){frame=requestAnimationFrame(tick);return;}
  lastTime=t;
@@ -136,7 +136,7 @@ function tick(t){
  if(dirty||animating)paint();
  if(animating||dirty)frame=requestAnimationFrame(tick);
 }
-function schedule(){if(!dead&&visible&&!document.hidden&&!frame)frame=requestAnimationFrame(tick);}
+function schedule(){if(!dead&&visible&&!document.hidden&&!document.body.classList.contains('afc-lock')&&!frame)frame=requestAnimationFrame(tick);}
 grip.addEventListener('pointerdown',e=>{
  if(e.pointerType==='mouse'&&e.button!==0)return;
  dragging=true;pointerId=e.pointerId;lastX=e.clientX;lastY=e.clientY;vx=0;vy=0;
@@ -194,6 +194,8 @@ addEventListener('scroll',()=>{
   dirty=true;schedule();
  });
 },{passive:true});
+// The portal owns the GPU during the entrance; resume only after its exit begins.
+document.addEventListener('afh:portal-finished',()=>{dirty=true;lastTime=0;schedule()});
 resize();dirty=true;paint();if(!reduce)schedule();
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();dead=true;fallback('GPU context lost, original hero preserved');},{once:true});
 addEventListener('pagehide',()=>{dead=true;intersection?.disconnect();observer?.disconnect();if(frame)cancelAnimationFrame(frame);},{once:true});
