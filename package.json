@@ -1,0 +1,15 @@
+{
+  "name": "bert-market-intelligence-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-hosted BERT crypto dashboard with encrypted read-only multi-exchange connections",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "ccxt": "^4.4.0"
+  }
+}
