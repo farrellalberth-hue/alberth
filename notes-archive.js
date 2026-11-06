@@ -50,7 +50,7 @@ function grouped(list){
   const key=normalize(r.t),reference=master.get(key);
   let item=map.get(key);
   if(!item){
-   item={...reference,t:reference?.t||r.t,f:reference?.f||r.f,
+   item={...reference,t:reference?.t||r.t,f:reference?.f||r.f,parentTopic:r.s==="57"?(r.parentTopic||null):(reference?.parentTopic||r.parentTopic),
       firstDate:r.d,firstRangeEnd:r.endDate||null,lastDate:r.endDate||r.d,occurrences:0,reviewSessions:0,review:false,s:r.s};
    map.set(key,item);
   }

@@ -186,9 +186,16 @@
  ["Management",/\b(?:business research|business idea|introduction to management|Introduction to business|busniness|hybrid\b|formulation|management)\b/i]
  ]
  };
+ const source57Parent={"4":"Accounting","8":"Accounting","14":"Accounting","18":"Accounting","21":"Accounting","26":"Accounting","33":"Accounting","37":"Financial Statement Analysis","44":"Financial Statement Analysis","47":"Financial Statement Analysis","54":"Financial Statement Analysis","55":"Behavioral Economics","56":"Behavioral Economics","57":"Behavioral Economics","61":"Financial Statement Analysis","62":"Behavioral Economics","63":"Behavioral Economics","64":"Behavioral Economics","65":"Macroeconomics","69":"Macroeconomics","76":"Macroeconomics","77":"Macroeconomics","78":"Macroeconomics","82":"Microeconomics","83":"Microeconomics","84":"Microeconomics","85":"Microeconomics","90":"Microeconomics","91":"Microeconomics","95":"Elasticity","100":"Elasticity","106":"Government Intervention","119":"Consumer Theory","127":"Cost Theory","136":"Intertemporal Choice","141":"Profit Maximization","153":"Producer Theory","157":"Perfect Competition","162":"Monopoly","163":"Price Discrimination","171":"Monopolistic Competition","178":"Financial Statement Analysis","179":"Financial Statement Analysis","180":"Financial Statement Analysis","181":"Financial Statement Analysis","189":"Oligopoly","198":"Game Theory","206":"Industrial Organization","213":"Market Failure","228":"Public Goods","237":"Information Economics","245":"Contract Theory","258":"Financial Statement Analysis","259":"Financial Statement Analysis","260":"Financial Statement Analysis","261":"General Equilibrium"};
  const parentOf=(t)=>{
   const title=String(t.t||"").trim(),low=canon(title),field=t.f;
   if(!title||roots.has(low))return null;
+  // Preserve the actual source heading for note #57, instead of inferring an
+  // unrelated topic family from overlapping keywords (e.g. Arrow-Debreu).
+  if(t.s==="57"&&t.sourceLine){
+   const sourceParent=source57Parent[t.sourceLine];
+   if(sourceParent)return canon(sourceParent)===low?null:sourceParent;
+  }
   if(Object.prototype.hasOwnProperty.call(specific,low)){
    const p=specific[low];return p&&canon(p)!==low?p:null;
   }
@@ -210,7 +217,7 @@
  for(const item of db.uniqueTopics){
   item.parentTopic=parentOf(item);
  }
- db.parentTaxonomyVersion="2026-10-15/v1";
+ db.parentTaxonomyVersion="2026-11-06/v2-source57";
  db.parentTaxonomyCoverage={datedEntriesWithParent:withParent,rootEntries:rootCount,distinctTopicsWithParent:db.uniqueTopics.filter(t=>t.parentTopic).length,distinctRootTopics:db.uniqueTopics.filter(t=>!t.parentTopic).length};
  db.displayTitle=function(t){return t.parentTopic?t.parentTopic+" ("+t.t+")":t.t};
  })(window);
