@@ -19,6 +19,8 @@ const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
 let transition=null;
 const formatDate=s=>{const [y,m,d]=s.split("-");return d+" "+db.months[+m-1]+" "+y};
 const yearNumber=s=>+s.slice(0,4),monthNumber=s=>+s.slice(5,7);
+const formatRange=t=>t.endDate&&t.endDate!==t.d
+  ?formatDate(t.d)+" – "+formatDate(t.endDate):formatDate(t.d);
 function updateURL(){
  const p=new URLSearchParams();
  if(year)p.set("year",year);
@@ -49,27 +51,39 @@ function grouped(list){
   let item=map.get(key);
   if(!item){
    item={...reference,t:reference?.t||r.t,f:reference?.f||r.f,
-      firstDate:r.d,lastDate:r.d,occurrences:0,reviewSessions:0,review:false,s:r.s};
+      firstDate:r.d,firstRangeEnd:r.endDate||null,lastDate:r.endDate||r.d,occurrences:0,reviewSessions:0,review:false,s:r.s};
    map.set(key,item);
   }
   item.occurrences++;
   if(r.review){item.reviewSessions++;item.review=true}
-  if(r.d<item.firstDate)item.firstDate=r.d;
-  if(r.d>item.lastDate)item.lastDate=r.d;
+  if(r.d<item.firstDate){item.firstDate=r.d;item.firstRangeEnd=r.endDate||null}
+  if((r.endDate||r.d)>item.lastDate)item.lastDate=r.endDate||r.d;
  }
  return [...map.values()];
 }
 function scope({y=year,m=month,searchTerm=search,review=reviewOnly}={}){
- const s=searchTerm.toLowerCase().trim();
- return records.filter(t=>(!y||yearNumber(t.d)===y)&&(!m||monthNumber(t.d)===m)&&(!review||t.review)&&(!s||t.t.toLowerCase().includes(s)||(t.parentTopic&&t.parentTopic.toLowerCase().includes(s))||t.d.includes(s)));
+ const s=searchTerm.toLowerCase().trim(),pad=v=>String(v).padStart(2,"0");
+ return records.filter(t=>{
+  // A multi-day study note is ONE record. It may overlap two month filters,
+  // without being duplicated in the unfiltered Study Timeline.
+  const first=t.d,last=t.endDate||first;
+  if(y&&(last<y+"-01-01"||first>y+"-12-31"))return false;
+  if(m){
+   if(y){
+    const start=y+"-"+pad(m)+"-01",end=y+"-"+pad(m)+"-31";
+    if(last<start||first>end)return false;
+   }else if(monthNumber(first)!==m&&monthNumber(last)!==m)return false;
+  }
+  return (!review||t.review)&&(!s||t.t.toLowerCase().includes(s)||(t.parentTopic&&t.parentTopic.toLowerCase().includes(s))||first.includes(s)||last.includes(s));
+ });
 }
 function setOfRecords(options){const rows=scope(options);return view==="unique"?grouped(rows):rows;}
 function countYear(y){return setOfRecords({y,m:0,searchTerm:"",review:false}).length}
 function countMonth(m){return setOfRecords({y:year,m,searchTerm:"",review:false}).length}
 function sorted(){
  return setOfRecords().sort((a,b)=>{
-  const dateA=view==="unique"?(sortOrder==="newest"?a.lastDate:a.firstDate):a.d;
-  const dateB=view==="unique"?(sortOrder==="newest"?b.lastDate:b.firstDate):b.d;
+  const dateA=view==="unique"?(sortOrder==="newest"?a.lastDate:a.firstDate):(sortOrder==="newest"?(a.endDate||a.d):a.d);
+  const dateB=view==="unique"?(sortOrder==="newest"?b.lastDate:b.firstDate):(sortOrder==="newest"?(b.endDate||b.d):b.d);
   return (sortOrder==="newest"?dateB.localeCompare(dateA):dateA.localeCompare(dateB))||a.t.localeCompare(b.t);
  });
 }
@@ -132,8 +146,8 @@ function renderCards(){
  $("topic-list").style.display="";
  $("topic-list").innerHTML=items.slice(0,limit).map((t,i)=>{
   const meta=view==="unique"
-    ?'<span>FIRST: '+escapeHTML(formatDate(t.firstDate))+'</span><span>'+t.occurrences+' '+(t.occurrences===1?"RECORD":"RECORDS")+(t.reviewSessions?' · '+t.reviewSessions+' REVIEW':'')+'</span>'
-    :'<span>'+escapeHTML(formatDate(t.d))+'</span><span>'+escapeHTML(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+escapeHTML(t.s)+'</span>';
+    ?'<span>FIRST: '+escapeHTML(t.firstRangeEnd&&t.firstRangeEnd!==t.firstDate?formatRange({d:t.firstDate,endDate:t.firstRangeEnd}):formatDate(t.firstDate))+'</span><span>'+t.occurrences+' '+(t.occurrences===1?"RECORD":"RECORDS")+(t.reviewSessions?' · '+t.reviewSessions+' REVIEW':'')+'</span>'
+    :'<span>'+escapeHTML(formatRange(t))+'</span><span>'+escapeHTML(db.fields.find(f=>f.id===t.f)?.name||"Others")+' · NOTE '+escapeHTML(t.s)+'</span>';
   // Parent labels are display-only metadata: original child title, date and
   // REVIEW identity are not changed by the presentation hierarchy.
   const label=t.parentTopic

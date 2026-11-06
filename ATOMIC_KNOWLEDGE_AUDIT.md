@@ -35,3 +35,26 @@ Dollar-Cost Averaging / Lump-Sum Investing; Jensen’s Alpha / Treynor Ratio; Ap
 - Some different English labels may still denote the same subject; conversely, some generically named source entries may not uniquely identify a full study topic. Hence the number is an **exact deterministic count of the current normalized index**, not a fully audited lifetime count of all knowledge acquired.
 - The earlier source-completeness audit documents unresolved historical ZIP parsing and translation caveats. Certifying full source coverage requires manual line-by-line comparison against all nine original archives.
 - Do not conflate review frequency with number of unique subjects.
+
+
+---
+
+## Update: Source Archive #57 — 6 November 2026
+
+Imported **TOPIK BELAJAR INVEST_57.zip**, specifically `id57_note.txt`, covering **23 August–31 October 2026**. This extends, rather than replaces, the original nine-archive index.
+
+**Current deterministic indexed totals** after integrating source #57:
+
+| Discipline | Unique indexed topics | Dated study records |
+| --- | ---: | ---: |
+| Economics | 996 | 1,537 |
+| Finance (including accounting, mathematics and econometrics) | 924 | 1,939 |
+| Crypto | 269 | 283 |
+| Others | 123 | 145 |
+| **Total** | **2,312** | **3,904** |
+
+- **760 dated atomic topic mentions** ingested from **56 eligible source headings** (502 different source labels); 131 non-topic lines such as video references, daily news and exam preparation were not included as subject cards.
+- **294 additional globally distinct normalized topic labels** versus the prior archive; source #57 includes 502 labels, many of which match existing indexed subjects.
+- Source REVIEW annotations were retained as such. Financial-statement analyses that were not marked REVIEW remain ordinary study entries.
+- A heading such as **20–31 October 2026** remains *one source observation per subject*, with its date range displayed. It is **not** converted into fabricated daily sessions. Date-range entries can appear in two overlapping monthly filters without increasing the unfiltered record total.
+- Any inherited synonyms or ambiguous historical labels retain the limitations noted above; exact counts are of the current canonical index, not externally certified total learning.

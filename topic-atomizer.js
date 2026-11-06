@@ -65,6 +65,7 @@ const aliases={
 "monte carlo":"Monte Carlo Simulation","monte carlo simulation":"Monte Carlo Simulation",
 "game theory":"Game Theory","standard deviation":"Standard Deviation"
 };
+const inputIndexedRecords=db.topics.length;
 const events=[],daily=new Map(),ambiguous=[];
 let additionalSubtopics=0,fragmentLabelsExcluded=0,mergedSameDate=0,retitled=0;
 function push(row,title,category){
@@ -121,8 +122,8 @@ db.uniqueTopics=[...unique.values()].sort((a,b)=>a.firstDate.localeCompare(b.fir
 db.uniqueCount=unique.size;
 db.total=events.length;
 db.reviewCount=events.filter(t=>t.review).length;
-db.atomizationAudit={originalIndexedRecords:3153,atomicStudyRecords:events.length,uniqueSubjects:unique.size,
+db.atomizationAudit={originalIndexedRecords:inputIndexedRecords,atomicStudyRecords:events.length,uniqueSubjects:unique.size,
 additionalSubtopics,nonSubjectFragmentsExcluded:fragmentLabelsExcluded,sameDateDuplicatesMerged:mergedSameDate,
 renamedTitles:retitled,unresolvedCombinedTitles:[...new Set(ambiguous)]};
-db.sourceNote="Unique topics are individually normalized subject names, counted once across dates; chronological study records and dated REVIEW occurrences are counted separately.";
+db.sourceNote="Unique topics are individually normalized subject names, counted once across dates; chronological learning and REVIEW occurrences are counted separately. Entries from source 57 include explicit date ranges when the original notes span multiple days.";
 })(window);
