@@ -2,10 +2,10 @@
 
 A separate, fast-to-review developer portfolio within the existing static `alberth` repository. Intended for recruiter screening and technical interviews. It does **not** replace the creative/research website.
 
-**Live target (GitHub Pages):** https://farrellalberth-hue.github.io/alberth/hire/  
-**Browser transaction demo:** https://farrellalberth-hue.github.io/alberth/hire/demo/
+**Verified live (Vercel):** https://alberth-portfolio-one.vercel.app/hire/  
+**Verified demo page (Vercel):** https://alberth-portfolio-one.vercel.app/hire/demo/
 
-> Both links depend on the repository's GitHub Pages deployment. If either URL returns 404, inspect the Pages deployment status; the code is still available under this directory.
+The same source repository may also be hosted on GitHub Pages; check the deployment status before sharing those alternative URLs.
 
 ## Why this version exists
 
