@@ -50,7 +50,7 @@
     });
   }
   $('copy-summary').addEventListener('click', async () => {
-    const summary = 'Alberth Farrell Hartimin — independent web developer & creative technologist. Portfolio: https://farrellalberth-hue.github.io/alberth/hire/ | GitHub: https://github.com/farrellalberth-hue/alberth | Inspect the transaction lab, tests, business rules, and project case studies. Open to junior developer and internship opportunities.';
+    const summary = 'Alberth Farrell Hartimin — independent web developer & creative technologist. Portfolio: https://alberth-portfolio-one.vercel.app/hire/ | GitHub: https://github.com/farrellalberth-hue/alberth | Inspect the transaction lab, tests, business rules, and project case studies. Open to junior developer and internship opportunities.';
     try {
       await navigator.clipboard.writeText(summary);
       $('copy-message').textContent = 'Candidate summary copied.';
