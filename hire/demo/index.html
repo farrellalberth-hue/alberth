@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b1115">
+  <meta name="description" content="Interactive transaction lab: test an order, inventory updates, invoice generation and the audit log. Browser-only JavaScript demo.">
+  <title>Transaction Lab · Alberth Recruiter Edition</title>
+  <link rel="stylesheet" href="demo.css">
+  <script type="module" src="demo.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to application</a>
+  <header class="topbar">
+    <a href="../" class="brand" aria-label="Return to recruiter portfolio"><span class="brand-icon">A<span>.</span></span><span>ALBERTH <em>/ ENGINEERING LAB</em></span></a>
+    <div class="topright"><span class="status"><span class="status-dot"></span> BROWSER DEMO</span><a href="https://github.com/farrellalberth-hue/alberth/tree/main/hire/demo" target="_blank" rel="noopener noreferrer" class="source">VIEW SOURCE ↗</a></div>
+  </header>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Application navigation">
+      <div class="side-overline">OPERATIONS / SAMPLE CO.</div>
+      <h2>Control center<span>.</span></h2>
+      <p>Explore a complete order-to-invoice interaction using fictional data.</p>
+      <nav class="side-nav" aria-label="Modules">
+        <button type="button" data-tab="overview" aria-pressed="true"><span>⌑</span> Overview</button>
+        <button type="button" data-tab="orders" aria-pressed="false"><span>▤</span> Sales orders</button>
+        <button type="button" data-tab="inventory" aria-pressed="false"><span>▦</span> Inventory</button>
+        <button type="button" data-tab="audit" aria-pressed="false"><span>◷</span> Event log</button>
+      </nav>
+      <div class="side-bottom"><span>TECHNICAL BOUNDARY</span><p>State persists in your browser's localStorage. No backend, network database, real transactions, or shared user accounts.</p><button type="button" id="reset" class="reset">↺ Reset sample data</button></div>
+    </aside>
+    <main id="main" class="main" tabindex="-1">
+      <div class="eyebrow"><span class="square"></span> RECRUITER MODE <span class="slash">/</span> JAVASCRIPT STATE MACHINE</div>
+      <div class="page-head"><div><h1 id="page-title">Operations <em>overview.</em></h1><p id="page-subtitle">Create a sales order, observe the stock update, then generate an invoice and inspect its audit events.</p></div><a href="../#evidence" class="head-link">ENGINEERING NOTES <span aria-hidden="true">↗</span></a></div>
+      <div class="notice" role="note"><strong>Try it in 45 seconds:</strong> Select a product → Add line → Create order → Open Sales orders → Generate invoice → Inspect Event log. Then try ordering more than the available stock.</div>
+      <div id="alert" class="alert" role="status" aria-live="polite" hidden></div>
+      <section id="view-overview" data-view="overview">
+        <div class="metrics">
+          <article><span>BOOKED REVENUE</span><strong id="metric-revenue">Rp0</strong><small>Demo order value</small></article>
+          <article><span>SALES ORDERS</span><strong id="metric-orders">00</strong><small>Persisted in this browser</small></article>
+          <article><span>INVOICES</span><strong id="metric-invoices">00</strong><small>Linked to orders</small></article>
+          <article><span>UNITS SOLD</span><strong id="metric-units">00</strong><small>Deducted from stock</small></article>
+        </div>
+        <div class="columns">
+          <section class="panel">
+            <div class="section-label">01 / COMPLETE A TRANSACTION</div>
+            <div class="panel-title"><h2>New sales order</h2><span class="flag">● VALIDATED</span></div>
+            <form id="order-form" novalidate>
+              <label for="customer">CUSTOMER <small>fictional names only</small></label><input id="customer" type="text" value="Demo Customer" autocomplete="off" maxlength="60" required>
+              <div class="fields"><div><label for="product">PRODUCT</label><select id="product" required></select></div><div><label for="quantity">QUANTITY</label><input id="quantity" type="number" value="1" min="1" max="20" step="1" inputmode="numeric" required></div></div>
+              <button type="button" class="add-button" id="add-item">+ Add item to order</button>
+              <div class="cart"><div class="cart-top"><span>ITEMS</span><span id="cart-count">0 / 5</span></div><div id="cart-items" class="cart-items"><p class="empty">Add a product to begin.</p></div></div>
+              <div class="order-total"><span>ORDER TOTAL</span><strong id="order-total">Rp0</strong></div>
+              <button type="submit" class="primary" id="create-order">Create sales order <span aria-hidden="true">↗</span></button>
+            </form>
+          </section>
+          <div class="stack"><section class="panel"><div class="section-label">02 / INVENTORY STATE</div><div class="panel-title"><h2>Live stock</h2><button class="text-action" data-go="inventory">View inventory ↗</button></div><div id="stock-preview"></div></section><section class="panel"><div class="section-label">03 / LATEST EVENTS</div><div class="panel-title"><h2>System activity</h2><button class="text-action" data-go="audit">Full log ↗</button></div><div id="activity-preview" class="activity-preview"></div></section></div>
+        </div>
+      </section>
+      <section id="view-orders" data-view="orders" hidden><div class="panel"><div class="section-label">PERSISTED DATA / IN THIS BROWSER</div><div class="panel-title"><h2>Orders & invoices</h2><button data-go="overview" class="text-action">+ New order</button></div><div class="scroll-table"><table><thead><tr><th>ORDER</th><th>CUSTOMER</th><th>ITEMS</th><th>VALUE</th><th>INVOICE</th></tr></thead><tbody id="orders-body"></tbody></table></div><div id="orders-empty" class="empty-state" hidden>There are no orders yet. Create one in Overview.</div></div></section>
+      <section id="view-inventory" data-view="inventory" hidden><div class="panel"><div class="section-label">BROWSER-LOCAL STATE / DATA INTEGRITY</div><div class="panel-title"><h2>Inventory ledger</h2><span class="flag">● SAMPLE DATA</span></div><div class="scroll-table"><table><thead><tr><th>SKU</th><th>PRODUCT</th><th>UNIT PRICE</th><th>AVAILABLE</th></tr></thead><tbody id="inventory-body"></tbody></table></div></div></section>
+      <section id="view-audit" data-view="audit" hidden><div class="panel"><div class="section-label">IMMUTABLE-STYLE EVENT HISTORY / DEMO</div><div class="panel-title"><h2>Audit events</h2><span class="flag">● APPEND-ONLY IN UI</span></div><div id="audit-list" class="audit-list"></div><div id="audit-empty" class="empty-state" hidden>No events yet. Create an order to add the first event.</div></div></section>
+      <footer><span>ENGINEERING LAB · FICTIONAL DATA · LOCALSTATE / V1</span><a href="../">← Back to recruiter portfolio</a></footer>
+    </main>
+  </div>
+  <dialog id="invoice-dialog" aria-labelledby="invoice-title"><div class="invoice-head"><strong>ALBERTH / SAMPLE INVOICE</strong><button id="close-invoice" aria-label="Close invoice" type="button">✕</button></div><div class="invoice-body"><span class="section-label">FICTIONAL DOCUMENT</span><h2 id="invoice-title">Invoice</h2><p id="invoice-customer"></p><div id="invoice-lines"></div><div class="invoice-total"><span>TOTAL AMOUNT</span><strong id="invoice-total">Rp0</strong></div><p class="invoice-footnote">This document is for demonstration only. It is not a payable or tax invoice.</p></div><div class="invoice-actions"><button id="print-invoice" type="button" class="primary">Print / Save PDF</button></div></dialog>
+</body>
+</html>
