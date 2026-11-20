@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1014">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Alberth Farrell Hartimin's recruiter-ready web developer portfolio: working JavaScript demo, transparent case studies, tests and GitHub source.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Alberth Farrell · Developer Portfolio / Recruiter Edition">
+  <meta property="og:description" content="Inspect the work. Run the transaction lab. Review the tests and technical decisions.">
+  <title>Alberth Farrell Hartimin — Developer Portfolio / Recruiter Edition</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to portfolio</a>
+  <div class="site">
+    <header class="site-header">
+      <a href="../" class="identity"><span class="identity-symbol">A<span>.</span></span><span>ALBERTH <b> / BUILD LOG</b></span></a>
+      <nav aria-label="Primary navigation">
+        <a href="#projects">Projects</a>
+        <a href="#evidence">Engineering proof</a>
+        <a href="#about">About</a>
+        <a href="https://github.com/farrellalberth-hue/alberth" rel="noopener noreferrer" target="_blank" class="github-link">VIEW GITHUB ↗</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-bg" aria-hidden="true"><span class="orbit o1"></span><span class="orbit o2"></span><span class="orbit o3"></span><span class="orbit o4"></span><span class="hero-mark">AF</span></div>
+        <div class="hero-content"><div class="micro"><span class="micro-dot"></span> ALBERTH FARRELL HARTIMIN <span class="micro-slash">/</span> RECRUITER EDITION 2026</div>
+          <h1 id="hero-title">Creative by instinct.<br><em>Accountable by code.</em></h1>
+          <div class="hero-bottom"><div><p>I'm an independent web developer and creative technologist exploring how interactive experiences become maintainable products. This page prioritizes evidence over visual claims.</p>
+          <div class="hero-buttons"><a class="btn btn-primary" href="demo/">TRY THE WORKING DEMO <span>↗</span></a><a class="btn btn-outline" href="#projects">REVIEW MY WORK <span>↘</span></a></div></div>
+          <div class="hero-aside"><div class="hero-icon">⌘</div><span>DESIGN / SYSTEMS / DELIVERY</span></div></div>
+        </div>
+        <div class="hero-footer"><span>FRONTEND & CREATIVE DEVELOPMENT</span><span>BASED IN INDONESIA</span><a href="#role-fit">EXPLORE ↓</a></div>
+      </section>
+      <section class="status-strip" aria-label="Portfolio snapshot"><div><span class="status-index">01</span><strong>Working browser demo</strong><small>Runnable, with source and tests</small></div><div><span class="status-index">02</span><strong>5 selected projects</strong><small>Transparent scope and limitations</small></div><div><span class="status-index">03</span><strong>Engineering review path</strong><small>Tests, docs and a case study</small></div></section>
+      <section id="role-fit" class="section role-section" aria-labelledby="role-title">
+        <div class="section-top"><span class="eyebrow">01 / ROLE FIT</span><div><h2 id="role-title">One portfolio.<br><em>Different lenses.</em></h2><p>Select a role to see the most relevant starting point. Skills are aspirations and demonstrated examples—not certification claims.</p></div></div>
+        <div class="role-console"><div class="role-tabs" role="group" aria-label="Role focus"><button type="button" data-role="frontend" aria-pressed="true">Frontend Developer <span>01</span></button><button type="button" data-role="fullstack" aria-pressed="false">Full-Stack Intern <span>02</span></button><button type="button" data-role="creative" aria-pressed="false">Creative Developer <span>03</span></button></div><div class="role-detail" id="role-panel" aria-live="polite"><span class="label">SELECTED HIRING LENS / 01</span><h3 id="role-heading">Frontend Developer</h3><p id="role-summary">Interactive interfaces backed by clear JavaScript state, input validation and reproducible UI behavior.</p><ul id="role-evidence"><li>Working order/inventory browser demo</li><li>React and UI experiments in separately hosted projects</li><li>Native Node.js business logic tests</li></ul><a id="role-link" href="demo/">Try the JavaScript demo <span aria-hidden="true">↗</span></a></div></div>
+      </section>
+      <section id="projects" class="section work-section" aria-labelledby="projects-title">
+        <div class="section-top"><span class="eyebrow">02 / SELECTED WORK</span><div><h2 id="projects-title">Inspect the <em>actual work.</em></h2><p>No invented client results or measured benchmarks. Each case shows what can be viewed today and which engineering evidence is still missing.</p></div></div>
+        <div class="filters" role="group" aria-label="Filter projects"><button data-filter="all" aria-pressed="true">All projects</button><button data-filter="software" aria-pressed="false">Software</button><button data-filter="creative" aria-pressed="false">Creative UI</button><button data-filter="research" aria-pressed="false">Learning systems</button><span id="result-count" aria-live="polite">5 PROJECTS</span></div>
+        <div class="projects">
+          <article class="project project-featured" data-kind="software"><div class="project-top"><span>01 / SOFTWARE ENGINEERING</span><span class="pill">SOURCE + TESTS</span></div><div class="project-icon">⌘</div><h3>Transaction Lab</h3><p>A recruiter-friendly, browser-only order-to-invoice flow. Separate domain rules, validation, local persistence, audit events and automated tests. Clearly labeled as a simulation—not a live database service.</p><div class="project-stack"><span>JavaScript modules</span><span>LocalStorage</span><span>Node.js test runner</span></div><div class="project-footer"><a href="demo/">RUN DEMO ↗</a><a href="https://github.com/farrellalberth-hue/alberth/tree/main/hire/demo" rel="noopener noreferrer" target="_blank">READ SOURCE ↗</a></div></article>
+          <article class="project" data-kind="software"><div class="project-top"><span>02 / BUSINESS APPLICATION</span><span class="pill pill-soft">PROTOTYPE</span></div><div class="project-icon">▦</div><h3>Alberth ERP</h3><p>Business software prototype with Customer, Supplier, Product, Sale, Purchase, Expense and Employee data models. Authentication currently limits public module review.</p><div class="project-stack"><span>Business modeling</span><span>Managed app platform</span></div><div class="project-footer"><a href="https://alberth-erp-6ec0e7d5.base44.app" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL APP ↗</a><a href="https://github.com/farrellalberth-hue/alberth/blob/main/docs/PROJECT_CASE_STUDIES.md" target="_blank" rel="noopener noreferrer">READ CASE ↗</a></div></article>
+          <article class="project" data-kind="creative"><div class="project-top"><span>03 / INTERACTIVE PRODUCT</span><span class="pill pill-soft">EXPERIMENT</span></div><div class="project-icon">◉</div><h3>Alberth Experiment</h3><p>Interactive product exploration with configurable viewing controls, orbit interaction and visual composition. Technical rendering benchmarks remain to be documented.</p><div class="project-stack"><span>Interaction design</span><span>Visual prototyping</span></div><div class="project-footer"><a href="https://alberth-experiment.floot.app" rel="noopener noreferrer" target="_blank">VIEW EXPERIENCE ↗</a><a href="https://github.com/farrellalberth-hue/alberth/blob/main/docs/PROJECT_CASE_STUDIES.md" rel="noopener noreferrer" target="_blank">READ CASE ↗</a></div></article>
+          <article class="project" data-kind="creative"><div class="project-top"><span>04 / INTERACTIVE VISUALIZATION</span><span class="pill pill-soft">EXPERIMENT</span></div><div class="project-icon">✳</div><h3>NOCTIS Observatory</h3><p>An astronomy-themed exploratory visualization with interaction controls and cinematic presentation. Data-source and performance evidence are still open tasks.</p><div class="project-stack"><span>Interactive UI</span><span>Space visualization</span></div><div class="project-footer"><a href="https://noctis-cosmic-observatory.vercel.app" target="_blank" rel="noopener noreferrer">VISIT NOCTIS ↗</a><a href="https://github.com/farrellalberth-hue/alberth/blob/main/docs/PROJECT_CASE_STUDIES.md" target="_blank" rel="noopener noreferrer">READ CASE ↗</a></div></article>
+          <article class="project" data-kind="research"><div class="project-top"><span>05 / INFORMATION ARCHITECTURE</span><span class="pill pill-soft">EXPERIMENT</span></div><div class="project-icon">▤</div><h3>Learning Journey</h3><p>Structured exploration of learning materials across multiple disciplines. Demonstrates information design and navigation; content accuracy is not a substitute for software testing.</p><div class="project-stack"><span>Information hierarchy</span><span>Navigation design</span></div><div class="project-footer"><a href="https://farrellalberth-hue.github.io/alberth/journey/" rel="noopener noreferrer" target="_blank">VIEW JOURNEY ↗</a><a href="https://github.com/farrellalberth-hue/alberth/blob/main/docs/PROJECT_CASE_STUDIES.md" rel="noopener noreferrer" target="_blank">READ CASE ↗</a></div></article>
+        </div>
+      </section>
+      <section id="evidence" class="section evidence-section" aria-labelledby="evidence-title">
+        <div class="section-top"><span class="eyebrow">03 / ENGINEERING EVIDENCE</span><div><h2 id="evidence-title">A claim is not <em>a test.</em></h2><p>Inspect exact evidence—and see what is intentionally not claimed.</p></div></div>
+        <div class="evidence-grid"><article><div class="evidence-icon">01</div><h3>Business logic</h3><p>Pure functions calculate totals, reject overselling, prevent duplicate item lines and generate one invoice per order.</p><a target="_blank" rel="noopener noreferrer" href="https://github.com/farrellalberth-hue/alberth/blob/main/hire/demo/model.mjs">OPEN MODULE ↗</a></article><article><div class="evidence-icon">02</div><h3>Automated tests</h3><p>Repeatable Node.js tests cover pricing, stock deduction, rejected inputs, state immutability and invoice idempotency.</p><a target="_blank" rel="noopener noreferrer" href="https://github.com/farrellalberth-hue/alberth/blob/main/hire/tests/model.test.mjs">READ TESTS ↗</a></article><article><div class="evidence-icon">03</div><h3>Documented limitations</h3><p>Public portfolio demos are not automatically secure or production-ready. The open engineering checklist records missing evidence.</p><a target="_blank" rel="noopener noreferrer" href="https://github.com/farrellalberth-hue/alberth/blob/main/docs/ENGINEERING_EVIDENCE.md">REVIEW CHECKLIST ↗</a></article></div>
+        <div class="proof-band"><div><span class="eyebrow">45-SECOND REVIEW</span><h3>Make an order.<br><em>Break the rules.</em></h3><p>Try an invalid quantity. Test insufficient stock. Create an invoice twice. Then read the implementation and decide whether the behavior matches the code.</p><a class="btn btn-primary" href="demo/">LAUNCH TRANSACTION LAB <span>↗</span></a></div><div class="proof-window" aria-label="Example audit output"><div class="proof-head"><span class="code-dot"></span> TRANSACTION / AUDIT FLOW <span>JS MODULE</span></div><pre><code><span class="faint">// Browser-only workflow</span>
+createOrder(...)
+    → validate input
+    → check inventory
+    → calculate total
+    → deduct stock
+    → append audit event
+
+createInvoice(...)
+    → link to order
+    → prevent duplicates
+
+<span class="positive">✓ Run tests with node --test</span></code></pre></div></div>
+      </section>
+      <section id="about" class="section about-section" aria-labelledby="about-title"><div class="section-top"><span class="eyebrow">04 / ABOUT & NEXT STEPS</span><div><h2 id="about-title">Useful work.<br><em>Clearly explained.</em></h2><p>I'm developing my engineering skills through iterative prototyping and careful documentation. Some implementations were created with AI assistance; I treat that as a productivity tool, not proof that every generated line is independently understood.</p></div></div><div class="about-columns"><div><span class="eyebrow">CURRENT FOCUS</span><p>Frontend engineering, business workflow modeling, API integration, typed application design, testing, and performance. Open to junior and internship opportunities where I can contribute and learn from code review.</p></div><div><span class="eyebrow">WHAT I'M NOT CLAIMING</span><p>I don't claim a production track record, formal certifications, complete security coverage, or benchmark results without independent evidence. The flagship full-stack ERP prototype is being tested separately from this browser demo.</p></div></div><div class="closing"><span class="eyebrow">NEXT CONVERSATION</span><h2>Review the work.<br><em>Ask me why.</em></h2><p>The best interview starts with a real implementation and an explanation of its decisions.</p><div class="closing-actions"><a class="btn btn-primary" href="https://github.com/farrellalberth-hue" target="_blank" rel="noopener noreferrer">EXPLORE GITHUB <span>↗</span></a><button type="button" class="btn btn-outline" id="copy-summary">COPY CANDIDATE SUMMARY <span>⧉</span></button></div><p id="copy-message" class="copy-message" aria-live="polite"></p></div></section>
+    </main>
+    <footer><span>ALBERTH FARRELL HARTIMIN © 2026</span><span>PROTOTYPES · ENGINEERING · RESEARCH</span><a href="#main">BACK TO TOP ↑</a></footer>
+  </div>
+</body>
+</html>
