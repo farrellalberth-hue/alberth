@@ -1,0 +1,31 @@
+name: Recruiter Edition · Quality Checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hire/**'
+      - '.github/workflows/recruiter-quality.yml'
+  pull_request:
+    paths:
+      - 'hire/**'
+      - '.github/workflows/recruiter-quality.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  javascript-validation:
+    name: JavaScript syntax, domain logic and page structure
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check hire/app.js
+          node --check hire/demo/demo.js
+          node --check hire/demo/model.mjs
+      - name: Run deterministic unit and structural tests
+        run: node --test hire/tests/*.test.mjs
