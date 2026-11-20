@@ -6,6 +6,12 @@ I build interactive digital products, explore software architecture and use hand
 
 > Open to junior frontend, creative development, UI development and technical internship opportunities.
 
+## Recruiter edition (start here)
+
+**Fast technical screening:** [Developer portfolio for recruiters](https://farrellalberth-hue.github.io/alberth/hire/) · [Interactive JavaScript transaction demo](https://farrellalberth-hue.github.io/alberth/hire/demo/) · [Source and verification checklist](hire/README.md).
+
+The browser demo has business rules and automated tests, but is explicitly **not** a production full-stack ERP. See [test evidence](hire/QUALITY_REPORT.md).
+
 ## Open the work
 
 | Project | What a reviewer can inspect | Live link |
